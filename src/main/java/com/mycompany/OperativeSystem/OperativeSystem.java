@@ -1,21 +1,29 @@
-package com.mycompany.OperativeSystem;
+/* package com.mycompany.OperativeSystem;
 
-import com.mycompany.obligatorio.Memory.Memory;
+import com.mycompany.obligatorio.Memory.*;
+import com.mycompany.obligatorio.Process.*;
 
 public class OperativeSystem
 {
     //Representa la carga de los procesos listos.
-    public void Load(IProcess)
+    public void Load()
     {
-        if (IMemory.readyProcess.empty)
+        if (IMemory.readyProcess.isEmpty())
         {
-            //Pone un proceso en ejecución 
-            for (IProcess x : .Process) 
+            //Agrega un proceso creado a la lista de listos.
+            for (IProcess x : IProcess.processList) 
             {
-                Process.EJECUCION;
+                x.processState = Process.State.LISTO;
+                IMemory.readyProcess.add(x);
             }
         }
     }
 
-    public void 
-}
+    public void Timeout(IProcess process)
+    {
+        if (!IMemory.readyProcess.isEmpty())
+        {
+            //Saca un 
+        }
+    }
+} */
