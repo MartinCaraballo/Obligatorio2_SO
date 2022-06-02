@@ -4,10 +4,16 @@
  */
 package com.mycompany.obligatorio;
 
-/**
- *
- * @author TomasUcu
- */
-public class Martinucu {
+import com.mycompany.obligatorio.Process.IProcess;
+
+public class CPU 
+{
+
+    private int cores;
+
+    public boolean Execute(IProcess processToExecute)
+    {
+        return true;
+    }
     
 }
