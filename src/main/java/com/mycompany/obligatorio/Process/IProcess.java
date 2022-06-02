@@ -5,4 +5,5 @@ public interface IProcess {
 
     List<IProcess> processList = new ArrayList<>();
 
+    public void AddProcessCreatedtoList(IProcess process);
 }
