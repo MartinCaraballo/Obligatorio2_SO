@@ -4,14 +4,18 @@
  */
 package com.mycompany.obligatorio;
 
-import com.mycompany.obligatorio.Process.IProcess;
+import com.mycompany.obligatorio.Process.*;
 
 public class CPU 
 {
+    private byte Cores;
 
-    private int cores;
+    private CPU(byte cores) 
+    {
+        this.Cores = cores;
+    }
 
-    public boolean Execute(IProcess processToExecute)
+    public boolean Execute(IProcess processToExecute, byte coresToUse)
     {
         return true;
     }
