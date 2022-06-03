@@ -1,9 +1,8 @@
 package com.mycompany.obligatorio.Process;
-import java.util.*;
 
-public interface IProcess {
+public interface IProcess
+{
+    public boolean hasCPU = false;
 
-    List<IProcess> processList = new ArrayList<>();
-
-    public void AddProcessCreatedtoList(IProcess process);
+    enum State {}
 }

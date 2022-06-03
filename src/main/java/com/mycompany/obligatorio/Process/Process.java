@@ -1,6 +1,7 @@
 package com.mycompany.obligatorio.Process;
 
-public class Process implements IProcess {
+public class Process implements IProcess
+{
 
     // ID de un proceso.
     private String ProcessID;
@@ -67,9 +68,5 @@ public class Process implements IProcess {
     // Retorna el tiempo que consume la entrada / salida.
     public float GetTimeConsumedIO() {
         return this.TimeConsumedIO;
-    }
-
-    public void AddProcessCreatedtoList(IProcess process) {
-        IProcess.processList.add(process);
     }
 }
