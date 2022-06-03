@@ -1,5 +1,6 @@
 package com.mycompany.OperativeSystem;
 
+import java.util.*;
 import com.mycompany.obligatorio.*;
 import com.mycompany.obligatorio.Memory.*;
 import com.mycompany.obligatorio.Process.*;
@@ -19,7 +20,13 @@ public class OperativeSystem
     //Representa la carga de los procesos listos.
     public void Load()
     {
-        // for (IProcess process :)
+        ProcessManager processManager = new ProcessManager();
+        List<IProcess> processToLoad = processManager.GetProcessList();
+        
+        for (IProcess process : processToLoad)
+        {
+            
+        }
     }
 
     public void Timeout(IProcess process)
