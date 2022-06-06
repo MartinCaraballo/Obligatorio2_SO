@@ -5,11 +5,9 @@
 
 package com.mycompany.obligatorio;
 import com.mycompany.obligatorio.Process.Process;
-
+import com.mycompany.OperativeSystem.*;
 import java.util.Random;
-
 import javax.swing.text.StyledEditorKit.ForegroundAction;
-
 import com.mycompany.obligatorio.Process.*;
 import com.mycompany.obligatorio.Resources.*;
 
@@ -27,15 +25,20 @@ public class Program {
             Random random = new Random();
             // Genera un número aleatorio entre 0 y el valor de esta variable.
             int randomUpperBound = 15;
-            IProcess process = new Process(stringI, 512, "/home/process/" + stringI, random.nextInt(randomUpperBound), random.nextInt(randomUpperBound), random.nextInt(randomUpperBound));
+            IProcess process = new Process("Proceso" + stringI, stringI, 512, "/home/process/" + stringI, random.nextInt(randomUpperBound), random.nextInt(randomUpperBound), random.nextInt(randomUpperBound));
             ProcessManager.AddProcessCreatedToList(process);
         }
 
         // Imprime si la memoria tiene espacio para cargar todos esos procesos creados.
-        System.out.println(memory.MemoryHasSpace());
+        //System.out.println(memory.MemoryHasSpace());
 
         /* for (IProcess process : ProcessManager.GetProcessList()) {
             System.out.println(process.GetProcessState());
         } */
+
+        byte numberOfCores = 1;
+        OperativeSystem operativesystem = new OperativeSystem(1024, numberOfCores);
+        operativesystem.LoadProcess();
+        System.out.println(operativesystem.Memory.ViewMemory());
     }
 }

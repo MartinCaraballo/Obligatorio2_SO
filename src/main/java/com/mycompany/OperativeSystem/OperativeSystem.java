@@ -21,11 +21,11 @@ public class OperativeSystem
     // Este método carga una lista de procesos en memoria.
     // Si la memoria tiene espacio, carga toda la lista de procesos creados, si no, carga un fragmento de ella.
     public boolean LoadProcess() {
-        if (this.Memory.MemoryHasSpace()) {
+        if (this.Memory.MemoryHasSpace() == true) {
            this.Load(ProcessManager.GetProcessList());
            return true; 
         }
-        else if (!this.Memory.MemoryHasSpace()) {
+        else if (this.Memory.MemoryHasSpace() == false) {
             ProcessManager.GetFragmentofProcessList(this.Memory.SpaceFree());
             return true;
         }
@@ -37,7 +37,7 @@ public class OperativeSystem
         for (IProcess process : processToCharge)
         {
             process.ChangeProcessState(Process.State.LISTO);
-            this.Memory.readyProcess.add(process);
+            this.Memory.AddProcessToReadyProcessList(process);
         }
     }
 }

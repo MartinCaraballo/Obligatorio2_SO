@@ -23,17 +23,24 @@ public class ProcessManager
     }
 
     // Cuando no hay el espacio necesario para cargar toda la lista de procesos creados, 
-    // se necesita cargar una parte de ellos, por lo tanto este método abarca ese problema.
+    // se necesita cargar una parte de ellos, por lo tanto este método abarca ese problema. NO ESTA FUNCIONANDO, SOLUCIONAR.
     public static List<IProcess> GetFragmentofProcessList(int freeSpaceInMemory) {
         List<IProcess> newList = new ArrayList<>();
+        List<Integer> indexOfProcessToRemove = new ArrayList<>();
         int newListSizeCount = 0;
         
         while (newListSizeCount < freeSpaceInMemory) {
-            for (IProcess process : ProcessManager.processList) {
-                newList.add(process);
-                newListSizeCount += process.GetProcessSize();
-                ProcessManager.processList.remove(process);
+            for (IProcess iProcess : ProcessManager.processList) {
+                newList.add(iProcess);
+                newListSizeCount += iProcess.GetProcessSize();
+                int index = ProcessManager.processList.indexOf(iProcess);
+                indexOfProcessToRemove.add(index);
             }
+
+            // Borro los elementos que cargo en memoria; dicho de otra forma, quedan los que no pude cargar.
+            /* for (Integer integer : indexOfProcessToRemove) {
+                ProcessManager.processList.remove(integer);
+            } */
         }
         return newList;
     }

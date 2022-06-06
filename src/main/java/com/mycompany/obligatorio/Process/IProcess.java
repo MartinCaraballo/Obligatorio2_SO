@@ -6,6 +6,8 @@ public interface IProcess
 
     enum State {}
 
+    public String GetProcessName();
+
     public String GetProcessID();
 
     public Process.State GetProcessState();

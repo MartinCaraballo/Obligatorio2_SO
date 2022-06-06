@@ -6,6 +6,9 @@ public class Process implements IProcess
     // ID de un proceso.
     private String ProcessID;
 
+    // Nombre de un proceso.
+    private String ProcessName;
+
     // Ruta al archivo del proceso.
     private String Path;
 
@@ -36,8 +39,9 @@ public class Process implements IProcess
     // Tiempo que lleva la entrada/salida.
     private float TimeConsumedIO;
 
-    public Process(String processID, int size, String path, float executionTime, float timeBetweenIO, float timeConsumedIO)
+    public Process(String processName, String processID, int size, String path, float executionTime, float timeBetweenIO, float timeConsumedIO)
     {
+        this.ProcessName = processName;
         this.ProcessID  = processID;
         this.ProcessSize = size;
         this.Path = path;
@@ -47,6 +51,11 @@ public class Process implements IProcess
         this.TotalExecutionTime = executionTime;
         this.TimeBetweenIO = timeBetweenIO;
         this.TimeConsumedIO = timeConsumedIO;
+    }
+
+    // Retorna el nombre de un proceso.
+    public String GetProcessName() {
+        return this.ProcessName;
     }
 
     // Retorna la id del proceso (ya que es privado).
