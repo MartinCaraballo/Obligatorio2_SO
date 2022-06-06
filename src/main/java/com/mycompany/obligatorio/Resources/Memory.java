@@ -20,6 +20,10 @@ public class Memory
     public void AddProcessToReadyProcessList(IProcess process) {
         this.readyProcess.add(process);
     }
+    
+    public void RemoveProcessFromReadyProcessList(IProcess process){
+        this.readyProcess.remove(process);
+    }
 
     // Retorna true si la memoria tiene espacio para cargar toda la lista de procesos creados, o falso si no lo tiene.
     public boolean MemoryHasSpace() {

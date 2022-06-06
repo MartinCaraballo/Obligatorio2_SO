@@ -8,7 +8,8 @@ import com.mycompany.obligatorio.Resources.*;
 
 public class OperativeSystem
 {
-
+    
+    int counter = 0;
     public Memory Memory;
     public CPU CPU;
 
@@ -36,8 +37,31 @@ public class OperativeSystem
     public void Load(List<IProcess> processToCharge) {
         for (IProcess process : processToCharge)
         {
-            process.ChangeProcessState(Process.State.LISTO);
+            process.ChangeProcessState("LISTO");
             this.Memory.AddProcessToReadyProcessList(process);
         }
     }
+
+    /* public void Dispatch(List<IProcess> readyProcess)
+    {
+        for (this.counter = 0; this.counter < 1; this.counter++) 
+        {
+            for (IProcess process : readyProcess) 
+            {
+                process.ChangeProcessState("EJECUCION");
+                this.Memory.RemoveProcessFromReadyProcessList(process);
+                this.CPU.Execute(process, this.CPU.);
+                this.counter += 1;
+            }
+        }
+    }
+
+    public void Timeout(IProcess process)
+    {
+        for (process.GetProcessState() = proc)
+        {
+
+        }
+        
+    } */
 }
