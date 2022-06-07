@@ -9,53 +9,88 @@ public class Memory
     private ArrayList<IProcess> readyProcess; 
 
     // Representa la capacidad de la memoria en MB.
-    private int MemorySize;
+    private float MemorySize;
 
-    public Memory(int size)
+    private float ActualMemorySize;
+
+    public Memory(float size)
     {
         this.readyProcess = new ArrayList<>();
         this.MemorySize = size;
+        this.ActualMemorySize = size;
     }
 
-    public void AddProcessToReadyProcessList(IProcess process) {
+    public ArrayList<IProcess> getReadyProcess(){
+        return this.readyProcess;
+    }
+
+    public void addProcessToReadyProcessList(IProcess process) {
         this.readyProcess.add(process);
+    }
+    
+    public void removeProcessFromReadyProcessList(IProcess process){
+        this.readyProcess.remove(process);
     }
 
     // Retorna true si la memoria tiene espacio para cargar toda la lista de procesos creados, o falso si no lo tiene.
-    public boolean MemoryHasSpace() {
-        return (this.MemorySize >= ProcessManager.GetProcessCreatedListSize());
+    public boolean memoryHasSpaceToLoadAll() {
+        return (this.MemorySize >= ProcessManager.getProcessCreatedListSize());
+    }
+
+    public void decreaseActualMemorySize(float value) {
+        this.ActualMemorySize -= value;
+    }
+
+    public void increaseActualMemorySize(float value) {
+        this.ActualMemorySize += value;
     }
 
     // Retorna la memoria libre de la memoria.
-    public int SpaceFree() {
+    public float spaceFree() {
         return this.MemorySize;
     }
+    
+    public List<IProcess> getAllProcessInMemory() {
+        List<IProcess> allProcessInMemory = new ArrayList<>();
 
+        // Recorremos la lista de los procesos listos.
+        for (IProcess process : this.readyProcess) {
+            allProcessInMemory.add(process);
+        }
+
+        // Recorremos la lista de los procesos bloqueados.
+        for (IProcess blockedProcess : ProcessManager.getBlockedProcessList()) {
+            allProcessInMemory.add(blockedProcess);
+        }
+        return allProcessInMemory;
+    }
+    
     // Método para imprimir una tabla con lo que contiene la memoria.
-    public String ViewMemory() {
+    public String viewMemory() {
         StringBuilder message = new StringBuilder("Los procesos que actualmente se encuentran en memoria son:\n");
         int moreLargeID = 0;
         int moreLargeName = 0;
         int moreLargeSize = 0;
         int moreLargePath = 0;
-        List<IProcess> allProcessInMemory = this.GetAllProcessInMemory();
+        List<IProcess> allProcessInMemory = this.getAllProcessInMemory();
 
         for (IProcess process : allProcessInMemory) {
-            if (process.GetProcessID().length() > moreLargeID) {
-                moreLargeID = process.GetProcessID().length() + 2;
+            ProcessControlBlock processPCB = process.getProcessPCB();
+            if (processPCB.getProcessID().length() > moreLargeID) {
+                moreLargeID = processPCB.getProcessID().length() + 2;
             }
 
-            if (process.GetProcessName().length() > moreLargeName) {
-                moreLargeName = process.GetProcessName().length() + 2;
+            if (process.getProcessName().length() > moreLargeName) {
+                moreLargeName = process.getProcessName().length() + 2;
             }
 
-            String processSize = String.valueOf(process.GetProcessSize());
+            String processSize = String.valueOf(process.getProcessSize());
             if (processSize.length() > moreLargeSize) {
                 moreLargeSize = processSize.length() + 2;
             }
 
-            if (process.GetPath().length() > moreLargePath) {
-                moreLargePath = process.GetPath().length() + 2;
+            if (processPCB.getProcessPath().length() > moreLargePath) {
+                moreLargePath = processPCB.getProcessPath().length() + 2;
             }
         }
         // Comenzamos a armar la tabla:
@@ -63,19 +98,9 @@ public class Memory
         int repeatCount = (moreLargeID + moreLargeName + moreLargeSize + moreLargePath) + 5;
         message.append(bottom.repeat(repeatCount));
         for (IProcess iProcess : allProcessInMemory) {
-            message.append("\n| " + iProcess.GetProcessID() + " | " + iProcess.GetProcessName() + " | " + iProcess.GetProcessSize() + " | " + iProcess.GetPath() + " |");
+            ProcessControlBlock iprocessPCB = iProcess.getProcessPCB();
+            message.append("\n| " + iprocessPCB.getProcessID() + " | " + iProcess.getProcessName() + " | " + iProcess.getProcessSize() + " | " + iprocessPCB.getProcessPath() + " |");
         }
         return message.toString();
-    }
-
-    // Método para obtener todos los procesos que se encuentran en memoria.
-    public List<IProcess> GetAllProcessInMemory() {
-        List<IProcess> allProcessInMemory = new ArrayList<>();
-        
-        // Añado todos los procesos listos a la lista con todos los procesos que estan en memoria.
-        for (IProcess process : this.readyProcess) {
-            allProcessInMemory.add (process);
-        }
-        return allProcessInMemory;
     }
 }

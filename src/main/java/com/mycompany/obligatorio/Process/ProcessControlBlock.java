@@ -35,27 +35,31 @@ public class ProcessControlBlock
     }
     
     // Cambia el state de un proceso, dado el nuevo state como objeto State.
-    public void ChangeProcessState(State newState) {
+    public void changeProcessState(State newState) {
         this.ProcessState = newState;
     }
 
-    public State GetProcessState() {
+    public State getProcessState() {
         return this.ProcessState;
     }
 
-    public String GetProcessPath() {
+    public String getProcessPath() {
         return this.Path;
     }
 
-    public String GetProcessID() {
+    public String getProcessID() {
         return this.ProcessID;
     }
 
-    public void IncreaseProcessPriority() {
+    public void increaseProcessPriority() {
         this.Priority += 1;
     }
 
-    public byte GetProcessPriority() {
+    public void decreaseProcessPriority() {
+        this.Priority -= 1;
+    }
+
+    public byte getProcessPriority() {
         return this.Priority;
     }
     
