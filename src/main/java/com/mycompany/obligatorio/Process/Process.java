@@ -39,31 +39,35 @@ public class Process implements IProcess
     }
 
     // Retorna el nombre de un proceso.
-    public String GetProcessName() {
+    public String getProcessName() {
         return this.ProcessName;
     }
 
     // Retorna el espacio que ocupa el proceso en memoria.
-    public float GetProcessSize() {
+    public float getProcessSize() {
         return this.ProcessSize;
+    }
+
+    public ProcessControlBlock getProcessPCB() {
+        return this.PCB;
     }
     
     // Retorna el tiempo total de ejecución de un proceso.
-    public float GetTotalExecutionTime() {
+    public float getTotalExecutionTime() {
         return this.TotalExecutionTime;
     }
 
     // Retorna el tiempo en el que el proceso hace una entrada / salida.
-    public float GetTimeBetweenIO() {
+    public float getTimeBetweenIO() {
         return this.TimeBetweenIO;
     }
 
     // Retorna el tiempo que consume la entrada / salida.
-    public float GetTimeConsumedIO() {
+    public float getTimeConsumedIO() {
         return this.TimeConsumedIO;
     }
 
-    public boolean AskForResource(Resource resource) {
+    public boolean askForResource(Resource resource) {
         if (resource.getAvailability()) {
             this.Resources.add(resource);
             return true;
