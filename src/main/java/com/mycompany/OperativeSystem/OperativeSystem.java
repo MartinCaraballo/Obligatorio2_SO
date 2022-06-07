@@ -10,7 +10,7 @@ public class OperativeSystem
 {
     
     int counter = 0;
-    public Memory Memory;
+    public static Memory Memory;
     public CPU CPU;
 
     public OperativeSystem(int memorySize, byte numberOfCores)

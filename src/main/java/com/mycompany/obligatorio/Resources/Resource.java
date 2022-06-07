@@ -15,7 +15,7 @@ import java.util.Set;
  */
 public class Resource {
     private String name;
-    private Map<String, String> specs = new HashMap();
+    private Map<String, String> specs = new HashMap<>();
     private boolean availability = false;
     private boolean priority = false;
     

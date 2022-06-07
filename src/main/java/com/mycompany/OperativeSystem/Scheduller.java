@@ -5,15 +5,25 @@
 package com.mycompany.OperativeSystem;
 
 import com.mycompany.obligatorio.Resources.Memory;
-
+import com.mycompany.obligatorio.Process.*;
+import java.util.*;
 /**
  *
  * @author TomasUcu
  */
 public class Scheduller implements IScheduller {
 
+    private ArrayList<IProcess> readyProcessList = new ArrayList<>();
+
     @Override
-    public void dispatch() {
+    public void dispatch(Memory memory) {
+            this.readyProcessList = memory.getReadyProcess();
+            IProcess process = this.readyProcessList.get(0);
+            process.ChangeProcessState(ProcessControlBlock.State.EJECUCION);
+            this.Memory.RemoveProcessFromReadyProcessList(process);
+            this.CPU.Execute(process, this.CPU.);
+            this.counter += 1;
+        }
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

@@ -1,5 +1,5 @@
 package com.mycompany.OperativeSystem;
-
+import com.mycompany.obligatorio.Resources.Memory;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -11,7 +11,7 @@ package com.mycompany.OperativeSystem;
  */
 public interface IScheduller {
     // Listo a En ejecución.
-    public void dispatch();
+    public void dispatch(Memory memory);
     
     // Listo a Suspendido Listo o Bloqueado a Suspendido Bloqueado.
     public void suspend();
