@@ -10,7 +10,15 @@ public class Memory
 
     // Representa la capacidad de la memoria en MB.
     private int MemorySize;
+    
+    public ArrayList<IProcess> getReadyProcess() {
+        return this.readyProcess;
+    }
 
+    public int getMemroySize() {
+        return this.MemorySize;
+    }
+    
     public Memory(int size)
     {
         this.readyProcess = new ArrayList<>();
