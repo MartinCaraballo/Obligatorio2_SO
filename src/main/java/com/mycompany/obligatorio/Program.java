@@ -4,12 +4,10 @@
  */
 
 package com.mycompany.obligatorio;
-import com.mycompany.obligatorio.Process.Process;
 import com.mycompany.OperativeSystem.*;
-import java.util.Random;
-import javax.swing.text.StyledEditorKit.ForegroundAction;
 import com.mycompany.obligatorio.Process.*;
 import com.mycompany.obligatorio.Resources.*;
+
 
 
 public class Program {
@@ -17,27 +15,17 @@ public class Program {
     public static void main(String[] args) {
         // System.out.println("Hello World!");
 
-        Memory memory = new Memory(1024);
-        
-        // for para crear procesos.
-        for (int i = 0; i < 4; i++) {
-            String stringI = Integer.toString(i);
-            Random random = new Random();
-            // Genera un número aleatorio entre 0 y el valor de esta variable.
-            float randomUpperBound = 15;
-            IProcess process = ProcessManager.createInstanceOfProcess("/home/process" + stringI, "Proceso" + stringI, 512, random.nextFloat(randomUpperBound), random.nextFloat(randomUpperBound), random.nextFloat(randomUpperBound));
-        }
-
-        // Imprime si la memoria tiene espacio para cargar todos esos procesos creados.
-        //System.out.println(memory.MemoryHasSpace());
-
-        /* for (IProcess process : ProcessManager.GetProcessList()) {
-            System.out.println(process.GetProcessState());
-        } */
+        // Creamos 100 procesos en el sistema:
+        Utils.AddProcesses(100);
 
         byte numberOfCores = 1;
-        OperativeSystem operativesystem = new OperativeSystem(1024, numberOfCores);
+        OperativeSystem operativesystem = new OperativeSystem(4096, numberOfCores);
         operativesystem.LoadProcess();
         System.out.println(operativesystem.Memory.viewMemory());
+
+        /* for (IProcess process : operativesystem.Memory.getAllProcessInMemory()) {
+            ProcessControlBlock processPCB = process.getProcessPCB();
+            System.out.println(processPCB.getProcessState());
+        } */
     }
 }

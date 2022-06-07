@@ -34,7 +34,7 @@ public class ProcessManager
     }
 
     // Cuando no hay el espacio necesario para cargar toda la lista de procesos creados, 
-    // se necesita cargar una parte de ellos, por lo tanto este método abarca ese problema. REVISAR MÉTODO (BUG AL CARGAR LOS PROCESOS).
+    // se necesita cargar una parte de ellos, por lo tanto este método abarca ese problema.
     public static List<IProcess> getFragmentofProcessList(float freeSpaceInMemory) {
         List<IProcess> newReadyProcessList = new ArrayList<>();
         List<Integer> indexOfProcessToRemove = new ArrayList<>();
@@ -48,13 +48,13 @@ public class ProcessManager
                     int index = ProcessManager.processList.indexOf(process);
                     indexOfProcessToRemove.add(index);
                 }
-                return newReadyProcessList;
             }
+            return newReadyProcessList;
 
             // Borro los elementos que cargo en memoria; dicho de otra forma, quedan los que no pude cargar.
-            for (Integer index : indexOfProcessToRemove) {
+            /* for (Integer index : indexOfProcessToRemove) {
                 ProcessManager.processList.remove(index);
-            }
+            } */
         }
         return newReadyProcessList;
     }
