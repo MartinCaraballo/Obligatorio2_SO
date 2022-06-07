@@ -28,7 +28,9 @@ public class OperativeSystem
            return true; 
         }
         else if (this.Memory.memoryHasSpaceToLoadAll() == false) {
-            ProcessManager.getFragmentofProcessList(this.Memory.spaceFree());
+            for (IProcess iprocess : ProcessManager.getFragmentofProcessList(this.Memory.spaceFree())) {
+                this.Load(iprocess);
+            }
             return true;
         }
         return false;

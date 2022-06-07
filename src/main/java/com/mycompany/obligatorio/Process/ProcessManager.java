@@ -34,13 +34,13 @@ public class ProcessManager
     }
 
     // Cuando no hay el espacio necesario para cargar toda la lista de procesos creados, 
-    // se necesita cargar una parte de ellos, por lo tanto este método abarca ese problema.
+    // se necesita cargar una parte de ellos, por lo tanto este método abarca ese problema. REVISAR MÉTODO (BUG AL CARGAR LOS PROCESOS).
     public static List<IProcess> getFragmentofProcessList(float freeSpaceInMemory) {
         List<IProcess> newReadyProcessList = new ArrayList<>();
         List<Integer> indexOfProcessToRemove = new ArrayList<>();
         float remaining = freeSpaceInMemory;
         
-        while (remaining > 0) {
+        while (remaining >= 0) {
             for (IProcess process : ProcessManager.processList) {
                 if (process.getProcessSize() <= remaining) {
                     newReadyProcessList.add(process);

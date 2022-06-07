@@ -22,6 +22,7 @@ public class Memory
 
     public void addProcessToReadyProcessList(IProcess process) {
         this.readyProcess.add(process);
+        this.decreaseActualMemorySize(process.getProcessSize());
     }
 
     // Retorna true si la memoria tiene espacio para cargar toda la lista de procesos creados, o falso si no lo tiene.
