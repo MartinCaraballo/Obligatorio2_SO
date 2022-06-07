@@ -41,27 +41,4 @@ public class OperativeSystem
         processPCB.changeProcessState(ProcessControlBlock.State.LISTO);
         this.Memory.addProcessToReadyProcessList(process);
     }
-
-    /* public void Dispatch(List<IProcess> readyProcess)
-    {
-        for (this.counter = 0; this.counter < 1; this.counter++) 
-        {
-            for (IProcess process : readyProcess) 
-            {
-                process.ChangeProcessState("EJECUCION");
-                this.Memory.RemoveProcessFromReadyProcessList(process);
-                this.CPU.Execute(process, this.CPU.);
-                this.counter += 1;
-            }
-        }
-    }
-
-    public void Timeout(IProcess process)
-    {
-        for (process.GetProcessState() = proc)
-        {
-
-        }
-        
-    } */
 }

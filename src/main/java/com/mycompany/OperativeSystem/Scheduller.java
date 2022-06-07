@@ -17,14 +17,16 @@ public class Scheduller implements IScheduller {
 
     @Override
     public void dispatch(Memory memory) {
-            this.readyProcessList = memory.getReadyProcess();
-            IProcess process = this.readyProcessList.get(0);
-            process.ChangeProcessState(ProcessControlBlock.State.EJECUCION);
-            this.Memory.RemoveProcessFromReadyProcessList(process);
-            this.CPU.Execute(process, this.CPU.);
-            this.counter += 1;
+        
+        this.readyProcessList = memory.getReadyProcess();
+        IProcess process = this.readyProcessList.get(0);
+        ProcessControlBlock processPCB = process.getProcessPCB();
+        if (!process.hasCPU)
+        {
+            processPCB.changeProcessState(ProcessControlBlock.State.EJECUCION);
+            memory.removeProcessFromReadyProcessList(process);
+            //this.CPU.Execute(process, this.CPU.);
         }
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override

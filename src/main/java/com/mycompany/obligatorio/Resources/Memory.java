@@ -20,11 +20,15 @@ public class Memory
         this.ActualMemorySize = size;
     }
 
+    public ArrayList<IProcess> getReadyProcess(){
+        return this.readyProcess;
+    }
+
     public void addProcessToReadyProcessList(IProcess process) {
         this.readyProcess.add(process);
     }
     
-    public void RemoveProcessFromReadyProcessList(IProcess process){
+    public void removeProcessFromReadyProcessList(IProcess process){
         this.readyProcess.remove(process);
     }
 
