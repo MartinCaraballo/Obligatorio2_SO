@@ -1,9 +1,22 @@
 package com.mycompany.obligatorio.Process;
-import java.util.*;
 
-public interface IProcess {
+public interface IProcess
+{
+    public boolean hasCPU = false;
 
-    List<IProcess> processList = new ArrayList<>();
+    public String getProcessName();
 
-    public void AddProcessCreatedtoList(IProcess process);
+    public float getProcessSize();
+
+    public ProcessControlBlock getProcessPCB();
+
+    public float getTotalExecutionTime();
+
+    public float getTimeBetweenIO();
+
+    public float getTimeConsumedIO();
+
+    public void setHasCPU(boolean b);
+    
+    public void setTotalExecutionTime(float time);
 }

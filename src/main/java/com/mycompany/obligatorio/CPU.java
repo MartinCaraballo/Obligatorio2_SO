@@ -4,16 +4,28 @@
  */
 package com.mycompany.obligatorio;
 
-import com.mycompany.obligatorio.Process.IProcess;
+import com.mycompany.obligatorio.Process.*;
+import java.util.*;
 
 public class CPU 
 {
+    private byte Cores;
+    
+    //Lista de procesos en ejecución
+    private static List<IProcess> executingProcessList = new ArrayList<>();
 
-    private int cores;
+    private CPU(byte cores) 
+    {
+        this.Cores = cores;
+    }
 
-    public boolean Execute(IProcess processToExecute)
+    public boolean Execute(IProcess processToExecute, byte coresToUse)
     {
         return true;
+    }
+    
+    public List<IProcess> getExecutingProcessList(){
+        return this.executingProcessList;
     }
     
 }
