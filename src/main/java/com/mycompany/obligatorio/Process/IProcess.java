@@ -4,13 +4,15 @@ public interface IProcess
 {
     public boolean hasCPU = false;
 
-    public String GetProcessName();
+    public String getProcessName();
 
-    public float GetProcessSize();
+    public float getProcessSize();
 
-    public float GetTotalExecutionTime();
+    public ProcessControlBlock getProcessPCB();
 
-    public float GetTimeBetweenIO();
+    public float getTotalExecutionTime();
 
-    public float GetTimeConsumedIO();
+    public float getTimeBetweenIO();
+
+    public float getTimeConsumedIO();
 }
