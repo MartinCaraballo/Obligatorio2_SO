@@ -3,10 +3,10 @@ import java.util.*;
 
 public class ProcessManager
 {
+    //Lista de procesos listos
     private static List<IProcess> processList = new ArrayList<>();
 
-    private static List<IProcess> suspendedProcess = new ArrayList<>();
-
+    //Lista de procesos bloqueados
     private static List<IProcess> blockedProcess = new ArrayList<>();
     
     // Devuelve la lista con todos los procesos en el sistema.
@@ -14,14 +14,19 @@ public class ProcessManager
         return ProcessManager.processList;
     }
 
-    // Devuelve la lista con todos los procesos suspendidos del sistema.
-    public static List<IProcess> getSuspendedProcessList() {
-        return ProcessManager.suspendedProcess;
-    }
-
     // Devuelve la lista con todos los procesos bloqueados del sistema.
     public static List<IProcess> getBlockedProcessList() {
         return ProcessManager.blockedProcess;
+    }
+    
+    // Agrega un proceso a la lista con todos los procesos bloqueados del sistema.
+    public static void addBlockedProcessList(IProcess process) {
+        ProcessManager.blockedProcess.add(process);
+    }
+    
+    // Agrega un proceso a la lista con todos los procesos bloqueados del sistema.
+    public static void removeBlockedProcessList(IProcess process) {
+        ProcessManager.blockedProcess.remove(process);
     }
 
     // Método para calcular la memoria necesaria para cargar toda la lista de procesos creados en memoria.

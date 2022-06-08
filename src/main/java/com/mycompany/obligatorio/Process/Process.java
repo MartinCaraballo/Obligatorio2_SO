@@ -74,4 +74,8 @@ public class Process implements IProcess
         }
         return false;
     }
+    
+    public void setHasCPU(boolean bool){
+        this.hasCPU = bool;
+    }
 }

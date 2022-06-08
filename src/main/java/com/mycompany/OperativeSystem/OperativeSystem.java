@@ -12,11 +12,13 @@ public class OperativeSystem
     int counter = 0;
     public static Memory Memory;
     public CPU CPU;
+    public Scheduller scheduller;
 
     public OperativeSystem(int memorySize, byte numberOfCores)
     {
         this.Memory = new Memory(memorySize);
         // this.CPU = new CPU(numberOfCores);
+        this.scheduller = new Scheduller();
     }
 
     // Este método carga una lista de procesos en memoria.
