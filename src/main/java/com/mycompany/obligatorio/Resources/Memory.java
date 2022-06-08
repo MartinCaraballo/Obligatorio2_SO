@@ -26,6 +26,7 @@ public class Memory
 
     public void addProcessToReadyProcessList(IProcess process) {
         this.readyProcess.add(process);
+        this.decreaseActualMemorySize(process.getProcessSize());
     }
     
     public void removeProcessFromReadyProcessList(IProcess process){
@@ -34,7 +35,7 @@ public class Memory
 
     // Retorna true si la memoria tiene espacio para cargar toda la lista de procesos creados, o falso si no lo tiene.
     public boolean memoryHasSpaceToLoadAll() {
-        return (this.MemorySize >= ProcessManager.getProcessCreatedListSize());
+        return (this.ActualMemorySize >= ProcessManager.getProcessCreatedListSize());
     }
 
     public void decreaseActualMemorySize(float value) {
@@ -47,7 +48,12 @@ public class Memory
 
     // Retorna la memoria libre de la memoria.
     public float spaceFree() {
-        return this.MemorySize;
+        return this.ActualMemorySize;
+    }
+
+    public float memoryUsage() {
+        float memoryUsage = 100 * (this.MemorySize - this.ActualMemorySize) / this.MemorySize;
+        return memoryUsage; 
     }
     
     public List<IProcess> getAllProcessInMemory() {
@@ -74,33 +80,39 @@ public class Memory
         int moreLargePath = 0;
         List<IProcess> allProcessInMemory = this.getAllProcessInMemory();
 
+        // Obtenemos el largo que va a tener cada columna de la tabla.
         for (IProcess process : allProcessInMemory) {
             ProcessControlBlock processPCB = process.getProcessPCB();
             if (processPCB.getProcessID().length() > moreLargeID) {
-                moreLargeID = processPCB.getProcessID().length() + 2;
+                moreLargeID = processPCB.getProcessID().length() + 1;
             }
 
             if (process.getProcessName().length() > moreLargeName) {
-                moreLargeName = process.getProcessName().length() + 2;
+                moreLargeName = process.getProcessName().length() + 1;
             }
 
             String processSize = String.valueOf(process.getProcessSize());
             if (processSize.length() > moreLargeSize) {
-                moreLargeSize = processSize.length() + 2;
+                moreLargeSize = processSize.length() + 1;
             }
 
             if (processPCB.getProcessPath().length() > moreLargePath) {
-                moreLargePath = processPCB.getProcessPath().length() + 2;
+                moreLargePath = processPCB.getProcessPath().length() + 1;
             }
         }
         // Comenzamos a armar la tabla:
         String bottom = "-";
-        int repeatCount = (moreLargeID + moreLargeName + moreLargeSize + moreLargePath) + 5;
-        message.append(bottom.repeat(repeatCount));
+        String space = " ";
+        int repeatCount = (moreLargeID + moreLargeName + moreLargeSize + moreLargePath) + 9;
+        message.append("Memory Usage: %" + this.memoryUsage() + "\n");
+        message.append(bottom.repeat(repeatCount) + "\n");
+        message.append("|ID" + space.repeat((moreLargeID - 1)) + "|" + "Name" + space.repeat((moreLargeName - 3)) + "|Size" + space.repeat((moreLargeSize - 3)) + "|Path" + space.repeat((moreLargePath - 3)) + "|");
+
         for (IProcess iProcess : allProcessInMemory) {
             ProcessControlBlock iprocessPCB = iProcess.getProcessPCB();
-            message.append("\n| " + iprocessPCB.getProcessID() + " | " + iProcess.getProcessName() + " | " + iProcess.getProcessSize() + " | " + iprocessPCB.getProcessPath() + " |");
+            message.append("\n| " + iprocessPCB.getProcessID() + space.repeat((moreLargeID - iprocessPCB.getProcessID().length())) + "| " + iProcess.getProcessName() + space.repeat((moreLargeName - iProcess.getProcessName().length())) + "| " + iProcess.getProcessSize() + space.repeat((moreLargeSize - String.valueOf(iProcess.getProcessSize()).length())) + "| " + iprocessPCB.getProcessPath() + space.repeat((moreLargePath - iprocessPCB.getProcessPath().length())) + "|");
         }
+        message.append("\n" + bottom.repeat(repeatCount));
         return message.toString();
     }
 }

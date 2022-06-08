@@ -4,19 +4,16 @@
  */
 
 package com.mycompany.obligatorio;
-import com.mycompany.obligatorio.Process.Process;
 import com.mycompany.OperativeSystem.*;
-import java.util.Random;
-import javax.swing.text.StyledEditorKit.ForegroundAction;
 import com.mycompany.obligatorio.Process.*;
 import com.mycompany.obligatorio.Resources.*;
-
 
 public class Program {
 
     public static void main(String[] args) {
         // System.out.println("Hello World!");
 
+<<<<<<< HEAD
         Memory memory = new Memory(1024);
         
         // for para crear procesos.
@@ -35,10 +32,23 @@ public class Program {
         /* for (IProcess process : ProcessManager.GetProcessList()) {
             System.out.println(process.GetProcessState());
         } */
+=======
+        // Creamos 100 procesos en el sistema:
+        Utils.AddProcesses(100);
+>>>>>>> 3768e985d6d14ff3aef083bd8a7eb138142b1bbf
 
         byte numberOfCores = 1;
-        OperativeSystem operativesystem = new OperativeSystem(1024, numberOfCores);
+        OperativeSystem operativesystem = new OperativeSystem(4096, numberOfCores);
         operativesystem.LoadProcess();
+<<<<<<< HEAD
         //System.out.println(operativesystem.Memory.ViewMemory());
+=======
+        System.out.println(operativesystem.Memory.viewMemory());
+
+        /* for (IProcess process : operativesystem.Memory.getAllProcessInMemory()) {
+            ProcessControlBlock processPCB = process.getProcessPCB();
+            System.out.println(processPCB.getProcessState());
+        } */
+>>>>>>> 3768e985d6d14ff3aef083bd8a7eb138142b1bbf
     }
 }
