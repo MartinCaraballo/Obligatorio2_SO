@@ -1,12 +1,12 @@
-public class Printer
+import com.mycompany.obligatorio.Stats;
+
 // Printer se encarga de imprimir estadisticas y la lista de procesos
-// Estadisticas: collectCPUusage, collectRAMusage, collectProcessList
-{
-    public void StatPrinter(Stats stats) extends stats
-    {
-        string CPUUsage = stats.collectCPUUsage;
-        string RAMUsage= stats.collectRAMUsage;
-        string ProcessList= stats.collectProcessList;
+
+public class Printer {
+    public void StatPrinter(Stats stats) {
+        System.out.println(stats.collectRAMUsage());
+        System.out.println(stats.collectCPUUsage());
+        System.out.println(stats.collectProcessList());
     }
 }
 // Extends para heredar, implements para interfaces

@@ -4,19 +4,39 @@
  */
 package com.mycompany.obligatorio;
 
+import java.lang.management.MemoryUsage;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mycompany.obligatorio.Process.ProcessManager;
+import com.mycompany.obligatorio.Resources.Memory;
+
 /**
  *
  * @author juan-
  */
 public class Stats {
-    
+
+    public float collectCPUUsage()
     // Porcentaje de CPU utilizada
-    public float collectCPUUsage; 
-    
+    {
+        return();
+    }
+
+    public float collectRAMUsage(Memory memory)
     // Porcentaje de RAM utilizada
-    public float collectRAMUsage;
-    
+    {
+        return (memory.memoryUsage());
+    }
+
+    public List collectProcessList()
     // Cantidad de procesos
-    public int collectProcessList; 
-    
+    {
+        return (ProcessManager.getProcessList());
+    }
+
+    // Number of process
+    // memorySize
+    // process.size
 }
