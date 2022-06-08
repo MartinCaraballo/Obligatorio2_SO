@@ -42,6 +42,11 @@ public class Memory
     public float spaceFree() {
         return this.ActualMemorySize;
     }
+
+    public float memoryUsage() {
+        float memoryUsage = 100 * (this.MemorySize - this.ActualMemorySize) / this.MemorySize;
+        return memoryUsage; 
+    }
     
     public List<IProcess> getAllProcessInMemory() {
         List<IProcess> allProcessInMemory = new ArrayList<>();
@@ -91,6 +96,7 @@ public class Memory
         String bottom = "-";
         String space = " ";
         int repeatCount = (moreLargeID + moreLargeName + moreLargeSize + moreLargePath) + 9;
+        message.append("Memory Usage: %" + this.memoryUsage() + "\n");
         message.append(bottom.repeat(repeatCount) + "\n");
         message.append("|ID" + space.repeat((moreLargeID - 1)) + "|" + "Name" + space.repeat((moreLargeName - 3)) + "|Size" + space.repeat((moreLargeSize - 3)) + "|Path" + space.repeat((moreLargePath - 3)) + "|");
 

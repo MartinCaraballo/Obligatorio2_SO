@@ -8,8 +8,6 @@ import com.mycompany.OperativeSystem.*;
 import com.mycompany.obligatorio.Process.*;
 import com.mycompany.obligatorio.Resources.*;
 
-
-
 public class Program {
 
     public static void main(String[] args) {
