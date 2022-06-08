@@ -16,14 +16,7 @@ public class Program {
         // Creamos 100 procesos en el sistema:
         Utils.AddProcesses(100);
 
-        byte numberOfCores = 1;
-        OperativeSystem operativesystem = new OperativeSystem(4096, numberOfCores);
-        operativesystem.LoadProcess();
-        System.out.println(operativesystem.Memory.viewMemory());
-
-        /* for (IProcess process : operativesystem.Memory.getAllProcessInMemory()) {
-            ProcessControlBlock processPCB = process.getProcessPCB();
-            System.out.println(processPCB.getProcessState());
-        } */
+        Utils.operativeSystem.LoadProcess();
+        System.out.println(Utils.operativeSystem.Memory.viewMemory());
     }
 }

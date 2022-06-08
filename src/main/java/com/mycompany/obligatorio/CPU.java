@@ -10,7 +10,6 @@ public class CPU
 {
     private byte Cores;
 
-
     private CPU(byte cores) 
     {
         this.Cores = cores;

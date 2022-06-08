@@ -1,9 +1,13 @@
 package com.mycompany.obligatorio;
 import java.util.Random;
 import com.mycompany.obligatorio.Process.*;
+import com.mycompany.OperativeSystem.*;
 
 public class Utils
 {
+    private static byte numberOfCores = 1;
+    public static OperativeSystem operativeSystem = new OperativeSystem(4096, numberOfCores);
+
     public static void AddProcesses(int numberOfProcess) {
         // for para crear procesos.
         for (int i = 0; i < numberOfProcess; i++) {
@@ -13,7 +17,5 @@ public class Utils
             float randomUpperBound = 15;
             IProcess process = ProcessManager.createInstanceOfProcess("/home/process" + stringI, "Process" + stringI, random.nextFloat(32), random.nextFloat(randomUpperBound), random.nextFloat(randomUpperBound), random.nextFloat(randomUpperBound));
         }
-    }
-
-    
+    }    
 }
