@@ -14,7 +14,6 @@ public class CPU
     //Lista de procesos en ejecución
     private static List<IProcess> executingProcessList = new ArrayList<>();
 
-
     private CPU(byte cores) 
     {
         this.Cores = cores;

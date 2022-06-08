@@ -17,4 +17,6 @@ public interface IProcess
     public float getTimeConsumedIO();
 
     public void setHasCPU(boolean b);
+    
+    public void setTotalExecutionTime(float time);
 }

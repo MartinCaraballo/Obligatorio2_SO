@@ -3,24 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.OperativeSystem;
-
-import com.mycompany.obligatorio.CPU;
-import com.mycompany.obligatorio.Resources.Memory;
 import com.mycompany.obligatorio.Process.*;
-import com.mycompany.obligatorio.Utils;
-import java.util.*;
-/**
- *
- * @author TomasUcu
- */
-public class Scheduller extends OperativeSystem {
 
+public class Scheduller extends OperativeSystem {
+    
+    private float timeout = (float) 0.01;
+
+    //Despacha el primer proceso de la lista de listos en CPU
     public void dispatch() {
         IProcess process = Memory.getReadyProcess().get(0);
         ProcessControlBlock processPCB = process.getProcessPCB();
         if (!process.hasCPU)
         {
-            processPCB.changeProcessState(ProcessControlBlock.State.EJECUCION);
+            processPCB.changeProcessState(ProcessControlBlock.State.EXECUTING);
             Memory.removeProcessFromReadyProcessList(process);
             process.setHasCPU(true);
             //this.CPU.Execute(process, this.CPU.);
@@ -28,11 +23,12 @@ public class Scheduller extends OperativeSystem {
         }
     }
 
+    //Bloquea el proceso pasado como parámetro. Este sería bloqueado por una esperta de E/S
     public void block(IProcess process) {
         ProcessControlBlock processPCB = process.getProcessPCB();
         for (IProcess executingProcess : CPU.getExecutingProcessList()) {
             if (process.equals(executingProcess)){
-                processPCB.changeProcessState(ProcessControlBlock.State.BLOQUEADO);
+                processPCB.changeProcessState(ProcessControlBlock.State.BLOCKED);
                 process.setHasCPU(false);
                 CPU.getExecutingProcessList().remove(process);
                 ProcessManager.addBlockedProcessList(process);
@@ -40,29 +36,60 @@ public class Scheduller extends OperativeSystem {
         }
     }
     
+    //Bloquea el proceso pasado como parámetro. Este es bloqueado por el usuario
+    public void blockByUser(IProcess process) {
+        ProcessControlBlock processPCB = process.getProcessPCB();
+        for (IProcess executingProcess : CPU.getExecutingProcessList()) {
+            if (process.equals(executingProcess)){
+                processPCB.changeProcessState(ProcessControlBlock.State.BLOCKEDBYUSER);
+                process.setHasCPU(false);
+                CPU.getExecutingProcessList().remove(process);
+                ProcessManager.addBlockedProcessList(process);
+            }
+        }
+    }
+    
+    //Se desbloquea el proceso pasado como parámetro. Esto ocurre cuando la E/S por la que estaba esperando ocurre
     public void unBlock(IProcess process){
         ProcessControlBlock processPCB = process.getProcessPCB();
         for (IProcess blockedProcess : ProcessManager.getBlockedProcessList()){
             if (process.equals(blockedProcess)){
-                processPCB.changeProcessState(ProcessControlBlock.State.LISTO);
+                processPCB.changeProcessState(ProcessControlBlock.State.READY);
                 ProcessManager.removeBlockedProcessList(process);
                 Memory.addProcessToReadyProcessList(process);                
             }
         }
     }
 
+    //Pasa los procesos de la lista de ejecución a la lista de listos, si el tiempo de ejecución es mayor al timeout, y resta este último al primero
+    //En el caso de que el tiempo de ejecución sea menor al timeout, se finaliza el proceso
     public void timeOut() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (IProcess executingProcess : CPU.getExecutingProcessList()){
+            ProcessControlBlock processPCB = executingProcess.getProcessPCB();
+            float processTime = executingProcess.getTotalExecutionTime();
+            if (processTime > timeout){
+                executingProcess.setTotalExecutionTime(timeout);
+                processPCB.changeProcessState(ProcessControlBlock.State.READY);
+                executingProcess.setHasCPU(false);
+                CPU.getExecutingProcessList().remove(executingProcess);
+                Memory.addProcessToReadyProcessList(executingProcess);
+            }
+            else{
+                this.end(executingProcess);
+            }    
+        }
     }
 
+    //Finaliza el proceso pasado por parámetro
     public void end(IProcess process) {
         ProcessControlBlock processPCB = process.getProcessPCB();
         for (IProcess executingProcess : CPU.getExecutingProcessList()) {
             if (process.equals(executingProcess)){
-                processPCB.changeProcessState(ProcessControlBlock.State.FINALIZADO);
+                processPCB.changeProcessState(ProcessControlBlock.State.FINALIZED);
                 process.setHasCPU(false);
                 CPU.getExecutingProcessList().remove(process);
             }
         }
     }
 }
+

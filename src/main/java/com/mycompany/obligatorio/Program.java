@@ -9,6 +9,7 @@ import com.mycompany.obligatorio.Process.*;
 import com.mycompany.obligatorio.Resources.*;
 import java.util.Random;
 
+
 public class Program {
 
     public static void main(String[] args) {
@@ -36,14 +37,8 @@ public class Program {
         // Creamos 100 procesos en el sistema:
         Utils.AddProcesses(100);
 
-        byte numberOfCores = 1;
-        OperativeSystem operativesystem = new OperativeSystem(4096, numberOfCores);
-        operativesystem.LoadProcess();
-        System.out.println(operativesystem.Memory.viewMemory());
-
-        /* for (IProcess process : operativesystem.Memory.getAllProcessInMemory()) {
-            ProcessControlBlock processPCB = process.getProcessPCB();
-            System.out.println(processPCB.getProcessState());
-        } */
+        OperativeSystem operativeSystem = new OperativeSystem(4096, (byte)1);
+        operativeSystem.LoadProcess();
+        System.out.println(operativeSystem.Memory.viewMemory());
     }
 }
