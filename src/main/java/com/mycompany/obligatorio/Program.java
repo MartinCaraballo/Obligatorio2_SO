@@ -5,8 +5,8 @@
 
 package com.mycompany.obligatorio;
 import com.mycompany.OperativeSystem.*;
-import com.mycompany.obligatorio.Process.*;
-import com.mycompany.obligatorio.Resources.*;
+/* import com.mycompany.obligatorio.Process.*;
+import com.mycompany.obligatorio.Resources.*; */
 
 public class Program {
 
@@ -16,7 +16,8 @@ public class Program {
         // Creamos 100 procesos en el sistema:
         Utils.AddProcesses(100);
 
-        Utils.operativeSystem.LoadProcess();
-        System.out.println(Utils.operativeSystem.Memory.viewMemory());
+        OperativeSystem operativeSystem = new OperativeSystem(4096, (byte)1);
+        operativeSystem.LoadProcess();
+        System.out.println(operativeSystem.Memory.viewMemory());
     }
 }

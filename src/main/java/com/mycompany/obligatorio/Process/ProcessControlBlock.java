@@ -1,5 +1,4 @@
 package com.mycompany.obligatorio.Process;
-import java.util.*;
 
 public class ProcessControlBlock
 {
@@ -15,7 +14,7 @@ public class ProcessControlBlock
     // Enumeracion que indica los estados de un proceso, estos pueden ser LISTO, BLOQUEADO, SUSPENDIDO, EN EJECUCION o FINALIZADO.
     public enum State
     {
-        CREADO, LISTO, BLOQUEADO, SUSPENDIDO, EJECUCION, FINALIZADO;
+        CREATED, READY, BLOCKED, BLOCKEDBYUSER, SUSPENDED, EXECUTING, FINALIZED;
     }
 
     // Estado del proceso.
@@ -28,7 +27,7 @@ public class ProcessControlBlock
     {
         this.ProcessID = Integer.toString(staticProcessID);
         this.Path = path;
-        this.ProcessState = ProcessControlBlock.State.CREADO;
+        this.ProcessState = ProcessControlBlock.State.CREATED;
         this.Priority = 1;
 
         ProcessControlBlock.staticProcessID += 1;

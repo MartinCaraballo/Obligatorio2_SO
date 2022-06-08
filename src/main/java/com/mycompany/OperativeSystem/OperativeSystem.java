@@ -39,7 +39,7 @@ public class OperativeSystem
     //Representa la carga de los procesos creados.
     public void Load(IProcess process) {
         ProcessControlBlock processPCB = process.getProcessPCB();
-        processPCB.changeProcessState(ProcessControlBlock.State.LISTO);
+        processPCB.changeProcessState(ProcessControlBlock.State.READY);
         this.Memory.addProcessToReadyProcessList(process);
     }
 }
