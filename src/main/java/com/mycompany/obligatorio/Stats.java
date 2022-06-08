@@ -21,7 +21,7 @@ public class Stats {
     public float collectCPUUsage()
     // Porcentaje de CPU utilizada
     {
-        return();
+        return (1f);// FALTA CALCULAR EL % DE CPU
     }
 
     public float collectRAMUsage(Memory memory)
