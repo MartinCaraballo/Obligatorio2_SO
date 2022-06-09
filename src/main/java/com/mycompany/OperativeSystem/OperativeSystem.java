@@ -1,5 +1,6 @@
 package com.mycompany.OperativeSystem;
 
+import com.mycompany.obligatorio.Resources.CPU;
 import java.util.*;
 import com.mycompany.obligatorio.*;
 import com.mycompany.obligatorio.Process.*;
