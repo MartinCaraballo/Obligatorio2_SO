@@ -5,7 +5,6 @@
 package com.mycompany.obligatorio.Interface;
 
 import com.mycompany.OperativeSystem.OperativeSystem;
-import com.mycompany.obligatorio.Utils;
 import com.mycompany.obligatorio.Process.Process;
 
 /**
@@ -173,7 +172,7 @@ public class AddProcess extends javax.swing.JFrame {
         
         OperativeSystem.getInstance().Load(new Process(path, name, size, execTime, timeBetweenIO, TimeToWaitIO));
         this.setVisible(false);
-        Utils.ventana.DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
     }//GEN-LAST:event_SaveMouseClicked
 
     /**

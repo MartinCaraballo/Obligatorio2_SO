@@ -9,17 +9,22 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.*;
 
-/**
- *
- * @author TomasUcu
- */
+
 public class VentanaPrincipal extends javax.swing.JFrame {
 
+    private static VentanaPrincipal instance;
     /**
      * Creates new form VentanaPrincipal
      */
     public VentanaPrincipal() {
         initComponents();
+    }
+    
+    public static VentanaPrincipal getInstance() {
+        if (instance == null) {
+            instance = new VentanaPrincipal();
+        }
+        return instance;
     }
 
     /**

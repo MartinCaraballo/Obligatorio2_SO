@@ -5,8 +5,10 @@
 
 package com.mycompany.obligatorio;
 import com.mycompany.OperativeSystem.*;
-import java.util.ArrayList;        
 import com.mycompany.obligatorio.Process.IProcess;
+import com.mycompany.obligatorio.Interface.*;
+import java.util.ArrayList;        
+
 
 
 public class Program {
@@ -15,14 +17,15 @@ public class Program {
         
         // Creamos 100 procesos en el sistema:
         Utils.AddProcesses(100);
-
-        OperativeSystem operativeSystem = OperativeSystem.getInstance();
-        operativeSystem.LoadProcess();
-        System.out.println(operativeSystem.Memory.viewMemory());
+        
+        OperativeSystem os = OperativeSystem.getInstace(4096, (byte) 1);
+        os.LoadProcess();
+        //System.out.println(os.Memory.viewMemory());
         
         //Ventana
-        //Utils.ventana.setVisible(true);
-        //ArrayList<IProcess> arr = operativeSystem.Memory.getAllProcessInMemory();
-        //Utils.ventana.DisplayProcess(arr);
+        VentanaPrincipal ventana = VentanaPrincipal.getInstance();
+        ventana.setVisible(true);
+        ArrayList<IProcess> arr = os.Memory.getAllProcessInMemory();
+        ventana.DisplayProcess(arr);
     }
 }

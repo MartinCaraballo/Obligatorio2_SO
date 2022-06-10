@@ -11,7 +11,7 @@ public class OperativeSystem
 {
     
     int counter = 0;
-    public static Memory Memory;
+    public Memory Memory;
     public CPU CPU;
     
     private static OperativeSystem instance;

@@ -5,7 +5,6 @@ import com.mycompany.obligatorio.Interface.VentanaPrincipal;
 
 public class Utils
 {
-    public static VentanaPrincipal ventana = new VentanaPrincipal();
 
     public static void AddProcesses(int numberOfProcess) {
         // for para crear procesos.
