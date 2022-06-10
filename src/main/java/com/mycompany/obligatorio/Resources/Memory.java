@@ -48,8 +48,8 @@ public class Memory
         return memoryUsage; 
     }
     
-    public List<IProcess> getAllProcessInMemory() {
-        List<IProcess> allProcessInMemory = new ArrayList<>();
+    public ArrayList<IProcess> getAllProcessInMemory() {
+        ArrayList<IProcess> allProcessInMemory = new ArrayList<>();
 
         // Recorremos la lista de los procesos listos.
         for (IProcess process : this.readyProcess) {

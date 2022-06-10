@@ -4,10 +4,9 @@
  */
 
 package com.mycompany.obligatorio;
-import com.mycompany.OperativeSystem.*;
-import com.mycompany.obligatorio.Process.*;
-import com.mycompany.obligatorio.Resources.*;
-
+import java.util.ArrayList;
+        
+import com.mycompany.obligatorio.Process.IProcess;
 public class Program {
 
     public static void main(String[] args) {
@@ -17,6 +16,12 @@ public class Program {
         Utils.AddProcesses(100);
 
         Utils.operativeSystem.LoadProcess();
-        System.out.println(Utils.operativeSystem.Memory.viewMemory());
+        
+//        System.out.println(Utils.operativeSystem.Memory.viewMemory());
+        
+        //Ventana
+        Utils.ventana.setVisible(true);
+        ArrayList<IProcess> arr = Utils.operativeSystem.Memory.getAllProcessInMemory();
+        Utils.ventana.DisplayProcess(arr);
     }
 }

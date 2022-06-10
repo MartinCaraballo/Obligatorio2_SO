@@ -1,4 +1,5 @@
 package com.mycompany.obligatorio.Process;
+import com.mycompany.obligatorio.Utils;
 import java.util.*;
 
 public class ProcessManager
@@ -12,6 +13,17 @@ public class ProcessManager
     // Devuelve la lista con todos los procesos en el sistema.
     public static List<IProcess> getProcessList() {
         return ProcessManager.processList;
+    }
+    public static IProcess getProcessById(int id) {
+        String i = Integer.toString(id);
+        ArrayList<IProcess> arr = Utils.operativeSystem.Memory.getAllProcessInMemory();
+        IProcess res;
+        for(IProcess x : arr) {
+            if(x.getProcessPCB().getProcessID().equals(i)) {
+                return x;
+            }
+        }
+        return null;
     }
 
     // Devuelve la lista con todos los procesos suspendidos del sistema.
