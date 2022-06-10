@@ -1,9 +1,8 @@
 package com.mycompany.obligatorio;
+import com.mycompany.OperativeSystem.OperativeSystem;
 import java.util.Random;
 import com.mycompany.obligatorio.Process.*;
-import com.mycompany.OperativeSystem.*;
 import com.mycompany.obligatorio.Interface.VentanaPrincipal;
-import java.util.ArrayList;
 
 public class Utils
 {
@@ -18,7 +17,7 @@ public class Utils
             Random random = new Random();
             // Genera un número aleatorio entre 0 y el valor de esta variable.
             float randomUpperBound = 15;
-            IProcess process = ProcessManager.createInstanceOfProcess("/home/process" + stringI, "Process" + stringI, random.nextFloat(32), random.nextFloat(randomUpperBound), random.nextFloat(randomUpperBound), random.nextFloat(randomUpperBound));
+            ProcessManager.createInstanceOfProcess("/home/process" + stringI, "Process" + stringI, random.nextFloat(32), random.nextFloat(randomUpperBound), random.nextFloat(randomUpperBound), random.nextFloat(randomUpperBound));
         }
     } 
 }

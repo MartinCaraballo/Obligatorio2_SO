@@ -12,6 +12,13 @@ public class Program {
     public static void main(String[] args) {
         // System.out.println("Hello World!");
 
+        // Imprime si la memoria tiene espacio para cargar todos esos procesos creados.
+        //System.out.println(memory.MemoryHasSpace());
+
+        /* for (IProcess process : ProcessManager.GetProcessList()) {
+            System.out.println(process.GetProcessState());
+        } */
+        
         // Creamos 100 procesos en el sistema:
         Utils.AddProcesses(100);
 

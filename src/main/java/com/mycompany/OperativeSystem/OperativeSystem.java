@@ -8,14 +8,17 @@ import com.mycompany.obligatorio.Resources.*;
 
 public class OperativeSystem
 {
-
-    public Memory Memory;
+    
+    int counter = 0;
+    public static Memory Memory;
     public CPU CPU;
+    public Scheduller scheduller;
 
     public OperativeSystem(int memorySize, byte numberOfCores)
     {
         this.Memory = new Memory(memorySize);
         // this.CPU = new CPU(numberOfCores);
+        this.scheduller = new Scheduller();
     }
 
     // Este método carga una lista de procesos en memoria.
@@ -39,7 +42,7 @@ public class OperativeSystem
     //Representa la carga de los procesos creados.
     public void Load(IProcess process) {
         ProcessControlBlock processPCB = process.getProcessPCB();
-        processPCB.changeProcessState(ProcessControlBlock.State.LISTO);
+        processPCB.changeProcessState(ProcessControlBlock.State.READY);
         this.Memory.addProcessToReadyProcessList(process);
     }
 }
