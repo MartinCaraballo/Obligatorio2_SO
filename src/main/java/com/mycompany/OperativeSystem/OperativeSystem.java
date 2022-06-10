@@ -12,12 +12,31 @@ public class OperativeSystem
 
     public Memory Memory;
     public CPU CPU;
+    
+    private static OperativeSystem instance;
 
-    public OperativeSystem(int memorySize, byte numberOfCores)
+    private OperativeSystem(int memorySize, byte numberOfCores)
     {
         this.Memory = new Memory(memorySize);
         // this.CPU = new CPU(numberOfCores);
     }
+    
+    // Si hay una instancia la devuelve, si no crea una instancia de sistema operativo con una memoria y numeros de cores default. A modos de que el programa pueda funcionar.
+    public static OperativeSystem getInstance() {
+        if (instance == null) {
+            instance = new OperativeSystem(2048, (byte) 1);
+        }
+        return instance;
+    }
+    
+    // Si hay una instancia la devuelve, si no crea una con los parámetros indicados.
+    public static OperativeSystem getInstace(int memorySize, byte numberOfCores) {
+        if (instance == null) {
+            instance = new OperativeSystem(memorySize, numberOfCores);
+        }
+        return instance;
+    }
+    
 
     // Este método carga una lista de procesos en memoria.
     // Si la memoria tiene espacio, carga toda la lista de procesos creados, si no, carga un fragmento de ella.

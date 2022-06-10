@@ -16,7 +16,7 @@ public class Program {
         // Creamos 100 procesos en el sistema:
         Utils.AddProcesses(100);
 
-        OperativeSystem operativeSystem = new OperativeSystem(4096, (byte)1);
+        OperativeSystem operativeSystem = OperativeSystem.getInstance();
         operativeSystem.LoadProcess();
         System.out.println(operativeSystem.Memory.viewMemory());
     }
