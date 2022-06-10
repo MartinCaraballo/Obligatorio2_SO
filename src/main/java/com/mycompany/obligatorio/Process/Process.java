@@ -56,6 +56,11 @@ public class Process implements IProcess
     public float getTotalExecutionTime() {
         return this.TotalExecutionTime;
     }
+    
+    //Modifica la variable TotalExecutionTime 
+    public void setTotalExecutionTime(float time){
+        this.TotalExecutionTime -= time;
+    }
 
     // Retorna el tiempo en el que el proceso hace una entrada / salida.
     public float getTimeBetweenIO() {
@@ -73,5 +78,10 @@ public class Process implements IProcess
             return true;
         }
         return false;
+    }
+    
+    //Modifica la variable hasCPU
+    public void setHasCPU(boolean bool){
+        this.hasCPU = bool;
     }
 }

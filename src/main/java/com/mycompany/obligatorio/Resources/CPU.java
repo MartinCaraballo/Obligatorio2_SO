@@ -5,10 +5,14 @@
 package com.mycompany.obligatorio.Resources;
 
 import com.mycompany.obligatorio.Process.*;
+import java.util.*;
 
 public class CPU 
 {
     private byte Cores;
+    
+    //Lista de procesos en ejecución
+    private static List<IProcess> executingProcessList = new ArrayList<>();
 
     private CPU(byte cores) 
     {
@@ -18,6 +22,10 @@ public class CPU
     public boolean Execute(IProcess processToExecute, byte coresToUse)
     {
         return true;
+    }
+    
+    public List<IProcess> getExecutingProcessList(){
+        return this.executingProcessList;
     }
     
 }

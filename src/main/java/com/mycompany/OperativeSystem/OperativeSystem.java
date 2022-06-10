@@ -9,16 +9,20 @@ import com.mycompany.obligatorio.Resources.*;
 
 public class OperativeSystem
 {
-
-    public Memory Memory;
+    
+    int counter = 0;
+    public static Memory Memory;
     public CPU CPU;
     
     private static OperativeSystem instance;
+    public Scheduller scheduller;
+
 
     private OperativeSystem(int memorySize, byte numberOfCores)
     {
         this.Memory = new Memory(memorySize);
         // this.CPU = new CPU(numberOfCores);
+        this.scheduller = new Scheduller();
     }
     
     // Si hay una instancia la devuelve, si no crea una instancia de sistema operativo con una memoria y numeros de cores default. A modos de que el programa pueda funcionar.

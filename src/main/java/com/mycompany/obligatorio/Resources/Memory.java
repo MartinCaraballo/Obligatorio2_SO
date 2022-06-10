@@ -20,12 +20,16 @@ public class Memory
         this.ActualMemorySize = size;
     }
 
+    public ArrayList<IProcess> getReadyProcess(){
+        return this.readyProcess;
+    }
+
     public void addProcessToReadyProcessList(IProcess process) {
         this.readyProcess.add(process);
         this.decreaseActualMemorySize(process.getProcessSize());
     }
 
-    public void removeProcessOfReadyProcessList(IProcess process) {
+    public void removeProcessFromReadyProcessList(IProcess process) {
         this.readyProcess.remove(process);
         this.increaseActualMemorySize(process.getProcessSize());
     }
@@ -53,8 +57,8 @@ public class Memory
         return memoryUsage; 
     }
     
-    public List<IProcess> getAllProcessInMemory() {
-        List<IProcess> allProcessInMemory = new ArrayList<>();
+    public ArrayList<IProcess> getAllProcessInMemory() {
+        ArrayList<IProcess> allProcessInMemory = new ArrayList<>();
 
         // Recorremos la lista de los procesos listos.
         for (IProcess process : this.readyProcess) {
