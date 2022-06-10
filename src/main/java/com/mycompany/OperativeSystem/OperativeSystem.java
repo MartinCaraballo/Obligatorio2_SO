@@ -28,7 +28,7 @@ public class OperativeSystem
     // Si hay una instancia la devuelve, si no crea una instancia de sistema operativo con una memoria y numeros de cores default. A modos de que el programa pueda funcionar.
     public static OperativeSystem getInstance() {
         if (instance == null) {
-            instance = new OperativeSystem(2048, (byte) 1);
+            instance = new OperativeSystem(2048, (byte)1);
         }
         return instance;
     }
@@ -62,8 +62,13 @@ public class OperativeSystem
     
     //Representa la carga de los procesos creados.
     public void Load(IProcess process) {
-        ProcessControlBlock processPCB = process.getProcessPCB();
-        processPCB.changeProcessState(ProcessControlBlock.State.READY);
-        this.Memory.addProcessToReadyProcessList(process);
+        if (process.getProcessSize() <= Memory.spaceFree()) {
+            ProcessControlBlock processPCB = process.getProcessPCB();
+            processPCB.changeProcessState(ProcessControlBlock.State.READY);
+            this.Memory.addProcessToReadyProcessList(process);
+        }
+        else {
+            ProcessManager.addProcessToProcessList(process);
+        }
     }
 }

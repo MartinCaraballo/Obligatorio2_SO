@@ -63,8 +63,7 @@ public class Scheduller {
     public void unBlock(IProcess process) {
         for (IProcess blockedProcess : ProcessManager.getBlockedProcessList()){
             if (blockedProcess.equals(process)){
-                process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
-                ProcessManager.removeBlockedProcessList(process);                
+                ProcessManager.removeBlockedProcessList(process);
             }
         }
     }

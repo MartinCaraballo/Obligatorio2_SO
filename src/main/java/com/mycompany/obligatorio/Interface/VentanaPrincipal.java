@@ -304,7 +304,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addComponent(LoadManyProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(ReturnSetup, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,10 +353,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String value = ProcessTable.getModel().getValueAt(row, 0).toString();
         IProcess processToUnblock = ProcessManager.getProcessById(value);
         if (processToUnblock.getProcessPCB().getProcessState() == ProcessControlBlock.State.BLOCKED || processToUnblock.getProcessPCB().getProcessState() == ProcessControlBlock.State.BLOCKEDBYUSER) {
-            OperativeSystem.getInstance().scheduller.unBlock(processToUnblock);
+            ProcessManager.removeBlockedProcessList(processToUnblock);
             VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
         }
-        
     }//GEN-LAST:event_UnblockProcessActionPerformed
 
     public void DisplayProcess(List<IProcess> readyProcess) {
