@@ -28,6 +28,14 @@ public class Memory
         this.readyProcess.add(process);
         this.decreaseActualMemorySize(process.getProcessSize());
     }
+    
+    public void blockReadyProcess(IProcess process) {
+        this.readyProcess.remove(process);
+    }
+    
+    public void unblockProcess(IProcess process) {
+        this.readyProcess.add(process);
+    }
 
     public void removeProcessFromReadyProcessList(IProcess process) {
         this.readyProcess.remove(process);

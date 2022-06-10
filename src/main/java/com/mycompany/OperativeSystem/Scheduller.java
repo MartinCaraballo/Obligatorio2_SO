@@ -24,7 +24,7 @@ public class Scheduller {
     }
 
     //Bloquea el proceso pasado como parámetro. Este sería bloqueado por una esperta de E/S
-    public void block(IProcess process) {
+    public void blockProcessInExecution(IProcess process) {
         ProcessControlBlock processPCB = process.getProcessPCB();
         for (IProcess executingProcess : OperativeSystem.getInstance().CPU.getExecutingProcessList()) {
             if (process.equals(executingProcess)){
@@ -36,8 +36,18 @@ public class Scheduller {
         }
     }
     
+    public void blockByUserProcessInMemory(IProcess processToBlock) {
+        ProcessControlBlock processPCB = processToBlock.getProcessPCB();
+        for (IProcess process : OperativeSystem.getInstance().Memory.getAllProcessInMemory()) {
+            if (process.equals(processToBlock)) {
+                processPCB.changeProcessState(ProcessControlBlock.State.BLOCKEDBYUSER);
+                ProcessManager.addBlockedProcessList(process);
+            }
+        }
+    }
+    
     //Bloquea el proceso pasado como parámetro. Este es bloqueado por el usuario
-    public void blockByUser(IProcess process) {
+    public void blockByUserProcessInExecution(IProcess process) {
         ProcessControlBlock processPCB = process.getProcessPCB();
         for (IProcess executingProcess : OperativeSystem.getInstance().CPU.getExecutingProcessList()) {
             if (process.equals(executingProcess)){
@@ -50,13 +60,11 @@ public class Scheduller {
     }
     
     //Se desbloquea el proceso pasado como parámetro. Esto ocurre cuando la E/S por la que estaba esperando ocurre
-    public void unBlock(IProcess process){
-        ProcessControlBlock processPCB = process.getProcessPCB();
+    public void unBlock(IProcess process) {
         for (IProcess blockedProcess : ProcessManager.getBlockedProcessList()){
-            if (process.equals(blockedProcess)){
-                processPCB.changeProcessState(ProcessControlBlock.State.READY);
-                ProcessManager.removeBlockedProcessList(process);
-                OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);                
+            if (blockedProcess.equals(process)){
+                process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
+                ProcessManager.removeBlockedProcessList(process);                
             }
         }
     }

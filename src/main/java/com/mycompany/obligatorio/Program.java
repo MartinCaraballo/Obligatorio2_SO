@@ -25,7 +25,6 @@ public class Program {
         //Ventana
         VentanaPrincipal ventana = VentanaPrincipal.getInstance();
         ventana.setVisible(true);
-        ArrayList<IProcess> arr = os.Memory.getAllProcessInMemory();
-        ventana.DisplayProcess(arr);
+        ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
     }
 }

@@ -14,12 +14,10 @@ public class ProcessManager
     public static List<IProcess> getProcessList() {
         return ProcessManager.processList;
     }
-    public static IProcess getProcessById(int id) {
-        String i = Integer.toString(id);
+    public static IProcess getProcessById(String id) {
         ArrayList<IProcess> arr = OperativeSystem.getInstance().Memory.getAllProcessInMemory();
-        IProcess res;
         for(IProcess x : arr) {
-            if(x.getProcessPCB().getProcessID().equals(i)) {
+            if(x.getProcessPCB().getProcessID().equals(id)) {
                 return x;
             }
         }
@@ -34,11 +32,13 @@ public class ProcessManager
     // Agrega un proceso a la lista con todos los procesos bloqueados del sistema.
     public static void addBlockedProcessList(IProcess process) {
         ProcessManager.blockedProcess.add(process);
+        OperativeSystem.getInstance().Memory.blockReadyProcess(process);
     }
     
-    // Agrega un proceso a la lista con todos los procesos bloqueados del sistema.
+    // Elimina un proceso de la lista de bloqueados. (Desbloquea un proceso).
     public static void removeBlockedProcessList(IProcess process) {
         ProcessManager.blockedProcess.remove(process);
+        OperativeSystem.getInstance().Memory.unblockProcess(process);
     }
 
     // Método para calcular la memoria necesaria para cargar toda la lista de procesos creados en memoria.

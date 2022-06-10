@@ -10,11 +10,19 @@ package com.mycompany.obligatorio.Interface;
  */
 public class LoadManyProcess extends javax.swing.JFrame {
 
+    public static LoadManyProcess instance;
     /**
      * Creates new form LoadManyProcess
      */
     public LoadManyProcess() {
         initComponents();
+    }
+    
+    public static LoadManyProcess getInstance() {
+        if (instance == null) {
+            instance = new LoadManyProcess();
+        }
+        return instance;
     }
 
     /**
