@@ -57,6 +57,10 @@ public class ProcessControlBlock
     public void decreaseProcessPriority() {
         this.Priority -= 1;
     }
+    
+    public void changeProcessPriority(byte value) {
+        this.Priority = value;
+    }
 
     public byte getProcessPriority() {
         return this.Priority;
