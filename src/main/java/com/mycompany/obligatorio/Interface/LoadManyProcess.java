@@ -4,10 +4,10 @@
  */
 package com.mycompany.obligatorio.Interface;
 
-/**
- *
- * @author TomasUcu
- */
+import com.mycompany.OperativeSystem.OperativeSystem;
+import com.mycompany.obligatorio.Utils;
+import java.awt.Color;
+
 public class LoadManyProcess extends javax.swing.JFrame {
 
     public static LoadManyProcess instance;
@@ -16,6 +16,7 @@ public class LoadManyProcess extends javax.swing.JFrame {
      */
     public LoadManyProcess() {
         initComponents();
+        this.getContentPane().setBackground(new Color(55,63,71));
     }
     
     public static LoadManyProcess getInstance() {
@@ -38,22 +39,45 @@ public class LoadManyProcess extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        numberOfProcessToCreateInput = new javax.swing.JTextField();
         Save = new javax.swing.JButton();
         Close = new javax.swing.JButton();
 
         jLabel2.setText("Name");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(55, 63, 71));
+        setResizable(false);
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Load Many Process");
 
+        jLabel3.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Number");
 
-        Save.setText("Save");
+        numberOfProcessToCreateInput.setBackground(new java.awt.Color(0, 51, 64));
+        numberOfProcessToCreateInput.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        numberOfProcessToCreateInput.setForeground(new java.awt.Color(255, 255, 255));
+        numberOfProcessToCreateInput.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
 
+        Save.setBackground(new java.awt.Color(0, 51, 64));
+        Save.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        Save.setForeground(new java.awt.Color(255, 255, 255));
+        Save.setText("Save");
+        Save.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
+        Save.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SaveMouseClicked(evt);
+            }
+        });
+
+        Close.setBackground(new java.awt.Color(0, 51, 64));
+        Close.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        Close.setForeground(new java.awt.Color(255, 255, 255));
         Close.setText("Close");
+        Close.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
         Close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CloseActionPerformed(evt);
@@ -75,11 +99,11 @@ public class LoadManyProcess extends javax.swing.JFrame {
                             .addGap(31, 31, 31)
                             .addComponent(jLabel6))
                         .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
+                            .addGap(18, 18, 18)
                             .addComponent(jLabel3)
-                            .addGap(30, 30, 30)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(17, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addComponent(numberOfProcessToCreateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,7 +113,7 @@ public class LoadManyProcess extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(numberOfProcessToCreateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Close, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -103,6 +127,14 @@ public class LoadManyProcess extends javax.swing.JFrame {
     private void CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_CloseActionPerformed
+
+    private void SaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveMouseClicked
+        int value = Integer.valueOf(numberOfProcessToCreateInput.getText());
+        Utils.AddProcesses(value);
+        OperativeSystem.getInstance().LoadProcess();
+        this.setVisible(false);
+        VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+    }//GEN-LAST:event_SaveMouseClicked
 
     /**
      * @param args the command line arguments
@@ -146,6 +178,6 @@ public class LoadManyProcess extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField numberOfProcessToCreateInput;
     // End of variables declaration//GEN-END:variables
 }

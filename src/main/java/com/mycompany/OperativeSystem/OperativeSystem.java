@@ -34,7 +34,7 @@ public class OperativeSystem
     }
     
     // Si hay una instancia la devuelve, si no crea una con los parámetros indicados.
-    public static OperativeSystem getInstace(int memorySize, byte numberOfCores) {
+    public static OperativeSystem getInstance(int memorySize, byte numberOfCores) {
         if (instance == null) {
             instance = new OperativeSystem(memorySize, numberOfCores);
         }

@@ -6,9 +6,12 @@ package com.mycompany.obligatorio.Interface;
 
 import com.mycompany.OperativeSystem.OperativeSystem;
 import com.mycompany.obligatorio.Process.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.*;
+import javax.swing.*;
 
 
 public class VentanaPrincipal extends javax.swing.JFrame {
@@ -19,6 +22,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     public VentanaPrincipal() {
         initComponents();
+        this.getContentPane().setBackground(new Color(55,63,71));
+        ProcessTable.getTableHeader().setOpaque(true);
+        ProcessTable.getTableHeader().setBackground(new Color(0,51,64));
+        ProcessTable.getTableHeader().setForeground(Color.WHITE);
+        ProcessTable.getTableHeader().setBorder(BorderFactory.createLineBorder(new Color(0,51,64)));
+        ProcessTable.getTableHeader().setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+        jScrollPane2.getVerticalScrollBar().setBackground(new Color(55,63,71));
+        
     }
     
     public static VentanaPrincipal getInstance() {
@@ -48,19 +59,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ProcessTable = new javax.swing.JTable();
         MemoryUsageBar = new javax.swing.JProgressBar();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        CpuUsageBar = new javax.swing.JProgressBar();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListProcessInExecution = new javax.swing.JList<>();
         UnblockProcess = new javax.swing.JButton();
+        modifyPriority = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
 
         jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(55, 63, 71));
+        setForeground(new java.awt.Color(51, 255, 0));
+        setResizable(false);
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                formPropertyChange(evt);
+            }
+        });
 
+        ReturnSetup.setBackground(new java.awt.Color(0, 51, 64));
+        ReturnSetup.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        ReturnSetup.setForeground(new java.awt.Color(255, 255, 255));
         ReturnSetup.setText("Return Setup");
         ReturnSetup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,6 +89,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        AddProcess.setBackground(new java.awt.Color(0, 51, 64));
+        AddProcess.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        AddProcess.setForeground(new java.awt.Color(255, 255, 255));
         AddProcess.setText("Add Process");
         AddProcess.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -80,6 +104,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        BlockProcess.setBackground(new java.awt.Color(0, 51, 64));
+        BlockProcess.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        BlockProcess.setForeground(new java.awt.Color(255, 255, 255));
         BlockProcess.setText("Block Process");
         BlockProcess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +114,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        LoadManyProcess.setBackground(new java.awt.Color(0, 51, 64));
+        LoadManyProcess.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        LoadManyProcess.setForeground(new java.awt.Color(255, 255, 255));
         LoadManyProcess.setText("Load Many Process");
         LoadManyProcess.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -99,6 +129,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setBackground(new java.awt.Color(0, 51, 64));
+        jScrollPane2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
+        jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setOpaque(false);
+
+        ProcessTable.setBackground(new java.awt.Color(55, 63, 71));
+        ProcessTable.setFont(new java.awt.Font("Segoe UI Light", 0, 15)); // NOI18N
+        ProcessTable.setForeground(new java.awt.Color(255, 255, 255));
         ProcessTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -214,16 +252,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        ProcessTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ProcessTable.setFillsViewportHeight(true);
+        ProcessTable.setGridColor(new java.awt.Color(55, 63, 71));
+        ProcessTable.setSelectionBackground(new java.awt.Color(0, 51, 64));
+        ProcessTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setViewportView(ProcessTable);
 
+        MemoryUsageBar.setBackground(new java.awt.Color(55, 63, 71));
+        MemoryUsageBar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        MemoryUsageBar.setForeground(new java.awt.Color(0, 255, 0));
+        MemoryUsageBar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
+        MemoryUsageBar.setOpaque(true);
+        MemoryUsageBar.setStringPainted(true);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Memory Usage");
 
-        jLabel2.setText("CPU Usage");
-
-        jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Process in execution");
+        jLabel3.setText("Process in execution:");
 
+        ListProcessInExecution.setBackground(new java.awt.Color(55, 63, 71));
+        ListProcessInExecution.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        ListProcessInExecution.setForeground(new java.awt.Color(255, 255, 255));
         ListProcessInExecution.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -231,10 +285,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(ListProcessInExecution);
 
+        UnblockProcess.setBackground(new java.awt.Color(0, 51, 64));
+        UnblockProcess.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        UnblockProcess.setForeground(new java.awt.Color(255, 255, 255));
         UnblockProcess.setText("Unblock Process");
         UnblockProcess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UnblockProcessActionPerformed(evt);
+            }
+        });
+
+        modifyPriority.setBackground(new java.awt.Color(0, 51, 64));
+        modifyPriority.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        modifyPriority.setForeground(new java.awt.Color(255, 255, 255));
+        modifyPriority.setText("Modify Priority");
+        modifyPriority.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyPriorityActionPerformed(evt);
             }
         });
 
@@ -246,34 +313,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(CpuUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(jLabel1)))
+                        .addGap(259, 259, 259)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ReturnSetup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(LoadManyProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                                    .addComponent(BlockProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(AddProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(UnblockProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 39, Short.MAX_VALUE))
+                                .addComponent(jScrollPane1)
+                                .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 60, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(BlockProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(AddProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(UnblockProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(LoadManyProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ReturnSetup, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(modifyPriority, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(63, 63, 63))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1)
-                .addGap(136, 136, 136)
-                .addComponent(jLabel2)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,20 +346,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CpuUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(47, 47, 47))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGap(22, 22, 22)
                         .addComponent(AddProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BlockProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,12 +361,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(LoadManyProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(modifyPriority, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(ReturnSetup, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(122, 122, 122))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -358,6 +418,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_UnblockProcessActionPerformed
 
+    private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formPropertyChange
+
+    private void modifyPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyPriorityActionPerformed
+        int row = ProcessTable.getSelectedRow();
+        String value = ProcessTable.getModel().getValueAt(row, 0).toString();
+        IProcess processToModifyPriority = ProcessManager.getProcessById(value);     
+        System.out.println(value);
+    }//GEN-LAST:event_modifyPriorityActionPerformed
+
+    public void DisplayProgressBar(int value) {
+        MemoryUsageBar.setValue(value);
+    }
+    
     public void DisplayProcess(List<IProcess> readyProcess) {
         Object[][] data = new Object[readyProcess.size()][5];
 
@@ -377,6 +452,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 new String[]{
                     "ID", "Name", "Size", "State", "Path"
                 }));
+        DisplayProgressBar((int)Math.round(OperativeSystem.getInstance().Memory.memoryUsage()));
     }
 
     /**
@@ -417,7 +493,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddProcess;
     private javax.swing.JButton BlockProcess;
-    private javax.swing.JProgressBar CpuUsageBar;
     private javax.swing.JList<String> ListProcessInExecution;
     private javax.swing.JButton LoadManyProcess;
     private javax.swing.JProgressBar MemoryUsageBar;
@@ -425,12 +500,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton ReturnSetup;
     private javax.swing.JButton UnblockProcess;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JButton modifyPriority;
     // End of variables declaration//GEN-END:variables
+
 }
