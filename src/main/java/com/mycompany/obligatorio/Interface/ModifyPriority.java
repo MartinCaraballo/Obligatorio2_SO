@@ -6,6 +6,7 @@ package com.mycompany.obligatorio.Interface;
 import com.mycompany.OperativeSystem.*;
 import com.mycompany.obligatorio.Process.*;
 import java.awt.Color;
+import javax.swing.*;
 
 public class ModifyPriority extends javax.swing.JFrame {
 
@@ -140,12 +141,22 @@ public class ModifyPriority extends javax.swing.JFrame {
     }//GEN-LAST:event_modifyPriorityValueActionPerformed
 
     private void SaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveMouseClicked
-        int value = Integer.valueOf(modifyPriorityValue.getText());
-        if (value > 0 && value < 100 && processToModify != null) {
-            processToModify.getProcessPCB().changeProcessPriority((byte)value);
+        try {
+            int value = Integer.valueOf(modifyPriorityValue.getText());
+            if (value > 0 && value < 100 && processToModify != null) {
+                processToModify.getProcessPCB().changeProcessPriority((byte)value);
+                this.setVisible(false);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Se debe ingresar un valor entre 1 y 99");
+            }
         }
-        this.setVisible(false);
-        VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        catch (Exception NumberFormatException) {
+            JOptionPane.showMessageDialog(this, "Se debe ingresar un valor entre 1 y 99");
+        }
+        finally {
+            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        }
     }//GEN-LAST:event_SaveMouseClicked
 
     private void CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseActionPerformed

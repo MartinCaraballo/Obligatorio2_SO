@@ -375,11 +375,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_ReturnSetupActionPerformed
 
     private void BlockProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockProcessActionPerformed
-        int row = ProcessTable.getSelectedRow();
-        String value = ProcessTable.getModel().getValueAt(row, 0).toString();
-        IProcess processToBlock = ProcessManager.getProcessById(value);
-        OperativeSystem.getInstance().scheduller.blockByUserProcessInMemory(processToBlock);
-        VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        try {
+            int row = ProcessTable.getSelectedRow();
+            String value = ProcessTable.getModel().getValueAt(row, 0).toString();
+            IProcess processToBlock = ProcessManager.getProcessById(value);
+            OperativeSystem.getInstance().scheduller.blockByUserProcessInMemory(processToBlock);
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Deben de existir procesos y tener uno seleccionado para poder bloquearlo.");
+        }
+        finally {
+            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        }        
     }//GEN-LAST:event_BlockProcessActionPerformed
 
     private void LoadManyProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadManyProcessActionPerformed
@@ -406,13 +413,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_LoadManyProcessMouseClicked
 
     private void UnblockProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UnblockProcessActionPerformed
-        int row = ProcessTable.getSelectedRow();
-        String value = ProcessTable.getModel().getValueAt(row, 0).toString();
-        IProcess processToUnblock = ProcessManager.getProcessById(value);
-        if (processToUnblock.getProcessPCB().getProcessState() == ProcessControlBlock.State.BLOCKED || processToUnblock.getProcessPCB().getProcessState() == ProcessControlBlock.State.BLOCKEDBYUSER) {
-            ProcessManager.removeBlockedProcessList(processToUnblock);
+        try {
+            int row = ProcessTable.getSelectedRow();
+            String value = ProcessTable.getModel().getValueAt(row, 0).toString();
+            IProcess processToUnblock = ProcessManager.getProcessById(value);
+            if (processToUnblock.getProcessPCB().getProcessState() == ProcessControlBlock.State.BLOCKED || processToUnblock.getProcessPCB().getProcessState() == ProcessControlBlock.State.BLOCKEDBYUSER) {
+                ProcessManager.removeBlockedProcessList(processToUnblock);
+            }
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Deben de existir procesos y tener uno seleccionado para poder desbloquearlo.");
+        }
+        finally {
             VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
         }
+        
     }//GEN-LAST:event_UnblockProcessActionPerformed
 
     private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange

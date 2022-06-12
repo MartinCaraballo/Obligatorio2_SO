@@ -7,11 +7,9 @@ package com.mycompany.obligatorio.Interface;
 import com.mycompany.OperativeSystem.OperativeSystem;
 import com.mycompany.obligatorio.Process.Process;
 import java.awt.Color;
+import javax.swing.*;
 
-/**
- *
- * @author TomasUcu
- */
+
 public class AddProcess extends javax.swing.JFrame {
 
     /**
@@ -212,16 +210,22 @@ public class AddProcess extends javax.swing.JFrame {
     }//GEN-LAST:event_CloseActionPerformed
 
     private void SaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveMouseClicked
-        String path = fieldPath.getText();
-        String name = fieldName.getText();
-        float size = Float.valueOf(fieldSize.getText());
-        float execTime = Float.valueOf(fieldExecTime.getText());
-        float timeBetweenIO = Float.valueOf(fieldTimeBetweenIO.getText());
-        float TimeToWaitIO = Float.valueOf(fieldTimeToWaitIO.getText());
-        
-        OperativeSystem.getInstance().Load(new Process(path, name, size, execTime, timeBetweenIO, TimeToWaitIO));
-        this.setVisible(false);
-        VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        try {
+            String path = fieldPath.getText();
+            String name = fieldName.getText();
+            float size = Float.valueOf(fieldSize.getText());
+            float execTime = Float.valueOf(fieldExecTime.getText());
+            float timeBetweenIO = Float.valueOf(fieldTimeBetweenIO.getText());
+            float TimeToWaitIO = Float.valueOf(fieldTimeToWaitIO.getText());
+            OperativeSystem.getInstance().Load(new Process(path, name, size, execTime, timeBetweenIO, TimeToWaitIO));
+            this.setVisible(false);
+        }
+        catch (Exception NumberFormatException) {
+            JOptionPane.showMessageDialog(this, "Para los campos:\n\tExecution Time, Time between I/O, Time to wait I/O y Size\nSe deben ingresar números enteros o flotantes con punto(Ejemplo 13.7).");
+        }
+        finally {
+            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        }        
     }//GEN-LAST:event_SaveMouseClicked
 
     /**
