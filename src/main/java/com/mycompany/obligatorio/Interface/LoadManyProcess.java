@@ -141,8 +141,7 @@ public class LoadManyProcess extends javax.swing.JFrame {
         }
         finally {
             VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
-        }
-            
+        }      
     }//GEN-LAST:event_SaveMouseClicked
 
     /**

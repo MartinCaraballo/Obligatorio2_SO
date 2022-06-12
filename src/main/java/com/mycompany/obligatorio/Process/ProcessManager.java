@@ -67,24 +67,20 @@ public class ProcessManager
         List<Integer> indexOfProcessToRemove = new ArrayList<>();
         float remaining = freeSpaceInMemory;
         
-        while (remaining >= 0) {
-            for (IProcess process : ProcessManager.processList) {
-                if (process.getProcessSize() <= remaining) {
-                    newReadyProcessList.add(process);
-                    remaining -= process.getProcessSize();
-                    int index = ProcessManager.processList.indexOf(process);
-                    indexOfProcessToRemove.add(index);
-                }
+        for (IProcess process : ProcessManager.processList) {
+            if (process.getProcessSize() <= remaining) {
+                newReadyProcessList.add(process);
+                remaining -= process.getProcessSize();
+                int index = ProcessManager.processList.indexOf(process);
+                indexOfProcessToRemove.add(index);
             }
         }
-            // Borro los elementos que cargo en memoria; dicho de otra forma, quedan los que no pude cargar.
-            for (int index : indexOfProcessToRemove) {
+        
+        // Borro los elementos que cargo en memoria; dicho de otra forma, quedan los que no pude cargar.
+        for (int index : indexOfProcessToRemove) {
                 IProcess process = processList.get(index);
-                if (process != null) {
                     processList.remove(process);
-                }
-            }
-            
+            }           
         return newReadyProcessList;
     }
 
