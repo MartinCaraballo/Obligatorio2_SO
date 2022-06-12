@@ -428,7 +428,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             new ModifyPriority().setVisible(true);
         }
         catch (Exception e) {
-            System.out.println("");
+            JOptionPane.showMessageDialog(this, "Deben de existir procesos y tener uno seleccionado para poder modificar su prioridad.");
         }
         
     }//GEN-LAST:event_modifyPriorityActionPerformed

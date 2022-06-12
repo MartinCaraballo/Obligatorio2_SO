@@ -49,6 +49,7 @@ public class OperativeSystem
            for (IProcess process : ProcessManager.getProcessList()) {
                this.Load(process);
            }
+           ProcessManager.emptyProcessList();
            return true; 
         }
         else if (!this.Memory.memoryHasSpaceToLoadAll()) {

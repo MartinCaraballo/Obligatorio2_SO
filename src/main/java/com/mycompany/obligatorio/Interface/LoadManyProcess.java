@@ -7,6 +7,7 @@ package com.mycompany.obligatorio.Interface;
 import com.mycompany.OperativeSystem.OperativeSystem;
 import com.mycompany.obligatorio.Utils;
 import java.awt.Color;
+import javax.swing.*;
 
 public class LoadManyProcess extends javax.swing.JFrame {
 
@@ -129,11 +130,19 @@ public class LoadManyProcess extends javax.swing.JFrame {
     }//GEN-LAST:event_CloseActionPerformed
 
     private void SaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveMouseClicked
-        int value = Integer.valueOf(numberOfProcessToCreateInput.getText());
-        Utils.AddProcesses(value);
-        OperativeSystem.getInstance().LoadProcess();
-        this.setVisible(false);
-        VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        try {
+            int value = Integer.valueOf(numberOfProcessToCreateInput.getText());
+            Utils.AddProcesses(value);
+            OperativeSystem.getInstance().LoadProcess();
+            this.setVisible(false);
+        }
+        catch (Exception NumberFormatException) {
+            JOptionPane.showMessageDialog(this, "Se debe ingresar un número entero.");
+        }
+        finally {
+            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        }
+            
     }//GEN-LAST:event_SaveMouseClicked
 
     /**

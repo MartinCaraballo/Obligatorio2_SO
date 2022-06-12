@@ -19,6 +19,10 @@ public class ProcessManager
         ProcessManager.processList.add(process);
     }
     
+    public static void emptyProcessList() {
+        ProcessManager.processList.clear();
+    }
+    
     public static IProcess getProcessById(String id) {
         ArrayList<IProcess> arr = OperativeSystem.getInstance().Memory.getAllProcessInMemory();
         for(IProcess x : arr) {
@@ -72,13 +76,15 @@ public class ProcessManager
                     indexOfProcessToRemove.add(index);
                 }
             }
-            return newReadyProcessList;
-
-            // Borro los elementos que cargo en memoria; dicho de otra forma, quedan los que no pude cargar.
-            /* for (Integer index : indexOfProcessToRemove) {
-                ProcessManager.processList.remove(index);
-            } */
         }
+            // Borro los elementos que cargo en memoria; dicho de otra forma, quedan los que no pude cargar.
+            for (int index : indexOfProcessToRemove) {
+                IProcess process = processList.get(index);
+                if (process != null) {
+                    processList.remove(process);
+                }
+            }
+            
         return newReadyProcessList;
     }
 

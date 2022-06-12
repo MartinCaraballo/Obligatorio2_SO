@@ -18,13 +18,13 @@ public class Program {
         // Creamos 100 procesos en el sistema:
         //Utils.AddProcesses(100);
         
-        OperativeSystem os = OperativeSystem.getInstance(4096, (byte) 1);
+        OperativeSystem os = OperativeSystem.getInstance(512, (byte) 1);
         //os.LoadProcess();
         //System.out.println(os.Memory.viewMemory());
         
         //Ventana
         VentanaPrincipal ventana = VentanaPrincipal.getInstance();
         ventana.setVisible(true);
-        ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
+        //ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
     }
 }

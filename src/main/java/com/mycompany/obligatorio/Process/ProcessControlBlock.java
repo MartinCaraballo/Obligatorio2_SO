@@ -1,9 +1,10 @@
 package com.mycompany.obligatorio.Process;
+import java.util.*;
 
 public class ProcessControlBlock
 {
     // Variable estática para generar el ID de un proceso.
-    public static int staticProcessID = 1;
+    private static int staticProcessID = 1;
 
     // ID de un proceso.
     private String ProcessID;
@@ -30,7 +31,7 @@ public class ProcessControlBlock
         this.ProcessState = ProcessControlBlock.State.CREATED;
         this.Priority = 1;
 
-        ProcessControlBlock.staticProcessID += 1;
+        ProcessControlBlock.staticProcessID++;
     }
     
     // Cambia el state de un proceso, dado el nuevo state como objeto State.
@@ -64,6 +65,10 @@ public class ProcessControlBlock
 
     public byte getProcessPriority() {
         return this.Priority;
+    }
+    
+    public static int getStaticID() {
+        return ProcessControlBlock.staticProcessID;
     }
     
 }
