@@ -3,6 +3,7 @@ package com.mycompany.OperativeSystem;
 import com.mycompany.obligatorio.Resources.CPU;
 import java.util.*;
 import com.mycompany.obligatorio.*;
+import com.mycompany.obligatorio.Interface.VentanaPrincipal;
 import com.mycompany.obligatorio.Process.*;
 import com.mycompany.obligatorio.Process.Process;
 import com.mycompany.obligatorio.Resources.*;
@@ -42,6 +43,9 @@ public class OperativeSystem
     }
         
     public static void resetSystem() {
+        instance.Memory.eraseAllFromMemory();
+        VentanaPrincipal.getInstance().DisplayProcess(instance.Memory.getAllProcessInMemory());
+        VentanaPrincipal.getInstance().DisplayProgressBar(0);
         instance = null;
     }
 

@@ -72,6 +72,10 @@ public class Memory
         return allProcessInMemory;
     }
     
+    public void eraseAllFromMemory() {
+        readyProcess.clear();
+    }
+    
     // Método para imprimir una tabla con lo que contiene la memoria.
     public String viewMemory() {
         StringBuilder message = new StringBuilder("Los procesos que actualmente se encuentran en memoria son:\n");
