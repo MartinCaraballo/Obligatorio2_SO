@@ -15,8 +15,10 @@ public class Program {
 
     public static void main(String[] args) {
         
+      //OperativeSystem.getInstance(2048, (byte)1);
       //Ventana
-        new Setup().setVisible(true);
+      Setup setup = new Setup();
+      setup.setVisible(true);
       //VentanaPrincipal ventana = VentanaPrincipal.getInstance();
       //ventana.setVisible(true);
       //ventana.DisplayProcess(os.Memory.getAllProcessInMemory());

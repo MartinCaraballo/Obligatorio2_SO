@@ -21,7 +21,7 @@ public class OperativeSystem
     private OperativeSystem(int memorySize, byte numberOfCores)
     {
         this.Memory = new Memory(memorySize);
-        // this.CPU = new CPU(numberOfCores);
+        //this.CPU = new CPU(numberOfCores);
         this.scheduller = new Scheduller();
     }
     

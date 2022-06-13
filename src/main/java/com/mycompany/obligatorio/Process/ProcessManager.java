@@ -99,7 +99,7 @@ public class ProcessManager
 
     public static IProcess createInstanceOfProcess(String path, String processName, float size, float executionTime, float timeBetweenIO, float timeConsumedIO) {
         IProcess process = new Process(path, processName, size, executionTime, timeBetweenIO, timeConsumedIO);
-        ProcessManager.processList.add(process);
+        processList.add(process);
         return process;
     }
 

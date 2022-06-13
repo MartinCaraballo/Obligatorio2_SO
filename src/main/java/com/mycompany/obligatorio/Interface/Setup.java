@@ -176,13 +176,21 @@ public class Setup extends javax.swing.JFrame {
             byte cores = (byte) Integer.parseInt(fieldCantProcesadores.getText());
             float cantTimeout = Float.valueOf(fieldCantTiempoProcesosEnCpu.getText());
             int cantMemoriaSys = Integer.valueOf(fieldCantRAM.getText());
-            if (cores < 1 || cores > 8 || (cores % 2) != 0) {
+            boolean areAllFine = false;
+            if (cores >= 1 || cores <= 8 || ((cores % 2) == 0) || cores == 1) {
+                areAllFine = true;
+            } 
+            else if(cantMemoriaSys % 2 != 0) {
+                areAllFine = false;
+                JOptionPane.showMessageDialog(this, "La cantidad de memoria debe ser entero par.");
+            } 
+            else {
                 JOptionPane.showMessageDialog(this, "La cantidad de procesadores debe ser entero par entre 1 y 8.");
-            } else if(cantMemoriaSys % 2 != 0) {
-                JOptionPane.showMessageDialog(this, "La cantdad de memoria debe ser entero par.");
-            } else {
+            }
+            if (areAllFine) {
                 OperativeSystem.getInstance(cantMemoriaSys, cores);
-                new VentanaPrincipal().setVisible(true);
+                this.setVisible(false);
+                VentanaPrincipal.getInstance().setVisible(true);
             }
         } catch (NumberFormatException err) {
             JOptionPane.showMessageDialog(this, "Los campos deben ser numericos.");
