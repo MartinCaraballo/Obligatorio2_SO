@@ -21,6 +21,7 @@ public class ReanudeProcess extends javax.swing.JFrame {
     public ReanudeProcess() {
         initComponents();
         this.getContentPane().setBackground(new Color(55,63,71));
+        this.getRootPane().setBorder(BorderFactory.createLineBorder(new Color(0,51,64), 3, true));
         suspendedProcessTable.getTableHeader().setOpaque(true);
         suspendedProcessTable.getTableHeader().setBackground(new Color(0,51,64));
         suspendedProcessTable.getTableHeader().setForeground(Color.WHITE);
