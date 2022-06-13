@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class ModifyPriority extends javax.swing.JFrame {
 
-    public static IProcess processToModify;
+    private static IProcess processToModify;
     
     public ModifyPriority() {
         initComponents();
