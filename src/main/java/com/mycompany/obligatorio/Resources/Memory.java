@@ -29,14 +29,6 @@ public class Memory
         this.decreaseActualMemorySize(process.getProcessSize());
     }
     
-    public void blockReadyProcess(IProcess process) {
-        this.readyProcess.remove(process);
-    }
-    
-    public void unblockProcess(IProcess process) {
-        this.readyProcess.add(process);
-    }
-
     public void removeProcessFromReadyProcessList(IProcess process) {
         this.readyProcess.remove(process);
         this.increaseActualMemorySize(process.getProcessSize());
@@ -47,11 +39,11 @@ public class Memory
         return (this.ActualMemorySize >= ProcessManager.getProcessCreatedListSize());
     }
 
-    public void decreaseActualMemorySize(float value) {
+    private void decreaseActualMemorySize(float value) {
         this.ActualMemorySize -= value;
     }
 
-    public void increaseActualMemorySize(float value) {
+    private void increaseActualMemorySize(float value) {
         this.ActualMemorySize += value;
     }
 

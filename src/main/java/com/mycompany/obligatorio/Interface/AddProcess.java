@@ -18,6 +18,7 @@ public class AddProcess extends javax.swing.JFrame {
     public AddProcess() {
         initComponents();
         this.getContentPane().setBackground(new Color(55,63,71));
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -46,6 +47,8 @@ public class AddProcess extends javax.swing.JFrame {
         size = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
+        setUndecorated(true);
 
         jLabel1.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
