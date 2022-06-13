@@ -18,6 +18,7 @@ public class LoadManyProcess extends javax.swing.JFrame {
     public LoadManyProcess() {
         initComponents();
         this.getContentPane().setBackground(new Color(55,63,71));
+        this.getRootPane().setBorder(BorderFactory.createLineBorder(new Color(0,51,64), 3, true));
         setLocationRelativeTo(null);
     }
     

@@ -15,6 +15,7 @@ public class ModifyPriority extends javax.swing.JFrame {
     public ModifyPriority() {
         initComponents();
         this.getContentPane().setBackground(new Color(55,63,71));
+        this.getRootPane().setBorder(BorderFactory.createLineBorder(new Color(0,51,64), 3, true));
         setLocationRelativeTo(null);
     }
     
