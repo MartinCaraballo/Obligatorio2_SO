@@ -46,9 +46,22 @@ public class ProcessManager
     
     // Elimina un proceso de la lista de bloqueados. (Desbloquea un proceso).
     public static void removeBlockedProcessList(IProcess process) {
-        ProcessManager.blockedProcess.remove(process);
+        blockedProcess.remove(process);
         OperativeSystem.getInstance().Memory.unblockProcess(process);
         process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
+    }
+    
+    public static void finalizeProcess(IProcess process) {
+        if (blockedProcess.contains(process)) {
+            blockedProcess.remove(process);
+            OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+        }
+        if (processList.contains(process)) {
+            processList.remove(process);
+        }
+        if (OperativeSystem.getInstance().Memory.getReadyProcess().contains(process)) {
+            OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+        }
     }
 
     // Método para calcular la memoria necesaria para cargar toda la lista de procesos creados en memoria.
