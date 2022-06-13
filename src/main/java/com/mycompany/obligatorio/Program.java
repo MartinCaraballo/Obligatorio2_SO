@@ -15,16 +15,10 @@ public class Program {
 
     public static void main(String[] args) {
         
-        // Creamos 100 procesos en el sistema:
-        //Utils.AddProcesses(100);
-        
-        OperativeSystem os = OperativeSystem.getInstance(512, (byte) 1);
-        //os.LoadProcess();
-        //System.out.println(os.Memory.viewMemory());
-        
-        //Ventana
-        VentanaPrincipal ventana = VentanaPrincipal.getInstance();
-        ventana.setVisible(true);
-        //ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
+      //Ventana
+        new Setup().setVisible(true);
+      //VentanaPrincipal ventana = VentanaPrincipal.getInstance();
+      //ventana.setVisible(true);
+      //ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
     }
 }

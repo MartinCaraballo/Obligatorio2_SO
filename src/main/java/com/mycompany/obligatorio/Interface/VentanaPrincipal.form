@@ -139,6 +139,7 @@
         <Property name="text" type="java.lang.String" value="Return Setup"/>
       </Properties>
       <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ReturnSetupMouseClicked"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ReturnSetupActionPerformed"/>
       </Events>
     </Component>
@@ -311,7 +312,6 @@
             </LineBorder>
           </Border>
         </Property>
-        <Property name="opaque" type="boolean" value="true"/>
         <Property name="stringPainted" type="boolean" value="true"/>
       </Properties>
     </Component>

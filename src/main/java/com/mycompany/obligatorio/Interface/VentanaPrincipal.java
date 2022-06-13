@@ -85,6 +85,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ReturnSetup.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         ReturnSetup.setForeground(new java.awt.Color(255, 255, 255));
         ReturnSetup.setText("Return Setup");
+        ReturnSetup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReturnSetupMouseClicked(evt);
+            }
+        });
         ReturnSetup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReturnSetupActionPerformed(evt);
@@ -265,7 +270,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         MemoryUsageBar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         MemoryUsageBar.setForeground(new java.awt.Color(0, 255, 0));
         MemoryUsageBar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
-        MemoryUsageBar.setOpaque(true);
         MemoryUsageBar.setStringPainted(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
@@ -477,6 +481,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
         }
     }//GEN-LAST:event_FinalizeProcessActionPerformed
+
+    private void ReturnSetupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReturnSetupMouseClicked
+        OperativeSystem.getInstance().resetSystem();
+        this.setVisible(false);
+        new Setup().setVisible(true);
+    }//GEN-LAST:event_ReturnSetupMouseClicked
+
 
     public void DisplayProgressBar(int value) {
         MemoryUsageBar.setValue(value);

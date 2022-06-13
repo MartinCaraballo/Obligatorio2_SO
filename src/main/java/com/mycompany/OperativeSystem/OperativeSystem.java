@@ -40,7 +40,10 @@ public class OperativeSystem
         }
         return instance;
     }
-    
+        
+    public static void resetSystem() {
+        instance = null;
+    }
 
     // Este método carga una lista de procesos en memoria.
     // Si la memoria tiene espacio, carga toda la lista de procesos creados, si no, carga un fragmento de ella.
