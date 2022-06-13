@@ -12,28 +12,7 @@ import java.util.Random;
 
 public class Program {
 
-    public static void main(String[] args) {
-        // System.out.println("Hello World!");
-
-        Memory memory = new Memory(1024);
-        
-        // for para crear procesos.
-        for (int i = 0; i < 4; i++) {
-            String stringI = Integer.toString(i);
-            Random random = new Random();
-            // Genera un número aleatorio entre 0 y el valor de esta variable.
-            int randomUpperBound = 15;
-            //IProcess process = ProcessManager.CreateInstanceOfProcess("/home/process" + stringI, "Proceso" + stringI, stringI, 512, random.nextInt(randomUpperBound), random.nextInt(randomUpperBound), random.nextInt(randomUpperBound));
-            //ProcessManager.AddProcessCreatedToList(process);
-        }
-
-        // Imprime si la memoria tiene espacio para cargar todos esos procesos creados.
-        //System.out.println(memory.MemoryHasSpace());
-
-        /* for (IProcess process : ProcessManager.GetProcessList()) {
-            System.out.println(process.GetProcessState());
-        } */
-        
+    public static void main(String[] args) {       
         // Creamos 100 procesos en el sistema:
         Utils.AddProcesses(100);
 
