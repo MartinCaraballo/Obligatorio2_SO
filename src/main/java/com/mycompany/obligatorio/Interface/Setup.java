@@ -4,6 +4,10 @@
  */
 package com.mycompany.obligatorio.Interface;
 
+import com.mycompany.OperativeSystem.OperativeSystem;
+import java.awt.Color;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author TomasUcu
@@ -15,6 +19,7 @@ public class Setup extends javax.swing.JFrame {
      */
     public Setup() {
         initComponents();
+        this.getContentPane().setBackground(new Color(55, 63, 71));
     }
 
     /**
@@ -35,10 +40,10 @@ public class Setup extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        LoadManyProcess = new javax.swing.JButton();
-        fieldName = new javax.swing.JTextField();
-        fieldName2 = new javax.swing.JTextField();
-        fieldName3 = new javax.swing.JTextField();
+        buttonEnter = new javax.swing.JButton();
+        fieldCantProcesadores = new javax.swing.JTextField();
+        fieldCantTiempoProcesosEnCpu = new javax.swing.JTextField();
+        fieldCantRAM = new javax.swing.JTextField();
 
         jLabel4.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -50,6 +55,7 @@ public class Setup extends javax.swing.JFrame {
         fieldName1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -67,35 +73,35 @@ public class Setup extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Cantidad de memoria principal del sistema (RAM)");
 
-        LoadManyProcess.setBackground(new java.awt.Color(0, 51, 64));
-        LoadManyProcess.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        LoadManyProcess.setForeground(new java.awt.Color(255, 255, 255));
-        LoadManyProcess.setText("Enter");
-        LoadManyProcess.addMouseListener(new java.awt.event.MouseAdapter() {
+        buttonEnter.setBackground(new java.awt.Color(0, 51, 64));
+        buttonEnter.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        buttonEnter.setForeground(new java.awt.Color(255, 255, 255));
+        buttonEnter.setText("Enter");
+        buttonEnter.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LoadManyProcessMouseClicked(evt);
+                buttonEnterMouseClicked(evt);
             }
         });
-        LoadManyProcess.addActionListener(new java.awt.event.ActionListener() {
+        buttonEnter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoadManyProcessActionPerformed(evt);
+                buttonEnterActionPerformed(evt);
             }
         });
 
-        fieldName.setBackground(new java.awt.Color(0, 51, 64));
-        fieldName.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        fieldName.setForeground(new java.awt.Color(255, 255, 255));
-        fieldName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
+        fieldCantProcesadores.setBackground(new java.awt.Color(0, 51, 64));
+        fieldCantProcesadores.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        fieldCantProcesadores.setForeground(new java.awt.Color(255, 255, 255));
+        fieldCantProcesadores.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
 
-        fieldName2.setBackground(new java.awt.Color(0, 51, 64));
-        fieldName2.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        fieldName2.setForeground(new java.awt.Color(255, 255, 255));
-        fieldName2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
+        fieldCantTiempoProcesosEnCpu.setBackground(new java.awt.Color(0, 51, 64));
+        fieldCantTiempoProcesosEnCpu.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        fieldCantTiempoProcesosEnCpu.setForeground(new java.awt.Color(255, 255, 255));
+        fieldCantTiempoProcesosEnCpu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
 
-        fieldName3.setBackground(new java.awt.Color(0, 51, 64));
-        fieldName3.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        fieldName3.setForeground(new java.awt.Color(255, 255, 255));
-        fieldName3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
+        fieldCantRAM.setBackground(new java.awt.Color(0, 51, 64));
+        fieldCantRAM.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        fieldCantRAM.setForeground(new java.awt.Color(255, 255, 255));
+        fieldCantRAM.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,8 +114,8 @@ public class Setup extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldName2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
-                            .addComponent(fieldName3, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)))
+                            .addComponent(fieldCantTiempoProcesosEnCpu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                            .addComponent(fieldCantRAM, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1))
@@ -121,14 +127,14 @@ public class Setup extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                            .addComponent(fieldCantProcesadores, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(35, 35, 35))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(215, 215, 215)
-                        .addComponent(LoadManyProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buttonEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(219, 219, 219)
                         .addComponent(jLabel6)))
@@ -141,40 +147,51 @@ public class Setup extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(53, 53, 53)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(fieldCantProcesadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
-                .addComponent(fieldName2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fieldCantTiempoProcesosEnCpu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(fieldName3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(fieldCantRAM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LoadManyProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LoadManyProcessMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadManyProcessMouseClicked
-        new LoadManyProcess().setVisible(true);
-    }//GEN-LAST:event_LoadManyProcessMouseClicked
+    private void buttonEnterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEnterMouseClicked
+        try {
+            byte cores = (byte) Integer.parseInt(fieldCantProcesadores.getText());
+            float cantTimeout = Float.valueOf(fieldCantTiempoProcesosEnCpu.getText());
+            int cantMemoriaSys = Integer.valueOf(fieldCantRAM.getText());
+            if (cores < 1 || cores > 8 || (cores % 2) != 0) {
+                JOptionPane.showMessageDialog(this, "La cantidad de procesadores debe ser entero par entre 1 y 8.");
+            } else if(cantMemoriaSys % 2 != 0) {
+                JOptionPane.showMessageDialog(this, "La cantdad de memoria debe ser entero par.");
+            } else {
+                OperativeSystem.getInstance(cantMemoriaSys, cores);
+                new VentanaPrincipal().setVisible(true);
+            }
+        } catch (NumberFormatException err) {
+            JOptionPane.showMessageDialog(this, "Los campos deben ser numericos.");
+        }
+    }//GEN-LAST:event_buttonEnterMouseClicked
 
-    private void LoadManyProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadManyProcessActionPerformed
+    private void buttonEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEnterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_LoadManyProcessActionPerformed
+    }//GEN-LAST:event_buttonEnterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,11 +229,11 @@ public class Setup extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton LoadManyProcess;
-    private javax.swing.JTextField fieldName;
+    private javax.swing.JButton buttonEnter;
+    private javax.swing.JTextField fieldCantProcesadores;
+    private javax.swing.JTextField fieldCantRAM;
+    private javax.swing.JTextField fieldCantTiempoProcesosEnCpu;
     private javax.swing.JTextField fieldName1;
-    private javax.swing.JTextField fieldName2;
-    private javax.swing.JTextField fieldName3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
