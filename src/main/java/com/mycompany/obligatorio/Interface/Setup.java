@@ -176,24 +176,23 @@ public class Setup extends javax.swing.JFrame {
             byte cores = (byte) Integer.parseInt(fieldCantProcesadores.getText());
             float cantTimeout = Float.valueOf(fieldCantTiempoProcesosEnCpu.getText());
             int cantMemoriaSys = Integer.valueOf(fieldCantRAM.getText());
-            boolean areAllFine = false;
-            if (cores >= 1 || cores <= 8 || ((cores % 2) == 0) || cores == 1) {
-                areAllFine = true;
-            } 
-            else if(cantMemoriaSys % 2 != 0) {
-                areAllFine = false;
-                JOptionPane.showMessageDialog(this, "La cantidad de memoria debe ser entero par.");
-            } 
-            else {
-                JOptionPane.showMessageDialog(this, "La cantidad de procesadores debe ser entero par entre 1 y 8.");
+            
+            if (cores < 1 || cores > 8) {
+                throw new Exception();
             }
-            if (areAllFine) {
-                OperativeSystem.getInstance(cantMemoriaSys, cores);
-                this.setVisible(false);
-                VentanaPrincipal.getInstance().setVisible(true);
+            else if (cores % 2 != 0 && cores != 1) {
+                throw new Exception();
             }
-        } catch (NumberFormatException err) {
-            JOptionPane.showMessageDialog(this, "Los campos deben ser numericos.");
+            else if (cantMemoriaSys < 0 || cantMemoriaSys % 2 != 0) {
+                throw new Exception();
+            }
+            
+            OperativeSystem.getInstance(cantMemoriaSys, cores);
+            this.setVisible(false);
+            VentanaPrincipal.getInstance().setVisible(true);
+        } 
+        catch (Exception NumberFormatException) {
+            JOptionPane.showMessageDialog(this, "Para los campos:\nCantidad de procesadores: los valores deben ser enteros pares entre 1 y 8.\nCantidad de tiempo que los procesos se encuentran en CPU: Los valores deben ser numéricos (si son flotantes con punto)\nCantidad de memoria principal del sistema: los valores deben ser enteros positivos pares.");
         }
     }//GEN-LAST:event_buttonEnterMouseClicked
 

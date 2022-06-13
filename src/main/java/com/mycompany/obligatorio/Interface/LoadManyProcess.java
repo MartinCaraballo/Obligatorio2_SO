@@ -132,6 +132,9 @@ public class LoadManyProcess extends javax.swing.JFrame {
     private void SaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveMouseClicked
         try {
             int value = Integer.valueOf(numberOfProcessToCreateInput.getText());
+            if (value < 1) { 
+                throw new Exception();
+            }
             Utils.AddProcesses(value);
             OperativeSystem.getInstance().LoadProcess();
             this.setVisible(false);
