@@ -15,6 +15,7 @@ public class ModifyPriority extends javax.swing.JFrame {
     public ModifyPriority() {
         initComponents();
         this.getContentPane().setBackground(new Color(55,63,71));
+        setLocationRelativeTo(null);
     }
     
     public static void setProcessToModify(IProcess process) {
@@ -46,6 +47,7 @@ public class ModifyPriority extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         setResizable(false);
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N

@@ -20,6 +20,7 @@ public class Setup extends javax.swing.JFrame {
     public Setup() {
         initComponents();
         this.getContentPane().setBackground(new Color(55, 63, 71));
+        setLocationRelativeTo(null);
     }
 
     /**

@@ -18,6 +18,7 @@ public class LoadManyProcess extends javax.swing.JFrame {
     public LoadManyProcess() {
         initComponents();
         this.getContentPane().setBackground(new Color(55,63,71));
+        setLocationRelativeTo(null);
     }
     
     public static LoadManyProcess getInstance() {
@@ -48,6 +49,7 @@ public class LoadManyProcess extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(55, 63, 71));
+        setUndecorated(true);
         setResizable(false);
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N

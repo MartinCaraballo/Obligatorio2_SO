@@ -15,7 +15,7 @@ public class ProcessControlBlock
     // Enumeracion que indica los estados de un proceso, estos pueden ser LISTO, BLOQUEADO, SUSPENDIDO, EN EJECUCION o FINALIZADO.
     public enum State
     {
-        CREATED, READY, BLOCKED, BLOCKEDBYUSER, SUSPENDED, EXECUTING, FINALIZED;
+        CREATED, READY, BLOCKED, SUSPENDED, EXECUTING, FINALIZED;
     }
 
     // Estado del proceso.

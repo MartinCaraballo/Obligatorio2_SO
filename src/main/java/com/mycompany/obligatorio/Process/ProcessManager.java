@@ -10,17 +10,20 @@ public class ProcessManager
     //Lista de procesos bloqueados
     private static List<IProcess> blockedProcess = new ArrayList<>();
     
+    // Lista de procesos suspendidos
+    private static List<IProcess> suspendedProcess = new ArrayList<>();
+    
     // Devuelve la lista con todos los procesos en el sistema.
     public static List<IProcess> getProcessList() {
-        return ProcessManager.processList;
+        return processList;
     }
     
     public static void addProcessToProcessList(IProcess process) {
-        ProcessManager.processList.add(process);
+        processList.add(process);
     }
     
     public static void emptyProcessList() {
-        ProcessManager.processList.clear();
+        processList.clear();
     }
     
     public static IProcess getProcessById(String id) {
@@ -32,23 +35,47 @@ public class ProcessManager
         }
         return null;
     }
+    
+    public static IProcess getProcessSuspendedById(String id) {
+        for (IProcess process : suspendedProcess) {
+            if (process.getProcessPCB().getProcessID().equals(id)) {
+                return process;
+            }
+        }
+        return null;
+    }
 
     // Devuelve la lista con todos los procesos bloqueados del sistema.
     public static List<IProcess> getBlockedProcessList() {
-        return ProcessManager.blockedProcess;
+        return blockedProcess;
+    }
+    
+    // Devuelve la lista con todos los procesos suspendidos del sistema.
+    public static List<IProcess> getSuspendedProcessList() {
+        return suspendedProcess;
     }
     
     // Agrega un proceso a la lista con todos los procesos bloqueados del sistema.
     public static void addBlockedProcessList(IProcess process) {
-        ProcessManager.blockedProcess.add(process);
-        OperativeSystem.getInstance().Memory.blockReadyProcess(process);
+        blockedProcess.add(process);
     }
     
     // Elimina un proceso de la lista de bloqueados. (Desbloquea un proceso).
     public static void removeBlockedProcessList(IProcess process) {
         blockedProcess.remove(process);
-        OperativeSystem.getInstance().Memory.unblockProcess(process);
         process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
+    }
+    
+    public static void suspendProcess(IProcess process) {
+        suspendedProcess.add(process);
+        process.getProcessPCB().changeProcessState(ProcessControlBlock.State.SUSPENDED);
+        OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+    }
+    
+    public static void reanudeProcess(IProcess process) {
+        suspendedProcess.remove(process);
+        process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
+        OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
     }
     
     public static void finalizeProcess(IProcess process) {

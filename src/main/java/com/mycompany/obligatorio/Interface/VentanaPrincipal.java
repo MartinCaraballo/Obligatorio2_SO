@@ -30,6 +30,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ProcessTable.getTableHeader().setBorder(BorderFactory.createLineBorder(new Color(0,51,64)));
         ProcessTable.getTableHeader().setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
         jScrollPane2.getVerticalScrollBar().setBackground(new Color(55,63,71));
+        setLocationRelativeTo(null);
         
     }
     
@@ -52,9 +53,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jProgressBar1 = new javax.swing.JProgressBar();
         jToggleButton1 = new javax.swing.JToggleButton();
+        processTablePopupMenu = new javax.swing.JPopupMenu();
+        processTableMenuSuspendProcess = new javax.swing.JMenuItem();
+        processTableMenuReanudeProcess = new javax.swing.JMenuItem();
+        processTableMenuFinalizeProcess = new javax.swing.JMenuItem();
+        processTableMenuModifyProcessPriority = new javax.swing.JMenuItem();
         ReturnSetup = new javax.swing.JButton();
         AddProcess = new javax.swing.JButton();
-        BlockProcess = new javax.swing.JButton();
         LoadManyProcess = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         ProcessTable = new javax.swing.JTable();
@@ -63,13 +68,46 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListProcessInExecution = new javax.swing.JList<>();
-        UnblockProcess = new javax.swing.JButton();
-        modifyPriority = new javax.swing.JButton();
-        FinalizeProcess = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
 
         jToggleButton1.setText("jToggleButton1");
+
+        processTablePopupMenu.setBackground(new java.awt.Color(55, 63, 71));
+        processTablePopupMenu.setForeground(new java.awt.Color(255, 255, 255));
+        processTablePopupMenu.setOpaque(false);
+
+        processTableMenuSuspendProcess.setText("Suspend");
+        processTableMenuSuspendProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                processTableMenuSuspendProcessActionPerformed(evt);
+            }
+        });
+        processTablePopupMenu.add(processTableMenuSuspendProcess);
+
+        processTableMenuReanudeProcess.setText("Reanude");
+        processTableMenuReanudeProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                processTableMenuReanudeProcessActionPerformed(evt);
+            }
+        });
+        processTablePopupMenu.add(processTableMenuReanudeProcess);
+
+        processTableMenuFinalizeProcess.setText("Finalize");
+        processTableMenuFinalizeProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                processTableMenuFinalizeProcessActionPerformed(evt);
+            }
+        });
+        processTablePopupMenu.add(processTableMenuFinalizeProcess);
+
+        processTableMenuModifyProcessPriority.setText("Modify priority");
+        processTableMenuModifyProcessPriority.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                processTableMenuModifyProcessPriorityActionPerformed(evt);
+            }
+        });
+        processTablePopupMenu.add(processTableMenuModifyProcessPriority);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(55, 63, 71));
@@ -108,16 +146,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         AddProcess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddProcessActionPerformed(evt);
-            }
-        });
-
-        BlockProcess.setBackground(new java.awt.Color(0, 51, 64));
-        BlockProcess.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        BlockProcess.setForeground(new java.awt.Color(255, 255, 255));
-        BlockProcess.setText("Block Process");
-        BlockProcess.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BlockProcessActionPerformed(evt);
             }
         });
 
@@ -259,6 +287,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        ProcessTable.setComponentPopupMenu(processTablePopupMenu);
         ProcessTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ProcessTable.setFillsViewportHeight(true);
         ProcessTable.setGridColor(new java.awt.Color(55, 63, 71));
@@ -276,7 +305,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Memory Usage");
 
-        jLabel3.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Process in execution:");
@@ -291,36 +320,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(ListProcessInExecution);
 
-        UnblockProcess.setBackground(new java.awt.Color(0, 51, 64));
-        UnblockProcess.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        UnblockProcess.setForeground(new java.awt.Color(255, 255, 255));
-        UnblockProcess.setText("Unblock Process");
-        UnblockProcess.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UnblockProcessActionPerformed(evt);
-            }
-        });
-
-        modifyPriority.setBackground(new java.awt.Color(0, 51, 64));
-        modifyPriority.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        modifyPriority.setForeground(new java.awt.Color(255, 255, 255));
-        modifyPriority.setText("Modify Priority");
-        modifyPriority.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modifyPriorityActionPerformed(evt);
-            }
-        });
-
-        FinalizeProcess.setBackground(new java.awt.Color(0, 51, 64));
-        FinalizeProcess.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        FinalizeProcess.setForeground(new java.awt.Color(255, 255, 255));
-        FinalizeProcess.setText("Finalize Process");
-        FinalizeProcess.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FinalizeProcessActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -328,61 +327,44 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(UnblockProcess, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(AddProcess, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(modifyPriority, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ReturnSetup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(LoadManyProcess, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(FinalizeProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BlockProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(56, 56, 56)
                                 .addComponent(jLabel1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(24, 24, 24))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AddProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LoadManyProcess)
+                            .addComponent(ReturnSetup, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(24, Short.MAX_VALUE)
+                        .addGap(56, 56, 56)
                         .addComponent(AddProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BlockProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(UnblockProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(FinalizeProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                         .addComponent(LoadManyProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(modifyPriority, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(63, 63, 63)
                         .addComponent(ReturnSetup, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
+                        .addGap(64, 64, 64)
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
@@ -392,32 +374,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void ReturnSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnSetupActionPerformed
     }//GEN-LAST:event_ReturnSetupActionPerformed
 
-    private void BlockProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockProcessActionPerformed
-        try {
-            int row = ProcessTable.getSelectedRow();
-            String value = ProcessTable.getModel().getValueAt(row, 0).toString();
-            IProcess processToBlock = ProcessManager.getProcessById(value);
-            OperativeSystem.getInstance().scheduller.blockByUserProcessInMemory(processToBlock);
-        }
-        catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Deben de existir procesos y tener uno seleccionado para poder bloquearlo.");
-        }
-        finally {
-            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
-        }        
-    }//GEN-LAST:event_BlockProcessActionPerformed
-
     private void LoadManyProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadManyProcessActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LoadManyProcessActionPerformed
 
     private void AddProcessMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddProcessMouseClicked
         AddProcess addP = new AddProcess();
-        addP.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {   
-            }
-        });
         addP.setVisible(true);
     }//GEN-LAST:event_AddProcessMouseClicked
 
@@ -429,43 +391,49 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         new LoadManyProcess().setVisible(true);
     }//GEN-LAST:event_LoadManyProcessMouseClicked
 
-    private void UnblockProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UnblockProcessActionPerformed
-        try {
-            int row = ProcessTable.getSelectedRow();
-            String value = ProcessTable.getModel().getValueAt(row, 0).toString();
-            IProcess processToUnblock = ProcessManager.getProcessById(value);
-            if (processToUnblock.getProcessPCB().getProcessState() == ProcessControlBlock.State.BLOCKED || processToUnblock.getProcessPCB().getProcessState() == ProcessControlBlock.State.BLOCKEDBYUSER) {
-                ProcessManager.removeBlockedProcessList(processToUnblock);
-            }
-        }
-        catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Deben de existir procesos y tener uno seleccionado para poder desbloquearlo.");
-        }
-        finally {
-            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
-        }
-        
-    }//GEN-LAST:event_UnblockProcessActionPerformed
-
     private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_formPropertyChange
 
-    private void modifyPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyPriorityActionPerformed
+    private void ReturnSetupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReturnSetupMouseClicked
+        OperativeSystem.getInstance().resetSystem();
+        this.setVisible(false);
+        new Setup().setVisible(true);
+    }//GEN-LAST:event_ReturnSetupMouseClicked
+
+    private void processTableMenuSuspendProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processTableMenuSuspendProcessActionPerformed
         try {
             int row = ProcessTable.getSelectedRow();
             String value = ProcessTable.getModel().getValueAt(row, 0).toString();
-            IProcess processToModifyPriority = ProcessManager.getProcessById(value);
-            ModifyPriority.setProcessToModify(processToModifyPriority);
-            new ModifyPriority().setVisible(true);
+            IProcess processToSuspend = ProcessManager.getProcessById(value);
+            ProcessManager.suspendProcess(processToSuspend);
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Deben de existir procesos y tener uno seleccionado para poder modificar su prioridad.");
+            JOptionPane.showMessageDialog(this, "Deben de existir procesos y tener uno seleccionado para poder suspenderlo.");
         }
-        
-    }//GEN-LAST:event_modifyPriorityActionPerformed
+        finally {
+            this.DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        }
+    }//GEN-LAST:event_processTableMenuSuspendProcessActionPerformed
 
-    private void FinalizeProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FinalizeProcessActionPerformed
+    private void processTableMenuReanudeProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processTableMenuReanudeProcessActionPerformed
+        try {
+            if (ProcessManager.getSuspendedProcessList().size() < 1) {
+                throw new Exception();
+            }
+            ReanudeProcess ventana = ReanudeProcess.getInstance();
+            ventana.DisplaySuspendedProcess(ProcessManager.getSuspendedProcessList());
+            ventana.setVisible(true);
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No encontré procesos suspendidos para reanudar.");
+        }
+        finally {
+            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        }
+    }//GEN-LAST:event_processTableMenuReanudeProcessActionPerformed
+
+    private void processTableMenuFinalizeProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processTableMenuFinalizeProcessActionPerformed
         try {
             int row = ProcessTable.getSelectedRow();
             String value = ProcessTable.getModel().getValueAt(row, 0).toString();
@@ -480,13 +448,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         finally {
             VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
         }
-    }//GEN-LAST:event_FinalizeProcessActionPerformed
+    }//GEN-LAST:event_processTableMenuFinalizeProcessActionPerformed
 
-    private void ReturnSetupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReturnSetupMouseClicked
-        OperativeSystem.getInstance().resetSystem();
-        this.setVisible(false);
-        new Setup().setVisible(true);
-    }//GEN-LAST:event_ReturnSetupMouseClicked
+    private void processTableMenuModifyProcessPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processTableMenuModifyProcessPriorityActionPerformed
+        try {
+            int row = ProcessTable.getSelectedRow();
+            String value = ProcessTable.getModel().getValueAt(row, 0).toString();
+            IProcess processToModifyPriority = ProcessManager.getProcessById(value);
+            ModifyPriority.setProcessToModify(processToModifyPriority);
+            new ModifyPriority().setVisible(true);
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Deben de existir procesos y tener uno seleccionado para poder modificar su prioridad.");
+        }
+    }//GEN-LAST:event_processTableMenuModifyProcessPriorityActionPerformed
 
 
     public void DisplayProgressBar(int value) {
@@ -553,14 +528,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddProcess;
-    private javax.swing.JButton BlockProcess;
-    private javax.swing.JButton FinalizeProcess;
     private javax.swing.JList<String> ListProcessInExecution;
     private javax.swing.JButton LoadManyProcess;
     private javax.swing.JProgressBar MemoryUsageBar;
     private javax.swing.JTable ProcessTable;
     private javax.swing.JButton ReturnSetup;
-    private javax.swing.JButton UnblockProcess;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JProgressBar jProgressBar1;
@@ -568,7 +540,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JButton modifyPriority;
+    private javax.swing.JMenuItem processTableMenuFinalizeProcess;
+    private javax.swing.JMenuItem processTableMenuModifyProcessPriority;
+    private javax.swing.JMenuItem processTableMenuReanudeProcess;
+    private javax.swing.JMenuItem processTableMenuSuspendProcess;
+    private javax.swing.JPopupMenu processTablePopupMenu;
     // End of variables declaration//GEN-END:variables
 
 }

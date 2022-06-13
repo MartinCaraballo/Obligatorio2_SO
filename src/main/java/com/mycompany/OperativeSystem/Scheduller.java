@@ -36,29 +36,6 @@ public class Scheduller {
         }
     }
     
-    public void blockByUserProcessInMemory(IProcess processToBlock) {
-        ProcessControlBlock processPCB = processToBlock.getProcessPCB();
-        for (IProcess process : OperativeSystem.getInstance().Memory.getAllProcessInMemory()) {
-            if (process.equals(processToBlock)) {
-                processPCB.changeProcessState(ProcessControlBlock.State.BLOCKEDBYUSER);
-                ProcessManager.addBlockedProcessList(process);
-            }
-        }
-    }
-    
-    //Bloquea el proceso pasado como parámetro. Este es bloqueado por el usuario
-    public void blockByUserProcessInExecution(IProcess process) {
-        ProcessControlBlock processPCB = process.getProcessPCB();
-        for (IProcess executingProcess : OperativeSystem.getInstance().CPU.getExecutingProcessList()) {
-            if (process.equals(executingProcess)){
-                processPCB.changeProcessState(ProcessControlBlock.State.BLOCKEDBYUSER);
-                process.setHasCPU(false);
-                OperativeSystem.getInstance().CPU.getExecutingProcessList().remove(process);
-                ProcessManager.addBlockedProcessList(process);
-            }
-        }
-    }
-    
     //Se desbloquea el proceso pasado como parámetro. Esto ocurre cuando la E/S por la que estaba esperando ocurre
     public void unBlock(IProcess process) {
         for (IProcess blockedProcess : ProcessManager.getBlockedProcessList()){
