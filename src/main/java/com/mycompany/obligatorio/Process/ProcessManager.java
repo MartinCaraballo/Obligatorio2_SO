@@ -104,22 +104,20 @@ public class ProcessManager
     // se necesita cargar una parte de ellos, por lo tanto este método abarca ese problema.
     public static List<IProcess> getFragmentofProcessList(float freeSpaceInMemory) {
         List<IProcess> newReadyProcessList = new ArrayList<>();
-        List<Integer> indexOfProcessToRemove = new ArrayList<>();
+        List<IProcess> processToRemove = new ArrayList<>();
         float remaining = freeSpaceInMemory;
         
         for (IProcess process : ProcessManager.processList) {
             if (process.getProcessSize() <= remaining) {
                 newReadyProcessList.add(process);
                 remaining -= process.getProcessSize();
-                int index = ProcessManager.processList.indexOf(process);
-                indexOfProcessToRemove.add(index);
+                processToRemove.add(process);
             }
         }
         
         // Borro los elementos que cargo en memoria; dicho de otra forma, quedan los que no pude cargar.
-        for (int index : indexOfProcessToRemove) {
-                IProcess process = processList.get(index);
-                    processList.remove(process);
+        for (IProcess process : processToRemove) {
+                processList.remove(process);
             }           
         return newReadyProcessList;
     }
