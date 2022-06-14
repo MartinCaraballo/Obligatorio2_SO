@@ -17,7 +17,7 @@ public class CPU {
     private static List<IProcess> executingProcessList = new ArrayList<>();
 
     public CPU(byte cores, float timeout) {
-        this.Cores = new HashMap<Integer, IProcess>((int)cores);
+        this.Cores = new HashMap<Integer, IProcess>((int) cores);
         this.timeout = timeout;
     }
 
@@ -35,12 +35,12 @@ public class CPU {
                     this.Cores.put(core, processExecuting);
                 }
             }
-            OperativeSystem.getInstance().scheduller.timeOut(timeout);
+            /*
             for (Map.Entry<Integer, IProcess> entry : Cores.entrySet()) {
                 Integer core = entry.getKey();
                 IProcess process = entry.getValue();
                 this.Cores.replace(core, null);
-            }
+            }*/
         }
     }
 

@@ -16,6 +16,7 @@ public class Program {
       //Ventana
       Setup setup = new Setup();
       setup.setVisible(true);
+      
       //VentanaPrincipal ventana = VentanaPrincipal.getInstance();
       //ventana.setVisible(true);
       //ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
