@@ -4,20 +4,20 @@
  */
 
 package com.mycompany.obligatorio;
-import com.mycompany.OperativeSystem.*;
-import com.mycompany.obligatorio.Process.*;
-import com.mycompany.obligatorio.Resources.*;
-import java.util.Random;
+import com.mycompany.obligatorio.Interface.*;
+
 
 
 public class Program {
 
-    public static void main(String[] args) {       
-        // Creamos 100 procesos en el sistema:
-        Utils.AddProcesses(100);
-
-        OperativeSystem operativeSystem = new OperativeSystem(4096, (byte)1);
-        operativeSystem.LoadProcess();
-        System.out.println(operativeSystem.Memory.viewMemory());
+    public static void main(String[] args) {
+        
+      //OperativeSystem.getInstance(2048, (byte)1);
+      //Ventana
+      Setup setup = new Setup();
+      setup.setVisible(true);
+      //VentanaPrincipal ventana = VentanaPrincipal.getInstance();
+      //ventana.setVisible(true);
+      //ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
     }
 }

@@ -1,4 +1,5 @@
 package com.mycompany.obligatorio.Process;
+import com.mycompany.OperativeSystem.OperativeSystem;
 import java.util.*;
 
 public class ProcessManager
@@ -9,24 +10,85 @@ public class ProcessManager
     //Lista de procesos bloqueados
     private static List<IProcess> blockedProcess = new ArrayList<>();
     
+    // Lista de procesos suspendidos
+    private static List<IProcess> suspendedProcess = new ArrayList<>();
+    
     // Devuelve la lista con todos los procesos en el sistema.
     public static List<IProcess> getProcessList() {
-        return ProcessManager.processList;
+        return processList;
+    }
+    
+    public static void addProcessToProcessList(IProcess process) {
+        processList.add(process);
+    }
+    
+    public static void emptyProcessList() {
+        processList.clear();
+    }
+    
+    public static IProcess getProcessById(String id) {
+        ArrayList<IProcess> arr = OperativeSystem.getInstance().Memory.getAllProcessInMemory();
+        for(IProcess x : arr) {
+            if(x.getProcessPCB().getProcessID().equals(id)) {
+                return x;
+            }
+        }
+        return null;
+    }
+    
+    public static IProcess getProcessSuspendedById(String id) {
+        for (IProcess process : suspendedProcess) {
+            if (process.getProcessPCB().getProcessID().equals(id)) {
+                return process;
+            }
+        }
+        return null;
     }
 
     // Devuelve la lista con todos los procesos bloqueados del sistema.
     public static List<IProcess> getBlockedProcessList() {
-        return ProcessManager.blockedProcess;
+        return blockedProcess;
+    }
+    
+    // Devuelve la lista con todos los procesos suspendidos del sistema.
+    public static List<IProcess> getSuspendedProcessList() {
+        return suspendedProcess;
     }
     
     // Agrega un proceso a la lista con todos los procesos bloqueados del sistema.
     public static void addBlockedProcessList(IProcess process) {
-        ProcessManager.blockedProcess.add(process);
+        blockedProcess.add(process);
     }
     
-    // Agrega un proceso a la lista con todos los procesos bloqueados del sistema.
+    // Elimina un proceso de la lista de bloqueados. (Desbloquea un proceso).
     public static void removeBlockedProcessList(IProcess process) {
-        ProcessManager.blockedProcess.remove(process);
+        blockedProcess.remove(process);
+        process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
+    }
+    
+    public static void suspendProcess(IProcess process) {
+        suspendedProcess.add(process);
+        process.getProcessPCB().changeProcessState(ProcessControlBlock.State.SUSPENDED);
+        OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+    }
+    
+    public static void reanudeProcess(IProcess process) {
+        suspendedProcess.remove(process);
+        process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
+        OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
+    }
+    
+    public static void finalizeProcess(IProcess process) {
+        if (blockedProcess.contains(process)) {
+            blockedProcess.remove(process);
+            OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+        }
+        if (processList.contains(process)) {
+            processList.remove(process);
+        }
+        if (OperativeSystem.getInstance().Memory.getReadyProcess().contains(process)) {
+            OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+        }
     }
 
     // Método para calcular la memoria necesaria para cargar toda la lista de procesos creados en memoria.
@@ -45,28 +107,26 @@ public class ProcessManager
         List<Integer> indexOfProcessToRemove = new ArrayList<>();
         float remaining = freeSpaceInMemory;
         
-        while (remaining >= 0) {
-            for (IProcess process : ProcessManager.processList) {
-                if (process.getProcessSize() <= remaining) {
-                    newReadyProcessList.add(process);
-                    remaining -= process.getProcessSize();
-                    int index = ProcessManager.processList.indexOf(process);
-                    indexOfProcessToRemove.add(index);
-                }
+        for (IProcess process : ProcessManager.processList) {
+            if (process.getProcessSize() <= remaining) {
+                newReadyProcessList.add(process);
+                remaining -= process.getProcessSize();
+                int index = ProcessManager.processList.indexOf(process);
+                indexOfProcessToRemove.add(index);
             }
-            return newReadyProcessList;
-
-            // Borro los elementos que cargo en memoria; dicho de otra forma, quedan los que no pude cargar.
-            /* for (Integer index : indexOfProcessToRemove) {
-                ProcessManager.processList.remove(index);
-            } */
         }
+        
+        // Borro los elementos que cargo en memoria; dicho de otra forma, quedan los que no pude cargar.
+        for (int index : indexOfProcessToRemove) {
+                IProcess process = processList.get(index);
+                    processList.remove(process);
+            }           
         return newReadyProcessList;
     }
 
     public static IProcess createInstanceOfProcess(String path, String processName, float size, float executionTime, float timeBetweenIO, float timeConsumedIO) {
         IProcess process = new Process(path, processName, size, executionTime, timeBetweenIO, timeConsumedIO);
-        ProcessManager.processList.add(process);
+        processList.add(process);
         return process;
     }
 

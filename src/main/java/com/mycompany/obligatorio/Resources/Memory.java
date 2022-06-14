@@ -28,7 +28,7 @@ public class Memory
         this.readyProcess.add(process);
         this.decreaseActualMemorySize(process.getProcessSize());
     }
-
+    
     public void removeProcessFromReadyProcessList(IProcess process) {
         this.readyProcess.remove(process);
         this.increaseActualMemorySize(process.getProcessSize());
@@ -39,11 +39,11 @@ public class Memory
         return (this.ActualMemorySize >= ProcessManager.getProcessCreatedListSize());
     }
 
-    public void decreaseActualMemorySize(float value) {
+    private void decreaseActualMemorySize(float value) {
         this.ActualMemorySize -= value;
     }
 
-    public void increaseActualMemorySize(float value) {
+    private void increaseActualMemorySize(float value) {
         this.ActualMemorySize += value;
     }
 
@@ -57,8 +57,8 @@ public class Memory
         return memoryUsage; 
     }
     
-    public List<IProcess> getAllProcessInMemory() {
-        List<IProcess> allProcessInMemory = new ArrayList<>();
+    public ArrayList<IProcess> getAllProcessInMemory() {
+        ArrayList<IProcess> allProcessInMemory = new ArrayList<>();
 
         // Recorremos la lista de los procesos listos.
         for (IProcess process : this.readyProcess) {
@@ -70,6 +70,10 @@ public class Memory
             allProcessInMemory.add(blockedProcess);
         }
         return allProcessInMemory;
+    }
+    
+    public void eraseAllFromMemory() {
+        readyProcess.clear();
     }
     
     // Método para imprimir una tabla con lo que contiene la memoria.

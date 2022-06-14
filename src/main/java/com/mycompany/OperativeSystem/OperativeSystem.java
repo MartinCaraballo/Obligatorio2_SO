@@ -1,7 +1,9 @@
 package com.mycompany.OperativeSystem;
 
+import com.mycompany.obligatorio.Resources.CPU;
 import java.util.*;
 import com.mycompany.obligatorio.*;
+import com.mycompany.obligatorio.Interface.VentanaPrincipal;
 import com.mycompany.obligatorio.Process.*;
 import com.mycompany.obligatorio.Process.Process;
 import com.mycompany.obligatorio.Resources.*;
@@ -9,16 +11,42 @@ import com.mycompany.obligatorio.Resources.*;
 public class OperativeSystem
 {
     
-    int counter = 0;
-    public static Memory Memory;
+    private float timeout;
+    public Memory Memory;
     public CPU CPU;
+    
+    private static OperativeSystem instance;
     public Scheduller scheduller;
 
-    public OperativeSystem(int memorySize, byte numberOfCores)
+
+    private OperativeSystem(int memorySize, byte numberOfCores)
     {
         this.Memory = new Memory(memorySize);
-        // this.CPU = new CPU(numberOfCores);
+        this.CPU = new CPU(numberOfCores, timeout);
         this.scheduller = new Scheduller();
+    }
+    
+    // Si hay una instancia la devuelve, si no crea una instancia de sistema operativo con una memoria y numeros de cores default. A modos de que el programa pueda funcionar.
+    public static OperativeSystem getInstance() {
+        if (instance == null) {
+            instance = new OperativeSystem(2048, (byte)1);
+        }
+        return instance;
+    }
+    
+    // Si hay una instancia la devuelve, si no crea una con los parámetros indicados.
+    public static OperativeSystem getInstance(int memorySize, byte numberOfCores) {
+        if (instance == null) {
+            instance = new OperativeSystem(memorySize, numberOfCores);
+        }
+        return instance;
+    }
+        
+    public static void resetSystem() {
+        instance.Memory.eraseAllFromMemory();
+        VentanaPrincipal.getInstance().DisplayProcess(instance.Memory.getAllProcessInMemory());
+        VentanaPrincipal.getInstance().DisplayProgressBar(0);
+        instance = null;
     }
 
     // Este método carga una lista de procesos en memoria.
@@ -28,6 +56,7 @@ public class OperativeSystem
            for (IProcess process : ProcessManager.getProcessList()) {
                this.Load(process);
            }
+           ProcessManager.emptyProcessList();
            return true; 
         }
         else if (!this.Memory.memoryHasSpaceToLoadAll()) {
@@ -41,8 +70,17 @@ public class OperativeSystem
     
     //Representa la carga de los procesos creados.
     public void Load(IProcess process) {
-        ProcessControlBlock processPCB = process.getProcessPCB();
-        processPCB.changeProcessState(ProcessControlBlock.State.READY);
-        this.Memory.addProcessToReadyProcessList(process);
+        if (process.getProcessSize() <= Memory.spaceFree()) {
+            ProcessControlBlock processPCB = process.getProcessPCB();
+            processPCB.changeProcessState(ProcessControlBlock.State.READY);
+            this.Memory.addProcessToReadyProcessList(process);
+        }
+        else {
+            ProcessManager.addProcessToProcessList(process);
+        }
+    }
+    
+    public void setTimeout(float timeout){
+        this.timeout = timeout;
     }
 }
