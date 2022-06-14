@@ -69,7 +69,7 @@ public class ProcessManager
     public static void suspendProcess(IProcess process) {
         suspendedProcess.add(process);
         process.getProcessPCB().changeProcessState(ProcessControlBlock.State.SUSPENDED);
-        OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+        OperativeSystem.getInstance().Memory.removeProcessFromMemory(process);
     }
     
     public static void reanudeProcess(IProcess process) {
@@ -81,13 +81,16 @@ public class ProcessManager
     public static void finalizeProcess(IProcess process) {
         if (blockedProcess.contains(process)) {
             blockedProcess.remove(process);
-            OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+            OperativeSystem.getInstance().Memory.removeProcessFromMemory(process);
         }
         if (processList.contains(process)) {
             processList.remove(process);
         }
         if (OperativeSystem.getInstance().Memory.getReadyProcess().contains(process)) {
-            OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+            OperativeSystem.getInstance().Memory.removeProcessFromMemory(process);
+        }
+        if (suspendedProcess.contains(process)) {
+            suspendedProcess.remove(process);
         }
     }
 

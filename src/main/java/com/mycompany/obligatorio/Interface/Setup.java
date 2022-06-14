@@ -187,13 +187,16 @@ public class Setup extends javax.swing.JFrame {
             else if (cantMemoriaSys < 0 || cantMemoriaSys % 2 != 0) {
                 throw new Exception();
             }
+             else if (cantTimeout <= 0 || cantTimeout > 2){
+                throw new Exception();
+            }
             
-            OperativeSystem.getInstance(cantMemoriaSys, cores);
+            OperativeSystem.getInstance(cantMemoriaSys, cores, cantTimeout);
             this.setVisible(false);
             VentanaPrincipal.getInstance().setVisible(true);
         } 
         catch (Exception NumberFormatException) {
-            JOptionPane.showMessageDialog(this, "Para los campos:\nCantidad de procesadores: los valores deben ser enteros pares entre 1 y 8.\nCantidad de tiempo que los procesos se encuentran en CPU: Los valores deben ser numéricos (si son flotantes con punto)\nCantidad de memoria principal del sistema: los valores deben ser enteros positivos pares.");
+            JOptionPane.showMessageDialog(this, "Para los campos:\nCantidad de procesadores: los valores deben ser enteros pares entre 1 y 8.\nCantidad de tiempo que los procesos se encuentran en CPU: Los valores deben ser numéricos entre 0 y 2 (si son flotantes con punto)\nCantidad de memoria principal del sistema: los valores deben ser enteros positivos pares.");
         }
     }//GEN-LAST:event_buttonEnterMouseClicked
 

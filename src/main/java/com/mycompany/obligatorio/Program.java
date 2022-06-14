@@ -5,11 +5,8 @@
 
 package com.mycompany.obligatorio;
 import com.mycompany.OperativeSystem.*;
-import com.mycompany.obligatorio.Process.IProcess;
 import com.mycompany.obligatorio.Interface.*;
-import java.util.ArrayList;        
-
-
+import com.mycompany.obligatorio.Resources.CPU;
 
 public class Program {
 
@@ -19,6 +16,15 @@ public class Program {
       //Ventana
       Setup setup = new Setup();
       setup.setVisible(true);
+      while (true){
+       // System.out.println("entro");
+
+          System.out.println(OperativeSystem.getInstance().Memory.getAllProcessInMemory().isEmpty());
+        if (!OperativeSystem.getInstance().Memory.getAllProcessInMemory().isEmpty()){
+            OperativeSystem.getInstance().scheduller.dispatch(CPU.freeCPU());
+            System.out.println("cdvfb");
+        }
+      }
       //VentanaPrincipal ventana = VentanaPrincipal.getInstance();
       //ventana.setVisible(true);
       //ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
