@@ -187,7 +187,7 @@ public class Setup extends javax.swing.JFrame {
             else if (cantMemoriaSys < 0 || cantMemoriaSys % 2 != 0) {
                 throw new Exception();
             }
-             else if (cantTimeout <= 0 || cantTimeout > 2){
+             else if (cantTimeout <= 0){
                 throw new Exception();
             }
             

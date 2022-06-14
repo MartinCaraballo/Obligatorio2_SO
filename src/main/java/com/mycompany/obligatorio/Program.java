@@ -10,19 +10,17 @@ import com.mycompany.obligatorio.Resources.CPU;
 
 public class Program {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         
       //OperativeSystem.getInstance(2048, (byte)1);
       //Ventana
       Setup setup = new Setup();
       setup.setVisible(true);
-      while (true){
-       // System.out.println("entro");
-
-          System.out.println(OperativeSystem.getInstance().Memory.getAllProcessInMemory().isEmpty());
-        if (!OperativeSystem.getInstance().Memory.getAllProcessInMemory().isEmpty()){
+      
+      while (true) {
+        if (!OperativeSystem.getInstance().Memory.getAllProcessInMemory().isEmpty()) {
+            System.out.println("xd");
             OperativeSystem.getInstance().scheduller.dispatch(CPU.freeCPU());
-            System.out.println("cdvfb");
         }
       }
       //VentanaPrincipal ventana = VentanaPrincipal.getInstance();

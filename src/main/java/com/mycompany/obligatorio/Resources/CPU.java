@@ -15,28 +15,33 @@ public class CPU {
 
     private float Timeout;
     
+    private String Name;
+    
     public boolean isCPUExecuting;
 
     //Lista de procesos en ejecución
     private static List<IProcess> executingProcessList = new ArrayList<>();
 
-    private CPU(float timeout) {
+    private CPU(String name, float timeout) {
+        this.Name = name;
         this.Timeout = timeout;
         this.isCPUExecuting = false;
     }
 
-    public void Execute(IProcess process) {
+    public void Execute(IProcess process) throws InterruptedException {
         process.getProcessPCB().changeProcessState(ProcessControlBlock.State.EXECUTING);
         executingProcessList.add(process);
         process.setHasCPU(true);
         VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
         if (process.getTotalExecutionTime() <= this.Timeout){
+            Thread.sleep(4000);
             process.getProcessPCB().changeProcessState(ProcessControlBlock.State.FINALIZED);
             executingProcessList.remove(process);
             ProcessManager.finalizeProcess(process);
             VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
         } 
         else if (process.getTotalExecutionTime() > this.Timeout){
+            Thread.sleep(4000);
             executingProcessList.remove(process);
             OperativeSystem.getInstance().scheduller.timeOut(process);            
         }     
@@ -49,12 +54,12 @@ public class CPU {
     
     public static void createInstanceOfCPU(int numberOfCPU, float timeout){
         Cores = new CPU[numberOfCPU];
-        for (int i = 0; i < numberOfCPU; i++){
-            Cores[i] = new CPU(timeout);
+        for (int i = 0; i < numberOfCPU; i++) {
+            Cores[i] = new CPU(("CPU"+i), timeout);
         }
     }
     
-    public static CPU freeCPU(){
+    public static CPU freeCPU() {
         for (CPU cpu : Cores) {
             if (!cpu.isCPUExecuting){
                 return cpu;

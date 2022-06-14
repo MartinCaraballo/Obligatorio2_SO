@@ -15,7 +15,7 @@ public class Scheduller {
     private boolean firstTime = true;
 
     //Despacha el primer proceso de la lista de listos en CPU
-    public void dispatch(CPU cpu) {
+    public void dispatch(CPU cpu) throws InterruptedException {
         if (cpu != null){
             if (!OperativeSystem.getInstance().Memory.getReadyProcess().isEmpty()) {
                 IProcess process = OperativeSystem.getInstance().Memory.getReadyProcess().get(0);
