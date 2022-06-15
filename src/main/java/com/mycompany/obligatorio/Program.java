@@ -4,27 +4,30 @@
  */
 
 package com.mycompany.obligatorio;
-import com.mycompany.OperativeSystem.*;
 import com.mycompany.obligatorio.Interface.*;
-import com.mycompany.obligatorio.Resources.CPU;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 public class Program {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         
-      //OperativeSystem.getInstance(2048, (byte)1);
-      //Ventana
-      Setup setup = new Setup();
-      setup.setVisible(true);
-      
-      while (true) {
-        if (!OperativeSystem.getInstance().Memory.getAllProcessInMemory().isEmpty()) {
-            System.out.println("xd");
-            OperativeSystem.getInstance().scheduller.dispatch(CPU.freeCPU());
+    //Ventana
+    Setup setup = new Setup();
+    setup.setVisible(true);
+    
+    Timer timer = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            VentanaPrincipal.getInstance().DisplayProcess();
         }
-      }
-      //VentanaPrincipal ventana = VentanaPrincipal.getInstance();
-      //ventana.setVisible(true);
-      //ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
+    });
+    timer.start();
+    
+    
+    //VentanaPrincipal ventana = VentanaPrincipal.getInstance();
+    //ventana.setVisible(true);
+    //ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
     }
 }

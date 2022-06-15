@@ -51,7 +51,6 @@ public class ReanudeProcess extends javax.swing.JFrame {
             data[c][4] = process.getProcessPCB().getProcessPath();
             c++;
         }
-        
         suspendedProcessTable.setModel(new javax.swing.table.DefaultTableModel(
                 data,
                 new String[]{
@@ -168,9 +167,6 @@ public class ReanudeProcess extends javax.swing.JFrame {
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un proceso o cerrar la ventana.");
-        }
-        finally {
-            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
         }
     }//GEN-LAST:event_suspendedProcessTableMouseClicked
 

@@ -7,23 +7,36 @@ package com.mycompany.obligatorio.Interface;
 import com.mycompany.OperativeSystem.OperativeSystem;
 import com.mycompany.obligatorio.Process.*;
 import com.mycompany.obligatorio.Process.ProcessControlBlock.State;
+import com.mycompany.obligatorio.Resources.CPU;
+
+import com.mycompany.obligatorio.Utils;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.table.DefaultTableModel;
 
 
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     private static VentanaPrincipal instance;
+    DefaultTableModel modelo;
+    DefaultTableModel modelo2;
     /**
      * Creates new form VentanaPrincipal
      */
-    public VentanaPrincipal() {
+    private VentanaPrincipal() {
         initComponents();
         this.getContentPane().setBackground(new Color(55,63,71));
+        modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("Name");
+        modelo.addColumn("Size");
+        modelo.addColumn("State");
+        modelo.addColumn("Priority");
+        modelo.addColumn("Path");
+        this.ProcessTable.setModel(modelo);
         ProcessTable.getTableHeader().setOpaque(true);
         ProcessTable.getTableHeader().setBackground(new Color(0,51,64));
         ProcessTable.getTableHeader().setForeground(Color.WHITE);
@@ -31,6 +44,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ProcessTable.getTableHeader().setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
         jScrollPane2.getVerticalScrollBar().setBackground(new Color(55,63,71));
         setLocationRelativeTo(null);
+        
+        modelo2 = new DefaultTableModel();
+        modelo2.addColumn("CPU");
+        modelo2.addColumn("Process ID");
+        modelo2.addColumn("Process Name");
+        this.processInExecutionTable.setModel(modelo2);
+        processInExecutionTable.getTableHeader().setOpaque(true);
+        processInExecutionTable.getTableHeader().setBackground(new Color(0,51,64));
+        processInExecutionTable.getTableHeader().setForeground(Color.WHITE);
+        processInExecutionTable.getTableHeader().setBorder(BorderFactory.createLineBorder(new Color(0,51,64)));
+        processInExecutionTable.getTableHeader().setFont(new Font("Segoe UI Light", Font.BOLD, 10));
+        jScrollPane4.getVerticalScrollBar().setBackground(new Color(55,63,71));
         
     }
     
@@ -40,7 +65,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         return instance;
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,6 +83,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         processTableMenuReanudeProcess = new javax.swing.JMenuItem();
         processTableMenuFinalizeProcess = new javax.swing.JMenuItem();
         processTableMenuModifyProcessPriority = new javax.swing.JMenuItem();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         ReturnSetup = new javax.swing.JButton();
         AddProcess = new javax.swing.JButton();
         LoadManyProcess = new javax.swing.JButton();
@@ -66,8 +93,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         MemoryUsageBar = new javax.swing.JProgressBar();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ListProcessInExecution = new javax.swing.JList<>();
+        startButton = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        processInExecutionTable = new javax.swing.JTable();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -108,6 +136,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
         processTablePopupMenu.add(processTableMenuModifyProcessPriority);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(55, 63, 71));
@@ -174,106 +215,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ProcessTable.setForeground(new java.awt.Color(255, 255, 255));
         ProcessTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Name", "Size", "State", "Priority", "Path"
@@ -310,61 +252,81 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Process in execution:");
 
-        ListProcessInExecution.setBackground(new java.awt.Color(55, 63, 71));
-        ListProcessInExecution.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        ListProcessInExecution.setForeground(new java.awt.Color(255, 255, 255));
-        ListProcessInExecution.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        startButton.setText("jButton1");
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
         });
-        jScrollPane1.setViewportView(ListProcessInExecution);
+
+        processInExecutionTable.setBackground(new java.awt.Color(55, 63, 71));
+        processInExecutionTable.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        processInExecutionTable.setForeground(new java.awt.Color(255, 255, 255));
+        processInExecutionTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ));
+        processInExecutionTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        processInExecutionTable.setFillsViewportHeight(true);
+        processInExecutionTable.setGridColor(new java.awt.Color(55, 63, 71));
+        processInExecutionTable.setSelectionBackground(new java.awt.Color(0, 51, 64));
+        processInExecutionTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        processInExecutionTable.setShowGrid(false);
+        jScrollPane4.setViewportView(processInExecutionTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AddProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LoadManyProcess)
-                            .addComponent(ReturnSetup, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel1))
+                    .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AddProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LoadManyProcess)
+                    .addComponent(ReturnSetup, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(42, 42, 42)
+                            .addComponent(startButton))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(AddProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(LoadManyProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
+                        .addGap(47, 47, 47)
+                        .addComponent(startButton)
+                        .addGap(31, 31, 31)
                         .addComponent(ReturnSetup, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
+                        .addGap(67, 67, 67)
                         .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18))
         );
 
@@ -412,7 +374,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Deben de existir procesos y tener uno seleccionado para poder suspenderlo.");
         }
         finally {
-            this.DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+            this.DisplayProcess();
         }
     }//GEN-LAST:event_processTableMenuSuspendProcessActionPerformed
 
@@ -429,7 +391,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No encontré procesos suspendidos para reanudar.");
         }
         finally {
-            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+            VentanaPrincipal.getInstance().DisplayProcess();
         }
     }//GEN-LAST:event_processTableMenuReanudeProcessActionPerformed
 
@@ -444,9 +406,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Deben de existir procesos y tener uno seleccionado para poder finalizarlo.");
-        }
-        finally {
-            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
         }
     }//GEN-LAST:event_processTableMenuFinalizeProcessActionPerformed
 
@@ -463,32 +422,57 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_processTableMenuModifyProcessPriorityActionPerformed
 
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        OperativeSystem.getInstance().dispatch();
+    }//GEN-LAST:event_startButtonActionPerformed
+
 
     public void DisplayProgressBar(int value) {
         MemoryUsageBar.setValue(value);
     }
     
-    public void DisplayProcess(List<IProcess> readyProcess) {
-        Object[][] data = new Object[readyProcess.size()][6];
+    public void DisplayProcess() {
+        modelo.setRowCount(0);
+        ProcessTable.setModel(modelo);
+        String[] info = new String[6];
 
-        int c = 0;
+        try {
+            for (IProcess pr : OperativeSystem.getInstance().Memory.getAllProcessInMemory()) {
+                info[0] = pr.getProcessPCB().getProcessID();
+                info[1] = pr.getProcessName();
+                info[2] = Float.toString(pr.getProcessSize());
+                info[3] = pr.getProcessPCB().getProcessState().name();
+                info[4] = Integer.toString(pr.getProcessPCB().getProcessPriority());
+                info[5] = pr.getProcessPCB().getProcessPath();
 
-        for (IProcess pr : readyProcess) {
-            data[c][0] = pr.getProcessPCB().getProcessID();
-            data[c][1] = pr.getProcessName();
-            data[c][2] = pr.getProcessSize();
-            data[c][3] = pr.getProcessPCB().getProcessState();
-            data[c][4] = pr.getProcessPCB().getProcessPriority();
-            data[c][5] = pr.getProcessPCB().getProcessPath();
-            c++;
+                modelo.addRow(info);
+            }
+            ProcessTable.setModel(modelo);
+            modelo.fireTableDataChanged();
+            DisplayProgressBar((int)Math.round(OperativeSystem.getInstance().Memory.memoryUsage()));     
+            
+        } catch (Exception e) {
+           
         }
+        
+    }
+    
+    public void DisplayProcessInExecution() {
+        modelo2.setRowCount(0);
+        String[] info = new String[3];
+        try {
+            for (CPU cpu : CPU.getCores()) {
+                info[0] = cpu.getCPUName();
+                info[1] = cpu.getProcessExecuting().getProcessPCB().getProcessID();
+                info[2] = cpu.getProcessExecuting().getProcessName();
 
-        ProcessTable.setModel(new javax.swing.table.DefaultTableModel(
-                data,
-                new String[]{
-                    "ID", "Name", "Size", "State", "Priority", "Path"
-                }));
-        DisplayProgressBar((int)Math.round(OperativeSystem.getInstance().Memory.memoryUsage()));
+                modelo2.addRow(info);
+            }
+            ProcessTable.setModel(modelo2);
+        } catch (Exception e) {
+            System.out.println(e);;
+        }
+        
     }
 
     /**
@@ -528,7 +512,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddProcess;
-    private javax.swing.JList<String> ListProcessInExecution;
     private javax.swing.JButton LoadManyProcess;
     private javax.swing.JProgressBar MemoryUsageBar;
     private javax.swing.JTable ProcessTable;
@@ -537,14 +520,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTable processInExecutionTable;
     private javax.swing.JMenuItem processTableMenuFinalizeProcess;
     private javax.swing.JMenuItem processTableMenuModifyProcessPriority;
     private javax.swing.JMenuItem processTableMenuReanudeProcess;
     private javax.swing.JMenuItem processTableMenuSuspendProcess;
     private javax.swing.JPopupMenu processTablePopupMenu;
+    private javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
 
 }

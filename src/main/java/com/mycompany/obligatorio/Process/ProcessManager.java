@@ -1,10 +1,11 @@
 package com.mycompany.obligatorio.Process;
 import com.mycompany.OperativeSystem.OperativeSystem;
+import com.mycompany.obligatorio.Interface.VentanaPrincipal;
 import java.util.*;
 
 public class ProcessManager
 {
-    //Lista de procesos listos
+    //Lista de procesos listos para cargar.
     private static List<IProcess> processList = new ArrayList<>();
 
     //Lista de procesos bloqueados

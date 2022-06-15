@@ -133,21 +133,18 @@ public class LoadManyProcess extends javax.swing.JFrame {
     }//GEN-LAST:event_CloseActionPerformed
 
     private void SaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveMouseClicked
-        //try {
+        try {
             int value = Integer.valueOf(numberOfProcessToCreateInput.getText());
             if (value < 1) { 
                // throw new Exception();
             }
-            Utils.AddProcesses(value);
+            Utils.addProcesses(value);
             OperativeSystem.getInstance().LoadProcess();
             this.setVisible(false);
-        //}
-       // catch (Exception NumberFormatException) {
-        //    JOptionPane.showMessageDialog(this, "Se debe ingresar un número entero.");
-        //}
-        //finally {
-            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
-       // }      
+        }
+        catch (Exception NumberFormatException) {
+            JOptionPane.showMessageDialog(this, "Se debe ingresar un número entero.");
+        }    
     }//GEN-LAST:event_SaveMouseClicked
 
     /**

@@ -19,10 +19,7 @@ public class OperativeSystem {
     }
 
     // Si hay una instancia la devuelve, si no crea una instancia de sistema operativo con una memoria y numeros de cores default. A modos de que el programa pueda funcionar.
-    public static OperativeSystem getInstance() {
-        if (instance == null) {
-            instance = new OperativeSystem(2048, (byte) 1, (float) 0.1);
-        }
+    public static OperativeSystem getInstance() {         
         return instance;
     }
 
@@ -36,7 +33,7 @@ public class OperativeSystem {
 
     public static void resetSystem() {
         instance.Memory.eraseAllFromMemory();
-        VentanaPrincipal.getInstance().DisplayProcess(instance.Memory.getAllProcessInMemory());
+        VentanaPrincipal.getInstance().DisplayProcess();
         VentanaPrincipal.getInstance().DisplayProgressBar(0);
         instance = null;
     }
@@ -64,9 +61,13 @@ public class OperativeSystem {
         if (process.getProcessSize() <= Memory.spaceFree()) {
             ProcessControlBlock processPCB = process.getProcessPCB();
             processPCB.changeProcessState(ProcessControlBlock.State.READY);
-            this.Memory.addProcessToReadyProcessList(process);
+            this.Memory.addProcessToMemory(process);
         } else {
             ProcessManager.addProcessToProcessList(process);
         }
+    }
+    
+    public void dispatch() {
+        this.scheduller.dispatch();
     }
 }

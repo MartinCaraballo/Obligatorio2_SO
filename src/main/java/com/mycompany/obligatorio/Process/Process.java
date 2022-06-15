@@ -12,7 +12,7 @@ public class Process implements IProcess
     private List<Resource> Resources = new ArrayList<>();
 
     // Un booleano que indica si el proceso tiene CPU o no.
-    public boolean hasCPU;
+    private boolean hasCPU;
 
     // Tamaño que ocupa el proceso en memoria.
     private float ProcessSize;
@@ -96,5 +96,9 @@ public class Process implements IProcess
     //Modifica la variable hasCPU
     public void setHasCPU(boolean bool){
         this.hasCPU = bool;
+    }
+    
+    public boolean getHasCPU() {
+        return this.hasCPU;
     }
 }

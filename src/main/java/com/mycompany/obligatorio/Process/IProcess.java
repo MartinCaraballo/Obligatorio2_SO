@@ -18,5 +18,7 @@ public interface IProcess
 
     public void setHasCPU(boolean b);
     
+    public boolean getHasCPU();
+    
     public void setTotalExecutionTime(float time);
 }

@@ -27,11 +27,15 @@ public class Memory
 
     public void addProcessToReadyProcessList(IProcess process) {
         this.readyProcess.add(process);
-        this.decreaseActualMemorySize(process.getProcessSize());
     }
     
     public void removeProcessFromReadyProcessList(IProcess process) {
         this.readyProcess.remove(process);
+    }
+    
+    public void addProcessToMemory(IProcess process) {
+        this.readyProcess.add(process);
+        this.decreaseActualMemorySize(process.getProcessSize());    
     }
     
     public void removeProcessFromMemory(IProcess process){
@@ -64,11 +68,6 @@ public class Memory
     
     public ArrayList<IProcess> getAllProcessInMemory() {
         ArrayList<IProcess> allProcessInMemory = new ArrayList<>();
-
-        // Recorremos la lista de los procesos en ejecución.
-        for (IProcess executingProcess : CPU.getExecutingProcessList()) {
-            allProcessInMemory.add(executingProcess);
-        }
         
         // Recorremos la lista de los procesos listos.
         for (IProcess process : this.readyProcess) {

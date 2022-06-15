@@ -17,6 +17,8 @@ public class CPU {
     
     private String Name;
     
+    private IProcess processExecuting;
+    
     public boolean isCPUExecuting;
 
     //Lista de procesos en ejecución
@@ -26,27 +28,38 @@ public class CPU {
         this.Name = name;
         this.Timeout = timeout;
         this.isCPUExecuting = false;
+        this.processExecuting = null;
     }
 
-    public void Execute(IProcess process) throws InterruptedException {
-        process.getProcessPCB().changeProcessState(ProcessControlBlock.State.EXECUTING);
-        executingProcessList.add(process);
-        process.setHasCPU(true);
-        VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
-        if (process.getTotalExecutionTime() <= this.Timeout){
-            Thread.sleep(4000);
-            process.getProcessPCB().changeProcessState(ProcessControlBlock.State.FINALIZED);
-            executingProcessList.remove(process);
-            ProcessManager.finalizeProcess(process);
-            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
-        } 
-        else if (process.getTotalExecutionTime() > this.Timeout){
-            Thread.sleep(4000);
-            executingProcessList.remove(process);
-            OperativeSystem.getInstance().scheduller.timeOut(process);            
-        }     
-        VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+    public void Execute(IProcess process) {
+        try {
+            process.getProcessPCB().changeProcessState(ProcessControlBlock.State.EXECUTING);
+            this.isCPUExecuting = true;
+            this.processExecuting = process;
+            executingProcessList.add(process);
+            process.setHasCPU(true);
+            //Thread.sleep(1000);
+
+            if (process.getTotalExecutionTime() <= this.Timeout) {
+                process.getProcessPCB().changeProcessState(ProcessControlBlock.State.FINALIZED);
+                executingProcessList.remove(process);
+                OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
+                ProcessManager.finalizeProcess(process);
+                this.isCPUExecuting = false;
+                this.processExecuting = null;
+                //Thread.sleep(1000);
+            } 
+            else if (process.getTotalExecutionTime() > this.Timeout) {
+                executingProcessList.remove(process);
+                this.isCPUExecuting = false;
+                this.processExecuting = null;
+                OperativeSystem.getInstance().scheduller.timeOut(process);
+            }     
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+    
 
     public static List<IProcess> getExecutingProcessList() {
         return executingProcessList;
@@ -59,13 +72,28 @@ public class CPU {
         }
     }
     
-    public static CPU freeCPU() {
-        for (CPU cpu : Cores) {
-            if (!cpu.isCPUExecuting){
-                return cpu;
-            }
+    public static boolean isCPUFree(CPU cpu) {
+        if (cpu.isCPUExecuting){
+            return false;
         }
-        return null;
+        return true;
     }
-
+    
+    public void setProcessExecuting(IProcess process) {
+        if (process.getHasCPU()) {
+            this.processExecuting = process;
+        }
+    }
+    
+    public IProcess getProcessExecuting() {
+        return this.processExecuting;
+    }
+    
+    public static CPU[] getCores() {
+        return Cores;
+    }
+    
+    public String getCPUName() {
+        return this.Name;
+    }
 }

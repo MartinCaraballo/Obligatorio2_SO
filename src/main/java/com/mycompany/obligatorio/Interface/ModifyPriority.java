@@ -151,14 +151,11 @@ public class ModifyPriority extends javax.swing.JFrame {
                 this.setVisible(false);
             }
             else {
-                JOptionPane.showMessageDialog(this, "Se debe ingresar un valor entre 1 y 99");
+                throw new Exception();
             }
         }
         catch (Exception NumberFormatException) {
             JOptionPane.showMessageDialog(this, "Se debe ingresar un valor entre 1 y 99");
-        }
-        finally {
-            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
         }
     }//GEN-LAST:event_SaveMouseClicked
 

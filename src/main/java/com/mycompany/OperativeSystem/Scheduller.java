@@ -10,18 +10,18 @@ import com.mycompany.obligatorio.Resources.CPU;
 
 public class Scheduller {
 
-    private float timeout = (float) 0.01;
+    private float timeout;
 
     private boolean firstTime = true;
 
     //Despacha el primer proceso de la lista de listos en CPU
-    public void dispatch(CPU cpu) throws InterruptedException {
-        if (cpu != null){
-            if (!OperativeSystem.getInstance().Memory.getReadyProcess().isEmpty()) {
-                IProcess process = OperativeSystem.getInstance().Memory.getReadyProcess().get(0);
-                if (!process.hasCPU) {
-                    OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
-                    if (!cpu.isCPUExecuting) {
+    public void dispatch() {
+        while (!OperativeSystem.getInstance().Memory.getReadyProcess().isEmpty()) {
+            IProcess process = OperativeSystem.getInstance().Memory.getReadyProcess().get(0);
+            if (!process.getHasCPU()) {
+                OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+                for (CPU cpu : CPU.getCores()) {
+                    if (cpu.isCPUFree(cpu)) {
                         cpu.Execute(process);
                     }
                 }
@@ -52,9 +52,9 @@ public class Scheduller {
         process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
         process.setTotalExecutionTime(timeout);
         process.setHasCPU(false);
-        OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
-        VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
+        OperativeSystem.getInstance().Memory.addProcessToMemory(process);
     }
+    
     /*
     //Finaliza el proceso pasado por parámetro
     public void end(IProcess process) {
