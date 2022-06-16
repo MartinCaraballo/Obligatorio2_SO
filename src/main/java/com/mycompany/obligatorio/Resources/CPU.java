@@ -42,24 +42,48 @@ public class CPU {
             Thread.sleep(1000);
 
             if (process.getTotalExecutionTime() <= this.Timeout) {
-                process.getProcessPCB().changeProcessState(ProcessControlBlock.State.FINALIZED);
-                executingProcessList.remove(process);
-                OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
-                Thread.sleep(500);
-                ProcessManager.finalizeProcess(process);
-                this.isCPUExecuting = false;
-                this.processExecuting = null;
-                //Thread.sleep(1000);
+                // OCURRE E/S.
+                if (process.getActualTimeBetweenIO() <= this.Timeout) {
+                    executingProcessList.remove(process);
+                    this.isCPUExecuting = false;
+                    this.processExecuting = null;
+                    process.decreaseTotalExecutionTime(process.getActualTimeBetweenIO());
+                    OperativeSystem.getInstance().scheduller.blockProcess(process);
+                    
+                // NO OCURRE ENTRADA SALIDA, Y EL TIEMPO TOTAL DE EJECUCIÓN COMO ES MENOR O IGUAL AL TIMEOUT EL PROCESO FINALIZA.
+                } else {
+                    process.getProcessPCB().changeProcessState(ProcessControlBlock.State.FINALIZED);
+                    executingProcessList.remove(process);
+                    OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
+                    Thread.sleep(500);
+                    ProcessManager.finalizeProcess(process);
+                    this.isCPUExecuting = false;
+                    this.processExecuting = null;
+                
+                }
             } 
+            // EL TIEMPO TOTAL DEL PROCESO ES MAYOR AL TIMEOUT, POR LO TANTO EL NUEVO TIEMPO TOTAL ES LA DIFERENCIA ENTRE ÉSTE Y EL TIMEOUT.
             else if (process.getTotalExecutionTime() > this.Timeout) {
-                executingProcessList.remove(process);
-                process.setTotalExecutionTime(this.Timeout);
-                this.isCPUExecuting = false;
-                this.processExecuting = null;
-                OperativeSystem.getInstance().scheduller.timeOut(process);
+                // A PESAR DE QUE EL PROCESO DADO SU TIEMPO DE EJECUCION TERMINARA EN TIMEOUT, PUEDE OCURRIR LA E/S.
+                // OCURRE E/S.
+                if (process.getActualTimeBetweenIO() <= this.Timeout) {
+                    executingProcessList.remove(process);
+                    this.isCPUExecuting = false;
+                    this.processExecuting = null;
+                    process.decreaseTotalExecutionTime(process.getActualTimeBetweenIO());
+                    OperativeSystem.getInstance().scheduller.blockProcess(process);
+                    
+                } else {
+                    executingProcessList.remove(process);
+                    process.decreaseTotalExecutionTime(this.Timeout);
+                    process.decreaseActualTimeBetweenIO(this.Timeout);
+                    this.isCPUExecuting = false;
+                    this.processExecuting = null;
+                    OperativeSystem.getInstance().scheduller.timeOut(process);
+                }
             }     
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getStackTrace();
         }
     }
     

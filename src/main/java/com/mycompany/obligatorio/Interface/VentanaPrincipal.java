@@ -499,7 +499,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String[] info = new String[6];
 
         try {
-            for (IProcess pr : OperativeSystem.getInstance().Memory.getAllProcessInMemory()) {
+            for (IProcess pr : OperativeSystem.getInstance().Memory.getReadyProcess()) {
                 info[0] = pr.getProcessPCB().getProcessID();
                 info[1] = pr.getProcessName();
                 info[2] = Float.toString(pr.getProcessSize());
@@ -513,6 +513,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             DisplayProgressBar((int)Math.round(OperativeSystem.getInstance().Memory.memoryUsage())); 
             ProcessTable.changeSelection(rowSelected, 0, false, false);
             DisplayProcessInExecution();
+            DisplayBlockedProcess();
             
         } catch (Exception e) {
             e.getStackTrace();
@@ -536,6 +537,24 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             e.getStackTrace();
         }
         
+    }
+    
+    public void DisplayBlockedProcess() {
+        modelo3.setRowCount(0);
+        String[] info = new String[4]; // ID, NAME, SIZE, STATE
+        try {
+            for (IProcess process : ProcessManager.getBlockedProcessList()) {
+                info[0] = process.getProcessPCB().getProcessID();
+                info[1] = process.getProcessName();
+                info[2] = Float.toString(process.getProcessSize());
+                info[3] = process.getProcessPCB().getProcessState().name();
+                
+                modelo3.addRow(info);
+            }
+            blockedProcessTable.setModel(modelo3);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 
     /**

@@ -45,9 +45,15 @@ public class Scheduller extends Thread {
 
     //Bloquea el proceso pasado como parámetro. Este sería bloqueado por una esperta de E/S
     public void blockProcess(IProcess process) {
-        process.getProcessPCB().changeProcessState(ProcessControlBlock.State.BLOCKED);
-        process.setHasCPU(false);
-        ProcessManager.addBlockedProcessList(process);
+        try {
+            process.getProcessPCB().changeProcessState(ProcessControlBlock.State.BLOCKED);
+            process.restartTimeBetweenIO();
+            process.setHasCPU(false);
+            ProcessManager.addBlockedProcessList(process);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        
     }
 
     //Se desbloquea el proceso pasado como parámetro. Esto ocurre cuando la E/S por la que estaba esperando ocurre
@@ -63,11 +69,16 @@ public class Scheduller extends Thread {
     //Pasa los procesos de la lista de ejecución a la lista de listos, si el tiempo de ejecución es mayor al timeout, y resta este último al primero
     //En el caso de que el tiempo de ejecución sea menor al timeout, se finaliza el proceso
     public void timeOut(IProcess process) {
-        process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
-        process.setTotalExecutionTime(this.timeout);
-        System.out.println(process.getProcessName() + " " + Float.toString(process.getTotalExecutionTime()));
-        process.setHasCPU(false);
-        OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
+        try {
+            process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
+            //System.out.println(process.getProcessName() + " " + Float.toString(process.getTotalExecutionTime()));
+            process.setHasCPU(false);
+            OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
+            Thread.sleep(500);
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        
     }
     
     /*

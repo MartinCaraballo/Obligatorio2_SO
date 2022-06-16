@@ -22,6 +22,8 @@ public class Process implements IProcess
     
     // Tiempo entre entradas/salidas de un proceso.
     private float TimeBetweenIO;
+    
+    private float ActualTimeBetweenI0;
 
     // Tiempo que lleva la entrada/salida.
     private float TimeConsumedIO;
@@ -37,6 +39,7 @@ public class Process implements IProcess
         this.hasCPU = false;
         this.TotalExecutionTime = executionTime;
         this.TimeBetweenIO = timeBetweenIO;
+        this.ActualTimeBetweenI0 = timeBetweenIO;
         this.TimeConsumedIO = timeConsumedIO;
         this.PCB = new ProcessControlBlock(path);
         this.TimeBlocked = 0;
@@ -62,13 +65,25 @@ public class Process implements IProcess
     }
     
     //Modifica la variable TotalExecutionTime 
-    public void setTotalExecutionTime(float time){
+    public void decreaseTotalExecutionTime(float time){
         this.TotalExecutionTime -= time;
     }
 
     // Retorna el tiempo en el que el proceso hace una entrada / salida.
     public float getTimeBetweenIO() {
         return this.TimeBetweenIO;
+    }
+    
+    public float getActualTimeBetweenIO() {
+        return this.ActualTimeBetweenI0;
+    }
+    
+    public void decreaseActualTimeBetweenIO(float value) {
+        this.ActualTimeBetweenI0 -= value;
+    }
+    
+    public void restartTimeBetweenIO() {
+        this.ActualTimeBetweenI0 = TimeBetweenIO;
     }
 
     // Retorna el tiempo que consume la entrada / salida.

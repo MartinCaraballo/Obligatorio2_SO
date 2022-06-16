@@ -73,11 +73,6 @@ public class Memory
         for (IProcess process : this.readyProcess) {
             allProcessInMemory.add(process);
         }
-
-        // Recorremos la lista de los procesos bloqueados.
-        for (IProcess blockedProcess : ProcessManager.getBlockedProcessList()) {
-            allProcessInMemory.add(blockedProcess);
-        }
         return allProcessInMemory;
     }
     
