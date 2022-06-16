@@ -8,13 +8,9 @@ import com.mycompany.OperativeSystem.OperativeSystem;
 import com.mycompany.obligatorio.Process.*;
 import com.mycompany.obligatorio.Process.ProcessControlBlock.State;
 import com.mycompany.obligatorio.Resources.CPU;
-
-import com.mycompany.obligatorio.Utils;
 import java.awt.Color;
 import java.awt.Font;
-import java.util.*;
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -23,12 +19,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private static VentanaPrincipal instance;
     DefaultTableModel modelo;
     DefaultTableModel modelo2;
+    DefaultTableModel modelo3;
+    
     /**
      * Creates new form VentanaPrincipal
      */
     private VentanaPrincipal() {
         initComponents();
         this.getContentPane().setBackground(new Color(55,63,71));
+        
+        // Tabla Principal.
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");
         modelo.addColumn("Name");
@@ -45,6 +45,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane2.getVerticalScrollBar().setBackground(new Color(55,63,71));
         setLocationRelativeTo(null);
         
+        // Tabla de los procesos en Ejecución.
         modelo2 = new DefaultTableModel();
         modelo2.addColumn("CPU");
         modelo2.addColumn("Process ID");
@@ -55,7 +56,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         processInExecutionTable.getTableHeader().setForeground(Color.WHITE);
         processInExecutionTable.getTableHeader().setBorder(BorderFactory.createLineBorder(new Color(0,51,64)));
         processInExecutionTable.getTableHeader().setFont(new Font("Segoe UI Light", Font.BOLD, 10));
+        jScrollPane4.setBorder(BorderFactory.createLineBorder(new Color(0,51,64), 3, true));
         jScrollPane4.getVerticalScrollBar().setBackground(new Color(55,63,71));
+        
+        // Tabla de los procesos bloqueados.
+        modelo3 = new DefaultTableModel();
+        modelo3.addColumn("ID");
+        modelo3.addColumn("Name");
+        modelo3.addColumn("Size");
+        modelo3.addColumn("State");
+        this.blockedProcessTable.setModel(modelo3);
+        blockedProcessTable.getTableHeader().setOpaque(true);
+        blockedProcessTable.getTableHeader().setBackground(new Color(0,51,64));
+        blockedProcessTable.getTableHeader().setForeground(Color.WHITE);
+        blockedProcessTable.getTableHeader().setBorder(BorderFactory.createLineBorder(new Color(0,51,64)));
+        blockedProcessTable.getTableHeader().setFont(new Font("Segoe UI Light", Font.BOLD, 10));
+        jScrollPane1.setBorder(BorderFactory.createLineBorder(new Color(0,51,64), 3, true));
+        jScrollPane1.getVerticalScrollBar().setBackground(new Color(55,63,71));
         
     }
     
@@ -96,6 +113,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         startButton = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         processInExecutionTable = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        blockedProcessTable = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -247,12 +267,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Memory Usage");
 
-        jLabel3.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Process in execution:");
+        jLabel3.setText("Blocked Process:");
 
-        startButton.setText("jButton1");
+        startButton.setBackground(new java.awt.Color(0, 51, 64));
+        startButton.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        startButton.setForeground(new java.awt.Color(255, 255, 255));
+        startButton.setText("Start");
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtonActionPerformed(evt);
@@ -260,7 +283,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         processInExecutionTable.setBackground(new java.awt.Color(55, 63, 71));
-        processInExecutionTable.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         processInExecutionTable.setForeground(new java.awt.Color(255, 255, 255));
         processInExecutionTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -278,56 +300,96 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         processInExecutionTable.setShowGrid(false);
         jScrollPane4.setViewportView(processInExecutionTable);
 
+        blockedProcessTable.setBackground(new java.awt.Color(55, 63, 71));
+        blockedProcessTable.setForeground(new java.awt.Color(255, 255, 255));
+        blockedProcessTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        blockedProcessTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        blockedProcessTable.setFillsViewportHeight(true);
+        blockedProcessTable.setGridColor(new java.awt.Color(55, 63, 71));
+        blockedProcessTable.setSelectionBackground(new java.awt.Color(0, 51, 64));
+        blockedProcessTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(blockedProcessTable);
+
+        jLabel4.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Process in execution:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
+                        .addGap(55, 55, 55)
                         .addComponent(jLabel1))
-                    .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AddProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LoadManyProcess)
-                    .addComponent(ReturnSetup, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(42, 42, 42)
-                            .addComponent(startButton))))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(AddProcess)
+                                .addGap(29, 29, 29)
+                                .addComponent(LoadManyProcess)
+                                .addGap(29, 29, 29)
+                                .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(136, 136, 136)
+                                        .addComponent(ReturnSetup))
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel4)))))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LoadManyProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(AddProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(LoadManyProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(startButton)
-                        .addGap(31, 31, 31)
-                        .addComponent(ReturnSetup, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(67, 67, 67)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
-                        .addGap(44, 44, 44)
+                        .addGap(32, 32, 32)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                        .addComponent(MemoryUsageBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(31, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ReturnSetup, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
@@ -373,9 +435,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Deben de existir procesos y tener uno seleccionado para poder suspenderlo.");
         }
-        finally {
-            this.DisplayProcess();
-        }
     }//GEN-LAST:event_processTableMenuSuspendProcessActionPerformed
 
     private void processTableMenuReanudeProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processTableMenuReanudeProcessActionPerformed
@@ -389,9 +448,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, "No encontré procesos suspendidos para reanudar.");
-        }
-        finally {
-            VentanaPrincipal.getInstance().DisplayProcess();
         }
     }//GEN-LAST:event_processTableMenuReanudeProcessActionPerformed
 
@@ -423,7 +479,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_processTableMenuModifyProcessPriorityActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        OperativeSystem.getInstance().dispatch();
+        if (!OperativeSystem.getInstance().Memory.getReadyProcess().isEmpty()) {
+            OperativeSystem.getInstance().dispatch();
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Deben de cargarse procesos antes de empezar la simulación.");
+        }
     }//GEN-LAST:event_startButtonActionPerformed
 
 
@@ -432,6 +493,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     public void DisplayProcess() {
+        int rowSelected = ProcessTable.getSelectedRow();
         modelo.setRowCount(0);
         ProcessTable.setModel(modelo);
         String[] info = new String[6];
@@ -448,11 +510,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 modelo.addRow(info);
             }
             ProcessTable.setModel(modelo);
-            modelo.fireTableDataChanged();
-            DisplayProgressBar((int)Math.round(OperativeSystem.getInstance().Memory.memoryUsage()));     
+            DisplayProgressBar((int)Math.round(OperativeSystem.getInstance().Memory.memoryUsage())); 
+            ProcessTable.changeSelection(rowSelected, 0, false, false);
+            DisplayProcessInExecution();
             
         } catch (Exception e) {
-           
+            e.getStackTrace();
         }
         
     }
@@ -468,9 +531,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 modelo2.addRow(info);
             }
-            ProcessTable.setModel(modelo2);
+            processInExecutionTable.setModel(modelo2);
         } catch (Exception e) {
-            System.out.println(e);;
+            e.getStackTrace();
         }
         
     }
@@ -516,10 +579,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JProgressBar MemoryUsageBar;
     private javax.swing.JTable ProcessTable;
     private javax.swing.JButton ReturnSetup;
+    private javax.swing.JTable blockedProcessTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;

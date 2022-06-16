@@ -68,6 +68,6 @@ public class OperativeSystem {
     }
     
     public void dispatch() {
-        this.scheduller.dispatch();
+        this.scheduller.start();
     }
 }

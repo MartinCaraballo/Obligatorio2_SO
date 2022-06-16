@@ -1,6 +1,7 @@
 package com.mycompany.obligatorio.Process;
 import com.mycompany.OperativeSystem.OperativeSystem;
 import com.mycompany.obligatorio.Interface.VentanaPrincipal;
+import com.mycompany.obligatorio.Resources.CPU;
 import java.util.*;
 
 public class ProcessManager

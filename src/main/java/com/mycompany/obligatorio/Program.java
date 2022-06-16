@@ -17,7 +17,7 @@ public class Program {
     Setup setup = new Setup();
     setup.setVisible(true);
     
-    Timer timer = new Timer(10, new ActionListener() {
+    Timer timer = new Timer(100, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             VentanaPrincipal.getInstance().DisplayProcess();

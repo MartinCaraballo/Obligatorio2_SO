@@ -5,7 +5,6 @@
 package com.mycompany.obligatorio.Resources;
 
 import com.mycompany.OperativeSystem.OperativeSystem;
-import com.mycompany.obligatorio.Interface.VentanaPrincipal;
 import com.mycompany.obligatorio.Process.*;
 import java.util.*;
 
@@ -34,16 +33,19 @@ public class CPU {
     public void Execute(IProcess process) {
         try {
             process.getProcessPCB().changeProcessState(ProcessControlBlock.State.EXECUTING);
+            Thread.sleep(250);
+            OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
             this.isCPUExecuting = true;
             this.processExecuting = process;
             executingProcessList.add(process);
             process.setHasCPU(true);
-            //Thread.sleep(1000);
+            Thread.sleep(1000);
 
             if (process.getTotalExecutionTime() <= this.Timeout) {
                 process.getProcessPCB().changeProcessState(ProcessControlBlock.State.FINALIZED);
                 executingProcessList.remove(process);
                 OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
+                Thread.sleep(500);
                 ProcessManager.finalizeProcess(process);
                 this.isCPUExecuting = false;
                 this.processExecuting = null;
@@ -51,6 +53,7 @@ public class CPU {
             } 
             else if (process.getTotalExecutionTime() > this.Timeout) {
                 executingProcessList.remove(process);
+                process.setTotalExecutionTime(this.Timeout);
                 this.isCPUExecuting = false;
                 this.processExecuting = null;
                 OperativeSystem.getInstance().scheduller.timeOut(process);
