@@ -4,7 +4,7 @@
  */
 package com.mycompany.OperativeSystem;
 
-import com.mycompany.obligatorio.Interface.VentanaPrincipal;
+import java.util.*;
 import com.mycompany.obligatorio.Process.*;
 import com.mycompany.obligatorio.Resources.CPU;
 
@@ -17,31 +17,25 @@ public class Scheduller extends Thread {
     //Despacha el primer proceso de la lista de listos en CPU
     public void run() {
         try {
+            CPU[] cpus = CPU.getCores();
+            List<IProcess> tasks = new ArrayList<>();
             while (!OperativeSystem.getInstance().Memory.getReadyProcess().isEmpty()) {
-                IProcess process = OperativeSystem.getInstance().Memory.getReadyProcess().get(0);
-                if (!process.getHasCPU()) {
-                    CPU[] cpus = CPU.getCores();
-                    cpus[0].Execute(process);
+                // Cargamos un proceso por cpu en el sistema.
+                for (int i = 0; i < cpus.length; i++) {
+                    tasks.add(OperativeSystem.getInstance().Memory.getReadyProcess().get(i));
                 }
+                // Por cada core ejecutamos un proceso. (Si éste no esta siendo ejecutado)
+                for (int i = 0; i < cpus.length; i++) {
+                    if (!tasks.get(i).getHasCPU())
+                        cpus[i].Execute(tasks.get(i));
+                }
+                // Luego de ejecutar los procesos en todos los cores, limpiamos la lista con las tareas.
+                tasks.clear();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    /*
-    public void dispatch() {
-        while (!OperativeSystem.getInstance().Memory.getReadyProcess().isEmpty()) {
-            IProcess process = OperativeSystem.getInstance().Memory.getReadyProcess().get(0);
-            if (!process.getHasCPU()) {
-                OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
-                for (CPU cpu : CPU.getCores()) {
-                    if (cpu.isCPUFree(cpu)) {
-                        cpu.Execute(process);
-                    }
-                }
-            }
-        }
-    }*/
 
     //Bloquea el proceso pasado como parámetro. Este sería bloqueado por una esperta de E/S
     public void blockProcess(IProcess process) {
@@ -50,20 +44,24 @@ public class Scheduller extends Thread {
             process.restartTimeBetweenIO();
             process.setHasCPU(false);
             ProcessManager.addBlockedProcessList(process);
+            Thread.sleep(500);
         } catch (Exception e) {
             e.getStackTrace();
         }
         
     }
 
-    //Se desbloquea el proceso pasado como parámetro. Esto ocurre cuando la E/S por la que estaba esperando ocurre
+    //Se desbloquea el proceso pasado como parámetro. Esto ocurre cuando la E/S que estaba ejecutando termina.
     public void unBlockProcess(IProcess process) {
-        for (IProcess blockedProcess : ProcessManager.getBlockedProcessList()) {
-            if (blockedProcess.equals(process)) {
-                ProcessManager.removeBlockedProcessList(process);
-                process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
-            }
+        try {
+            ProcessManager.unblockProcess(process);
+            process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
+            OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
+            Thread.sleep(500);
+        } catch (Exception e) {
+            e.getStackTrace();
         }
+        
     }
 
     //Pasa los procesos de la lista de ejecución a la lista de listos, si el tiempo de ejecución es mayor al timeout, y resta este último al primero
@@ -80,17 +78,4 @@ public class Scheduller extends Thread {
         }
         
     }
-    
-    /*
-    //Finaliza el proceso pasado por parámetro
-    public void end(IProcess process) {
-        ProcessControlBlock processPCB = process.getProcessPCB();
-        for (IProcess executingProcess : OperativeSystem.getInstance().CPU.getExecutingProcessList()) {
-            if (process.equals(executingProcess)){
-                processPCB.changeProcessState(ProcessControlBlock.State.FINALIZED);
-                process.setHasCPU(false);
-                OperativeSystem.getInstance().CPU.getExecutingProcessList().remove(process);
-            }
-        }
-    }*/
 }
