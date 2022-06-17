@@ -13,9 +13,11 @@ public class Utils
         for (int i = count; i < (numberOfProcess + count); i++) {
             String stringI = Integer.toString(ProcessControlBlock.getStaticID());
             Random random = new Random();
-            // Genera un número aleatorio entre 0 y el valor de esta variable.
-            float randomUpperBound = 15;
-            ProcessManager.createInstanceOfProcess("/home/process" + stringI, "Process" + stringI, random.nextFloat(32), random.nextFloat(randomUpperBound), random.nextFloat(randomUpperBound), random.nextFloat(randomUpperBound));
+            // Para el tamaño de un archivo, se generan números aleatorios entre 0 y 32 (32MB).
+            // Para el tiempo total de ejecución de un proceso, se generan números aleatorios entre 0 y 2000 (2s/2000 ms).
+            // Para el tiempo entre E/S de un proceso, se generan números aleatorios entre 0 y 2000 (2s/2000 ms).
+            // Para el tiempo que dura una E/S de un proceso, se generan números aleatorios entre 0 y 10000 (10s/10000 ms).
+            ProcessManager.createInstanceOfProcess("/home/process" + stringI, "Process" + stringI, random.nextFloat(32), random.nextFloat(2000), random.nextFloat(2000), random.nextFloat(10000));
         }
     }
 }

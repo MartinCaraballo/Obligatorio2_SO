@@ -8,7 +8,7 @@ import com.mycompany.OperativeSystem.OperativeSystem;
 import com.mycompany.obligatorio.Process.*;
 import java.util.*;
 
-public class CPU {
+public class CPU extends Thread {
 
     private static CPU[] Cores;
 
@@ -30,8 +30,9 @@ public class CPU {
         this.processExecuting = null;
     }
 
-    public void Execute(IProcess process) {
+    public void Execute() {
         try {
+            IProcess process = this.processExecuting;
             process.getProcessPCB().changeProcessState(ProcessControlBlock.State.EXECUTING);
             Thread.sleep(250);
             OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
@@ -106,7 +107,7 @@ public class CPU {
         return true;
     }
     
-    public void setProcessExecuting(IProcess process) {
+    public void setProcessToExecute(IProcess process) {
         if (process.getHasCPU()) {
             this.processExecuting = process;
         }

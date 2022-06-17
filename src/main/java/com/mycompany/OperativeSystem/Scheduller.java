@@ -27,7 +27,7 @@ public class Scheduller extends Thread {
                 // Por cada core ejecutamos un proceso. (Si éste no esta siendo ejecutado)
                 for (int i = 0; i < cpus.length; i++) {
                     if (!tasks.get(i).getHasCPU())
-                        cpus[i].Execute(tasks.get(i));
+                        cpus[i].run();
                 }
                 // Luego de ejecutar los procesos en todos los cores, limpiamos la lista con las tareas.
                 tasks.clear();
