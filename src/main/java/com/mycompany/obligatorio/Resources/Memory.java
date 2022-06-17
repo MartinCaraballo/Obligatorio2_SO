@@ -29,7 +29,7 @@ public class Memory
         this.readyProcess.add(process);
     }
     
-    public void removeProcessFromReadyProcessList(IProcess process) {
+    public synchronized void removeProcessFromReadyProcessList(IProcess process) {
         this.readyProcess.remove(process);
     }
     

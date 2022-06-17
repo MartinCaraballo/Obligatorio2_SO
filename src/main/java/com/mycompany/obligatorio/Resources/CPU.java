@@ -30,8 +30,9 @@ public class CPU {
         this.processExecuting = null;
     }
 
-    public void Execute(IProcess process) {
+    public void Execute() {
         try {
+            IProcess process = this.processExecuting;
             process.getProcessPCB().changeProcessState(ProcessControlBlock.State.EXECUTING);
             Thread.sleep(500);
             OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
@@ -59,7 +60,6 @@ public class CPU {
                     ProcessManager.finalizeProcess(process);
                     this.isCPUExecuting = false;
                     this.processExecuting = null;
-                
                 }
             } 
             // EL TIEMPO TOTAL DEL PROCESO ES MAYOR AL TIMEOUT, POR LO TANTO EL NUEVO TIEMPO TOTAL ES LA DIFERENCIA ENTRE ÉSTE Y EL TIMEOUT.
@@ -107,15 +107,8 @@ public class CPU {
         return null;
     }
     
-    public static boolean isCPUFree(CPU cpu) {
-        if (cpu.isCPUExecuting){
-            return false;
-        }
-        return true;
-    }
-    
     public void setProcessToExecute(IProcess process) {
-        if (process.getHasCPU()) {
+        if (!process.getHasCPU()) {
             this.processExecuting = process;
         }
     }
