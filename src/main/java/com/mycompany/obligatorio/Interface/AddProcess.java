@@ -226,10 +226,7 @@ public class AddProcess extends javax.swing.JFrame {
         }
         catch (Exception NumberFormatException) {
             JOptionPane.showMessageDialog(this, "Para los campos:\n\tExecution Time, Time between I/O, Time to wait I/O y Size\nSe deben ingresar números enteros o flotantes con punto(Ejemplo 13.7).");
-        }
-        finally {
-            VentanaPrincipal.getInstance().DisplayProcess(OperativeSystem.getInstance().Memory.getAllProcessInMemory());
-        }        
+        }      
     }//GEN-LAST:event_SaveMouseClicked
 
     /**

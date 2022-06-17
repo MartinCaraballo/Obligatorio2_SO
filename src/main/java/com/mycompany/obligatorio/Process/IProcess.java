@@ -13,10 +13,18 @@ public interface IProcess
     public float getTotalExecutionTime();
 
     public float getTimeBetweenIO();
+    
+    public float getActualTimeBetweenIO();
+    
+    public void decreaseActualTimeBetweenIO(float value);
+    
+    public void restartTimeBetweenIO();
 
     public float getTimeConsumedIO();
 
     public void setHasCPU(boolean b);
     
-    public void setTotalExecutionTime(float time);
+    public boolean getHasCPU();
+    
+    public void decreaseTotalExecutionTime(float time);
 }

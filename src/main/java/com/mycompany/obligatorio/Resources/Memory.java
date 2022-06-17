@@ -1,4 +1,5 @@
 package com.mycompany.obligatorio.Resources;
+import com.mycompany.OperativeSystem.OperativeSystem;
 import com.mycompany.obligatorio.Process.*;
 import java.util.*;
 
@@ -26,10 +27,18 @@ public class Memory
 
     public void addProcessToReadyProcessList(IProcess process) {
         this.readyProcess.add(process);
-        this.decreaseActualMemorySize(process.getProcessSize());
     }
     
     public void removeProcessFromReadyProcessList(IProcess process) {
+        this.readyProcess.remove(process);
+    }
+    
+    public void addProcessToMemory(IProcess process) {
+        this.readyProcess.add(process);
+        this.decreaseActualMemorySize(process.getProcessSize());    
+    }
+    
+    public void removeProcessFromMemory(IProcess process){
         this.readyProcess.remove(process);
         this.increaseActualMemorySize(process.getProcessSize());
     }
@@ -59,15 +68,10 @@ public class Memory
     
     public ArrayList<IProcess> getAllProcessInMemory() {
         ArrayList<IProcess> allProcessInMemory = new ArrayList<>();
-
+        
         // Recorremos la lista de los procesos listos.
         for (IProcess process : this.readyProcess) {
             allProcessInMemory.add(process);
-        }
-
-        // Recorremos la lista de los procesos bloqueados.
-        for (IProcess blockedProcess : ProcessManager.getBlockedProcessList()) {
-            allProcessInMemory.add(blockedProcess);
         }
         return allProcessInMemory;
     }

@@ -1,10 +1,12 @@
 package com.mycompany.obligatorio.Process;
 import com.mycompany.OperativeSystem.OperativeSystem;
+import com.mycompany.obligatorio.Interface.VentanaPrincipal;
+import com.mycompany.obligatorio.Resources.CPU;
 import java.util.*;
 
 public class ProcessManager
 {
-    //Lista de procesos listos
+    //Lista de procesos listos para cargar.
     private static List<IProcess> processList = new ArrayList<>();
 
     //Lista de procesos bloqueados
@@ -69,25 +71,32 @@ public class ProcessManager
     public static void suspendProcess(IProcess process) {
         suspendedProcess.add(process);
         process.getProcessPCB().changeProcessState(ProcessControlBlock.State.SUSPENDED);
-        OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+        OperativeSystem.getInstance().Memory.removeProcessFromMemory(process);
     }
     
     public static void reanudeProcess(IProcess process) {
         suspendedProcess.remove(process);
         process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
-        OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
+        OperativeSystem.getInstance().Memory.addProcessToMemory(process);
+    }
+    
+    public static void unblockProcess(IProcess process) {
+        blockedProcess.remove(process);
     }
     
     public static void finalizeProcess(IProcess process) {
         if (blockedProcess.contains(process)) {
             blockedProcess.remove(process);
-            OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+            OperativeSystem.getInstance().Memory.removeProcessFromMemory(process);
         }
         if (processList.contains(process)) {
             processList.remove(process);
         }
         if (OperativeSystem.getInstance().Memory.getReadyProcess().contains(process)) {
-            OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
+            OperativeSystem.getInstance().Memory.removeProcessFromMemory(process);
+        }
+        if (suspendedProcess.contains(process)) {
+            suspendedProcess.remove(process);
         }
     }
 

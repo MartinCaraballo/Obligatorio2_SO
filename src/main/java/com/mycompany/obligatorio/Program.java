@@ -4,23 +4,32 @@
  */
 
 package com.mycompany.obligatorio;
-import com.mycompany.OperativeSystem.*;
-import com.mycompany.obligatorio.Process.IProcess;
 import com.mycompany.obligatorio.Interface.*;
-import java.util.ArrayList;        
-
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 public class Program {
 
     public static void main(String[] args) {
         
-      //OperativeSystem.getInstance(2048, (byte)1);
-      //Ventana
-      Setup setup = new Setup();
-      setup.setVisible(true);
-      //VentanaPrincipal ventana = VentanaPrincipal.getInstance();
-      //ventana.setVisible(true);
-      //ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
+    //Ventana
+    Setup setup = new Setup();
+    setup.setVisible(true);
+    
+    Timer timer = new Timer(100, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            VentanaPrincipal.getInstance().DisplayProcess();
+            VentanaPrincipal.getInstance().DisplayProcessInExecution();
+            VentanaPrincipal.getInstance().DisplayBlockedProcess();
+        }
+    });
+    timer.start();
+    
+    
+    //VentanaPrincipal ventana = VentanaPrincipal.getInstance();
+    //ventana.setVisible(true);
+    //ventana.DisplayProcess(os.Memory.getAllProcessInMemory());
     }
 }
