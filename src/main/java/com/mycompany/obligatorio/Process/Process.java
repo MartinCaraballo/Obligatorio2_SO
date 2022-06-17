@@ -28,9 +28,6 @@ public class Process implements IProcess
     // Tiempo que lleva la entrada/salida.
     private float TimeConsumedIO;
     
-    //Tiempo transcurrido en bloqueo
-    private float TimeBlocked;
-
     
     public Process(String path, String processName, float size, float executionTime, float timeBetweenIO, float timeConsumedIO)
     {
@@ -42,7 +39,6 @@ public class Process implements IProcess
         this.ActualTimeBetweenI0 = timeBetweenIO;
         this.TimeConsumedIO = timeConsumedIO;
         this.PCB = new ProcessControlBlock(path);
-        this.TimeBlocked = 0;
     }
 
     // Retorna el nombre de un proceso.
@@ -91,14 +87,6 @@ public class Process implements IProcess
         return this.TimeConsumedIO;
     }
     
-    // Retorna el tiempo bloqueado
-    public float getTimeBlocked() {
-        return this.TimeBlocked;
-    }
-    
-    public void setTimeBlocked(float time) {
-        this.TimeBlocked = time;
-    }
 
     public boolean askForResource(Resource resource) {
         if (resource.getAvailability()) {

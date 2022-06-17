@@ -68,11 +68,11 @@ public class Setup extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Cantidad de tiempo que los procesos se encuentran en CPU");
+        jLabel7.setText("Cantidad de tiempo que los procesos se encuentran en CPU (ms)");
 
         jLabel8.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Cantidad de memoria principal del sistema (RAM)");
+        jLabel8.setText("Cantidad de memoria principal del sistema (RAM)(MB)");
 
         buttonEnter.setBackground(new java.awt.Color(0, 51, 64));
         buttonEnter.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
@@ -113,10 +113,13 @@ public class Setup extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fieldCantTiempoProcesosEnCpu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
-                            .addComponent(fieldCantRAM, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)))
+                            .addComponent(fieldCantRAM, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1))
@@ -129,15 +132,17 @@ public class Setup extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(fieldCantProcesadores, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(35, 35, 35))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(215, 215, 215)
+                        .addGap(226, 226, 226)
                         .addComponent(buttonEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(219, 219, 219)
+                        .addGap(231, 231, 231)
                         .addComponent(jLabel6)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

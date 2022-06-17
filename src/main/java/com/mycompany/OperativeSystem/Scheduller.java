@@ -17,20 +17,15 @@ public class Scheduller extends Thread {
     //Despacha el primer proceso de la lista de listos en CPU
     public void run() {
         try {
-            CPU[] cpus = CPU.getCores();
-            List<IProcess> tasks = new ArrayList<>();
             while (!OperativeSystem.getInstance().Memory.getReadyProcess().isEmpty()) {
-                // Cargamos un proceso por cpu en el sistema.
-                for (int i = 0; i < cpus.length; i++) {
-                    tasks.add(OperativeSystem.getInstance().Memory.getReadyProcess().get(i));
+                // Traemos el primer proceso listo.
+                IProcess process = OperativeSystem.getInstance().Memory.getReadyProcess().get(0);
+                // Si el proceso no esta siendo ejecutado, ejecutamos.
+                if (!process.getHasCPU()) {
+                    CPU cpu = CPU.getFreeCPU();
+                    if (cpu != null)
+                        cpu.Execute(process);
                 }
-                // Por cada core ejecutamos un proceso. (Si éste no esta siendo ejecutado)
-                for (int i = 0; i < cpus.length; i++) {
-                    if (!tasks.get(i).getHasCPU())
-                        cpus[i].run();
-                }
-                // Luego de ejecutar los procesos en todos los cores, limpiamos la lista con las tareas.
-                tasks.clear();
             }
         } catch (Exception e) {
             e.printStackTrace();

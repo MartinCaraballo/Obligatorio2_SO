@@ -8,7 +8,7 @@ import com.mycompany.OperativeSystem.OperativeSystem;
 import com.mycompany.obligatorio.Process.*;
 import java.util.*;
 
-public class CPU extends Thread {
+public class CPU {
 
     private static CPU[] Cores;
 
@@ -30,17 +30,16 @@ public class CPU extends Thread {
         this.processExecuting = null;
     }
 
-    public void Execute() {
+    public void Execute(IProcess process) {
         try {
-            IProcess process = this.processExecuting;
             process.getProcessPCB().changeProcessState(ProcessControlBlock.State.EXECUTING);
-            Thread.sleep(250);
+            Thread.sleep(500);
             OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
             this.isCPUExecuting = true;
             this.processExecuting = process;
             executingProcessList.add(process);
             process.setHasCPU(true);
-            Thread.sleep(1000);
+            Thread.sleep((long)this.Timeout);
 
             if (process.getTotalExecutionTime() <= this.Timeout) {
                 // OCURRE E/S.
@@ -98,6 +97,14 @@ public class CPU extends Thread {
         for (int i = 0; i < numberOfCPU; i++) {
             Cores[i] = new CPU(("CPU"+i), timeout);
         }
+    }
+    
+    public static CPU getFreeCPU() {
+        for (CPU cpu : Cores) {
+            if (!cpu.isCPUExecuting)
+                return cpu;
+        }
+        return null;
     }
     
     public static boolean isCPUFree(CPU cpu) {

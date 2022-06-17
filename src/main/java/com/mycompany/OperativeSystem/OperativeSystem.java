@@ -7,14 +7,15 @@ import com.mycompany.obligatorio.Resources.*;
 
 public class OperativeSystem {
 
-    public Memory Memory;
-
     private static OperativeSystem instance;
+    public Memory Memory;
     public Scheduller scheduller;
-
+    public IOController iocontroller;
+    
     private OperativeSystem(int memorySize, byte numberOfCores, float timeout) {
         this.Memory = new Memory(memorySize);
         this.scheduller = new Scheduller();
+        this.iocontroller = new IOController();
         CPU.createInstanceOfCPU(numberOfCores, timeout);
     }
 

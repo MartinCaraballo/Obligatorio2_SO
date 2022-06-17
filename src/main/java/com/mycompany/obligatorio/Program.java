@@ -21,6 +21,8 @@ public class Program {
         @Override
         public void actionPerformed(ActionEvent e) {
             VentanaPrincipal.getInstance().DisplayProcess();
+            VentanaPrincipal.getInstance().DisplayProcessInExecution();
+            VentanaPrincipal.getInstance().DisplayBlockedProcess();
         }
     });
     timer.start();
