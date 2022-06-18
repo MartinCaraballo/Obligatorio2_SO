@@ -55,6 +55,10 @@ public class Scheduller extends Thread {
             process.restartTimeBetweenIO();
             process.setHasCPU(false);
             ProcessManager.addBlockedProcessList(process);
+            if (!OperativeSystem.getInstance().iocontroller.isAlive()) {
+                OperativeSystem.getInstance().iocontroller = new IOController();
+                OperativeSystem.getInstance().iocontroller.start();
+            }
             Thread.sleep(500);
         } catch (Exception e) {
             e.getStackTrace();
@@ -65,8 +69,7 @@ public class Scheduller extends Thread {
     //Se desbloquea el proceso pasado como parámetro. Esto ocurre cuando la E/S que estaba ejecutando termina.
     public synchronized void unBlockProcess(IProcess process) {
         try {
-            ProcessManager.unblockProcess(process);
-            process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
+            ProcessManager.removeBlockedProcessList(process);
             OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
             Thread.sleep(500);
         } catch (Exception e) {
