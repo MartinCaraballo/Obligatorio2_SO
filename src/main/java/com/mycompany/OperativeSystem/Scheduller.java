@@ -27,15 +27,20 @@ public class Scheduller extends Thread {
  
                 // Si el proceso no esta siendo ejecutado, ejecutamos.
                 for (int i = 0; i < OperativeSystem.NumberOfCores; i++) {
-                    IProcess process = tasks.get(i);
-                    CPU cpu = cores[i];
-                    cpu.setProcessToExecute(process);
-                    tasks.remove(process);
-                    ExecuteProcess execute = new ExecuteProcess(cpu);
-                    execute.start();
+                    try {
+                        if (i < tasks.size()) {
+                            IProcess process = tasks.get(i);
+                            CPU cpu = cores[i];
+                            cpu.setProcessToExecute(process);
+                            ExecuteProcess execute = new ExecuteProcess(cpu);
+                            execute.start();
+                        } else { 
+                            break; 
+                        }
+                    } catch (Exception e) {}
                 }
                 Thread.sleep(timeout + 1000);
-                tasks.clear();
+                tasks.clear();    
             }
             OperativeSystem.running = false;
         } catch (Exception e) {
