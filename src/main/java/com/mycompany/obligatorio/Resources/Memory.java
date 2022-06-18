@@ -128,4 +128,12 @@ public class Memory
         message.append("\n" + bottom.repeat(repeatCount));
         return message.toString();
     }
+    
+    public void incrmentPriorityWithoutSpecificProcess(IProcess process) {
+        for(IProcess pr : this.readyProcess) {
+            if(pr.getProcessPCB().getProcessPriority() != 99 && !process.equals(pr)) {
+                pr.getProcessPCB().increaseProcessPriority();
+            }
+        }
+    }
 }

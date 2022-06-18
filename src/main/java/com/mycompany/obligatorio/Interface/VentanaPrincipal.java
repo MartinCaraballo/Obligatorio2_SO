@@ -505,8 +505,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             LinkedList<IProcess> list = OperativeSystem.getInstance().Memory.getReadyProcess();
             Collections.sort(list);
             for (IProcess pr : list) {
-//                if(pr.getProcessPCB().getProcessPriority() != 1) {
-//                }
                 info[0] = pr.getProcessPCB().getProcessID();
                 info[1] = pr.getProcessName();
                 info[2] = Float.toString(pr.getProcessSize());
