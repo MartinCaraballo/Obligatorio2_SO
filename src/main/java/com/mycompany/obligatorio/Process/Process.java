@@ -1,9 +1,10 @@
 package com.mycompany.obligatorio.Process;
+
 import com.mycompany.obligatorio.Resources.*;
 import java.util.*;
 
-public class Process implements IProcess
-{
+public class Process implements IProcess {
+
     // Nombre de un proceso.
     private String ProcessName;
 
@@ -19,18 +20,16 @@ public class Process implements IProcess
 
     // Tiempo total de ejecución de un proceso.
     private float TotalExecutionTime;
-    
+
     // Tiempo entre entradas/salidas de un proceso.
     private float TimeBetweenIO;
-    
+
     private float ActualTimeBetweenI0;
 
     // Tiempo que lleva la entrada/salida.
     private float TimeConsumedIO;
-    
-    
-    public Process(String path, String processName, float size, float executionTime, float timeBetweenIO, float timeConsumedIO)
-    {
+
+    public Process(String path, String processName, float size, float executionTime, float timeBetweenIO, float timeConsumedIO) {
         this.ProcessName = processName;
         this.ProcessSize = size;
         this.hasCPU = false;
@@ -54,14 +53,14 @@ public class Process implements IProcess
     public ProcessControlBlock getProcessPCB() {
         return this.PCB;
     }
-    
+
     // Retorna el tiempo total de ejecución de un proceso.
     public float getTotalExecutionTime() {
         return this.TotalExecutionTime;
     }
-    
+
     //Modifica la variable TotalExecutionTime 
-    public void decreaseTotalExecutionTime(float time){
+    public void decreaseTotalExecutionTime(float time) {
         this.TotalExecutionTime -= time;
     }
 
@@ -69,15 +68,15 @@ public class Process implements IProcess
     public float getTimeBetweenIO() {
         return this.TimeBetweenIO;
     }
-    
+
     public float getActualTimeBetweenIO() {
         return this.ActualTimeBetweenI0;
     }
-    
+
     public void decreaseActualTimeBetweenIO(float value) {
         this.ActualTimeBetweenI0 -= value;
     }
-    
+
     public void restartTimeBetweenIO() {
         this.ActualTimeBetweenI0 = TimeBetweenIO;
     }
@@ -86,7 +85,6 @@ public class Process implements IProcess
     public float getTimeConsumedIO() {
         return this.TimeConsumedIO;
     }
-    
 
     public boolean askForResource(Resource resource) {
         if (resource.getAvailability()) {
@@ -95,13 +93,24 @@ public class Process implements IProcess
         }
         return false;
     }
-    
+
     //Modifica la variable hasCPU
-    public void setHasCPU(boolean bool){
+    public void setHasCPU(boolean bool) {
         this.hasCPU = bool;
     }
-    
+
     public boolean getHasCPU() {
         return this.hasCPU;
+    }
+
+    @Override
+    public int compareTo(IProcess o) {
+        if (this.getProcessPCB().getProcessPriority() < o.getProcessPCB().getProcessPriority()) {
+            return 1;
+        } else if (this.getProcessPCB().getProcessPriority() == o.getProcessPCB().getProcessPriority()) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 }

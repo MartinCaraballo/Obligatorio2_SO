@@ -92,16 +92,19 @@ public class Setup extends javax.swing.JFrame {
         fieldCantProcesadores.setBackground(new java.awt.Color(0, 51, 64));
         fieldCantProcesadores.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         fieldCantProcesadores.setForeground(new java.awt.Color(255, 255, 255));
+        fieldCantProcesadores.setText("8");
         fieldCantProcesadores.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
 
         fieldCantTiempoProcesosEnCpu.setBackground(new java.awt.Color(0, 51, 64));
         fieldCantTiempoProcesosEnCpu.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         fieldCantTiempoProcesosEnCpu.setForeground(new java.awt.Color(255, 255, 255));
+        fieldCantTiempoProcesosEnCpu.setText("100");
         fieldCantTiempoProcesosEnCpu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
 
         fieldCantRAM.setBackground(new java.awt.Color(0, 51, 64));
         fieldCantRAM.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         fieldCantRAM.setForeground(new java.awt.Color(255, 255, 255));
+        fieldCantRAM.setText("2048");
         fieldCantRAM.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 51, 64), 3, true));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

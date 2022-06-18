@@ -1,5 +1,4 @@
 package com.mycompany.obligatorio.Resources;
-import com.mycompany.OperativeSystem.OperativeSystem;
 import com.mycompany.obligatorio.Process.*;
 import java.util.*;
 
@@ -7,7 +6,7 @@ import java.util.*;
 public class Memory
 {
     //Representa la memoria con los procesos listos.
-    private ArrayList<IProcess> readyProcess; 
+    private LinkedList<IProcess> readyProcess; 
 
     // Representa la capacidad de la memoria en MB.
     private float MemorySize;
@@ -16,12 +15,12 @@ public class Memory
 
     public Memory(float size)
     {
-        this.readyProcess = new ArrayList<>();
+        this.readyProcess = new LinkedList<>();
         this.MemorySize = size;
         this.ActualMemorySize = size;
     }
 
-    public ArrayList<IProcess> getReadyProcess(){
+    public LinkedList<IProcess> getReadyProcess(){
         return this.readyProcess;
     }
 
@@ -128,5 +127,13 @@ public class Memory
         }
         message.append("\n" + bottom.repeat(repeatCount));
         return message.toString();
+    }
+    
+    public void incrmentPriorityWithoutSpecificProcess(IProcess process) {
+        for(IProcess pr : this.readyProcess) {
+            if(pr.getProcessPCB().getProcessPriority() != 99 && !process.equals(pr)) {
+                pr.getProcessPCB().increaseProcessPriority();
+            }
+        }
     }
 }
