@@ -14,25 +14,30 @@ public class Scheduller extends Thread {
     public void run() {
         try {
             CPU[] cores = CPU.getCores();
+            long timeout = (long) cores[0].getTimeout();
             List<IProcess> tasks = new ArrayList<>();
             while (!OperativeSystem.getInstance().Memory.getReadyProcess().isEmpty()) {
                 // Armamos una lista de tareas en relación a la cantidad de cpus.
-                for (int i = 0; i <= CPU.getCores().length; i++) {
-                    IProcess process = OperativeSystem.getInstance().Memory.getReadyProcess().get(i);
-                    tasks.add(process);
+                for (int i = 0; i <= OperativeSystem.NumberOfCores; i++) {
+                    if (i < OperativeSystem.getInstance().Memory.getReadyProcess().size()) {
+                        IProcess process = OperativeSystem.getInstance().Memory.getReadyProcess().get(i);
+                        tasks.add(process);
+                    }                
                 }
  
                 // Si el proceso no esta siendo ejecutado, ejecutamos.
-                for (int i = 0; i < cores.length; i++) {
+                for (int i = 0; i < OperativeSystem.NumberOfCores; i++) {
                     IProcess process = tasks.get(i);
                     CPU cpu = cores[i];
                     cpu.setProcessToExecute(process);
+                    tasks.remove(process);
                     ExecuteProcess execute = new ExecuteProcess(cpu);
                     execute.start();
                 }
-                Thread.sleep(3000);
+                Thread.sleep(timeout + 1000);
                 tasks.clear();
             }
+            OperativeSystem.running = false;
         } catch (Exception e) {
             e.printStackTrace();
         }

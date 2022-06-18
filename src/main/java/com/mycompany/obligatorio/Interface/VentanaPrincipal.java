@@ -479,11 +479,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_processTableMenuModifyProcessPriorityActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        if (!OperativeSystem.getInstance().Memory.getReadyProcess().isEmpty()) {
-            OperativeSystem.getInstance().dispatch();
+        if (OperativeSystem.getInstance().Memory.getReadyProcess().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Deben de cargarse procesos antes de comenzar la simulación.");
         }
-        else {
-            JOptionPane.showMessageDialog(this, "Deben de cargarse procesos antes de empezar la simulación.");
+        if (OperativeSystem.running) {
+            JOptionPane.showMessageDialog(this, "Ya existe una simulación en curso.");
+        }
+        if (!OperativeSystem.getInstance().Memory.getReadyProcess().isEmpty() && !OperativeSystem.running) {
+            OperativeSystem.getInstance().dispatch();
         }
     }//GEN-LAST:event_startButtonActionPerformed
 

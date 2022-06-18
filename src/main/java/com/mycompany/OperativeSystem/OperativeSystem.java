@@ -11,12 +11,15 @@ public class OperativeSystem {
     public Memory Memory;
     public Scheduller scheduller;
     public IOController iocontroller;
+    public static boolean running = false;
+    public static int NumberOfCores = 0;
     
     private OperativeSystem(int memorySize, byte numberOfCores, float timeout) {
         this.Memory = new Memory(memorySize);
         this.scheduller = new Scheduller();
         this.iocontroller = new IOController();
         CPU.createInstanceOfCPU(numberOfCores, timeout);
+        NumberOfCores = numberOfCores;
     }
 
     // Si hay una instancia la devuelve, si no crea una instancia de sistema operativo con una memoria y numeros de cores default. A modos de que el programa pueda funcionar.
@@ -69,6 +72,8 @@ public class OperativeSystem {
     }
     
     public void dispatch() {
+        running = true;
+        this.scheduller = new Scheduller();
         this.scheduller.start();
     }
 }

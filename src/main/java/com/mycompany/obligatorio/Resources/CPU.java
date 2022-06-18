@@ -124,4 +124,8 @@ public class CPU {
     public String getCPUName() {
         return this.Name;
     }
+    
+    public float getTimeout() {
+        return this.Timeout;
+    }
 }
