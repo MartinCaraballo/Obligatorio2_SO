@@ -34,9 +34,12 @@ public class CPU {
         try {
             IProcess process = this.processExecuting;
             
-            if (process.getProcessPCB().getProcessPriority() > OperativeSystem.getInstance().Memory.getAllProcessInMemory().get(1).getProcessPCB().getProcessPriority()) {
-                OperativeSystem.getInstance().Memory.incrmentPriorityWithoutSpecificProcess(process);
+            if (OperativeSystem.getInstance().Memory.getReadyProcess().size() > 2) {
+                if (process.getProcessPCB().getProcessPriority() > OperativeSystem.getInstance().Memory.getReadyProcess().get(1).getProcessPCB().getProcessPriority()) {
+                    OperativeSystem.getInstance().Memory.incrmentPriorityWithoutSpecificProcess(process);
+                }
             }
+            
             process.getProcessPCB().changeProcessState(ProcessControlBlock.State.EXECUTING);
             Thread.sleep(500);
             OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
@@ -59,7 +62,7 @@ public class CPU {
                 } else {
                     process.getProcessPCB().changeProcessState(ProcessControlBlock.State.FINALIZED);
                     executingProcessList.remove(process);
-                    OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
+                    //OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
                     Thread.sleep(500);
                     ProcessManager.finalizeProcess(process);
                     this.isCPUExecuting = false;
@@ -86,7 +89,7 @@ public class CPU {
                 }
             }
         } catch (Exception e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 
