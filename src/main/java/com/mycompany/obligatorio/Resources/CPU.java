@@ -30,12 +30,16 @@ public class CPU {
         this.processExecuting = null;
     }
 
-    public void Execute(IProcess process) {
+    public void Execute() {
         try {
-            if (process.getProcessPCB().getProcessPriority() > OperativeSystem.getInstance().Memory.getAllProcessInMemory().get(1).getProcessPCB().getProcessPriority()) {
-                OperativeSystem.getInstance().Memory.incrmentPriorityWithoutSpecificProcess(process);
+            IProcess process = this.processExecuting;
+            
+            if (OperativeSystem.getInstance().Memory.getReadyProcess().size() > 2) {
+                if (process.getProcessPCB().getProcessPriority() > OperativeSystem.getInstance().Memory.getReadyProcess().get(1).getProcessPCB().getProcessPriority()) {
+                    OperativeSystem.getInstance().Memory.incrmentPriorityWithoutSpecificProcess(process);
+                }
             }
-
+            
             process.getProcessPCB().changeProcessState(ProcessControlBlock.State.EXECUTING);
             Thread.sleep(500);
             OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
@@ -58,12 +62,11 @@ public class CPU {
                 } else {
                     process.getProcessPCB().changeProcessState(ProcessControlBlock.State.FINALIZED);
                     executingProcessList.remove(process);
-                    OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
+                    //OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
                     Thread.sleep(500);
                     ProcessManager.finalizeProcess(process);
                     this.isCPUExecuting = false;
                     this.processExecuting = null;
-
                 }
             } // EL TIEMPO TOTAL DEL PROCESO ES MAYOR AL TIMEOUT, POR LO TANTO EL NUEVO TIEMPO TOTAL ES LA DIFERENCIA ENTRE ÉSTE Y EL TIMEOUT.
             else if (process.getTotalExecutionTime() > this.Timeout) {
@@ -86,7 +89,7 @@ public class CPU {
                 }
             }
         } catch (Exception e) {
-            e.getStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -118,7 +121,7 @@ public class CPU {
     }
 
     public void setProcessToExecute(IProcess process) {
-        if (process.getHasCPU()) {
+        if (!process.getHasCPU()) {
             this.processExecuting = process;
         }
     }
@@ -134,4 +137,9 @@ public class CPU {
     public String getCPUName() {
         return this.Name;
     }
+    
+    public float getTimeout() {
+        return this.Timeout;
+    }
 }
+

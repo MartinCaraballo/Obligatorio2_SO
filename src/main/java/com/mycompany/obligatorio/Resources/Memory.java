@@ -24,20 +24,20 @@ public class Memory
         return this.readyProcess;
     }
 
-    public void addProcessToReadyProcessList(IProcess process) {
+    public synchronized void addProcessToReadyProcessList(IProcess process) {
         this.readyProcess.add(process);
     }
     
-    public void removeProcessFromReadyProcessList(IProcess process) {
+    public synchronized void removeProcessFromReadyProcessList(IProcess process) {
         this.readyProcess.remove(process);
     }
     
-    public void addProcessToMemory(IProcess process) {
+    public synchronized void addProcessToMemory(IProcess process) {
         this.readyProcess.add(process);
         this.decreaseActualMemorySize(process.getProcessSize());    
     }
     
-    public void removeProcessFromMemory(IProcess process){
+    public synchronized void removeProcessFromMemory(IProcess process){
         this.readyProcess.remove(process);
         this.increaseActualMemorySize(process.getProcessSize());
     }
