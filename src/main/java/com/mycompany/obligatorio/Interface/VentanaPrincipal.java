@@ -10,6 +10,9 @@ import com.mycompany.obligatorio.Process.ProcessControlBlock.State;
 import com.mycompany.obligatorio.Resources.CPU;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -502,7 +505,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String[] info = new String[6];
 
         try {
-            for (IProcess pr : OperativeSystem.getInstance().Memory.getReadyProcess()) {
+            LinkedList<IProcess> list = OperativeSystem.getInstance().Memory.getReadyProcess();
+            Collections.sort(list);
+            for (IProcess pr : list) {
                 info[0] = pr.getProcessPCB().getProcessID();
                 info[1] = pr.getProcessName();
                 info[2] = Float.toString(pr.getProcessSize());
