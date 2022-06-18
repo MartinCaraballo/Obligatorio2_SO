@@ -1,6 +1,6 @@
 package com.mycompany.obligatorio.Process;
 
-public interface IProcess
+public interface IProcess extends Comparable<IProcess>
 {
     public boolean hasCPU = false;
 
