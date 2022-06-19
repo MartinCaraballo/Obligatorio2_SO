@@ -517,8 +517,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 modelo.addRow(info);
             }
+            DisplayProgressBar((int)Math.round(OperativeSystem.getInstance().Memory.memoryUsage()));
             ProcessTable.setModel(modelo);
-            DisplayProgressBar((int)Math.round(OperativeSystem.getInstance().Memory.memoryUsage())); 
             ProcessTable.changeSelection(rowSelected, 0, false, false);            
         } catch (Exception e) {
             e.getStackTrace();
@@ -545,6 +545,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     public void DisplayBlockedProcess() {
+        int rowSelected = blockedProcessTable.getSelectedRow();
         modelo3.setRowCount(0);
         String[] info = new String[4]; // ID, NAME, SIZE, STATE
         try {
@@ -557,6 +558,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 modelo3.addRow(info);
             }
             blockedProcessTable.setModel(modelo3);
+            blockedProcessTable.changeSelection(rowSelected, 0, false, false);    
         } catch (Exception e) {
             e.getStackTrace();
         }

@@ -61,7 +61,11 @@ public class Process implements IProcess {
 
     //Modifica la variable TotalExecutionTime 
     public void decreaseTotalExecutionTime(float time) {
-        this.TotalExecutionTime -= time;
+        if ((this.TotalExecutionTime - time) < 0 ) {
+            this.TotalExecutionTime = 0;
+        } else {
+            this.TotalExecutionTime -= time;
+        }
     }
 
     // Retorna el tiempo en el que el proceso hace una entrada / salida.
@@ -74,7 +78,11 @@ public class Process implements IProcess {
     }
 
     public void decreaseActualTimeBetweenIO(float value) {
-        this.ActualTimeBetweenI0 -= value;
+        if ((this.ActualTimeBetweenI0 - value) < 0) {
+            this.ActualTimeBetweenI0 = 0;
+        } else {
+            this.ActualTimeBetweenI0 -= value;
+        }
     }
 
     public void restartTimeBetweenIO() {

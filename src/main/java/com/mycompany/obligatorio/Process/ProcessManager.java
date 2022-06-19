@@ -48,7 +48,7 @@ public class ProcessManager
     }
 
     // Devuelve la lista con todos los procesos bloqueados del sistema.
-    public static List<IProcess> getBlockedProcessList() {
+    public synchronized static List<IProcess> getBlockedProcessList() {
         return blockedProcess;
     }
     
@@ -63,9 +63,10 @@ public class ProcessManager
     }
     
     // Elimina un proceso de la lista de bloqueados. (Desbloquea un proceso).
-    public static void removeBlockedProcessList(IProcess process) {
+    public synchronized static void removeBlockedProcessList(IProcess process) {
         blockedProcess.remove(process);
         process.getProcessPCB().changeProcessState(ProcessControlBlock.State.READY);
+        OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
     }
     
     public static void suspendProcess(IProcess process) {
@@ -80,9 +81,6 @@ public class ProcessManager
         OperativeSystem.getInstance().Memory.addProcessToMemory(process);
     }
     
-    public static void unblockProcess(IProcess process) {
-        blockedProcess.remove(process);
-    }
     
     public static void finalizeProcess(IProcess process) {
         if (blockedProcess.contains(process)) {
