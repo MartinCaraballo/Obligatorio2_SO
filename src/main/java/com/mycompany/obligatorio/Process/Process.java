@@ -60,7 +60,7 @@ public class Process implements IProcess {
     }
 
     //Modifica la variable TotalExecutionTime 
-    public void decreaseTotalExecutionTime(float time) {
+    public synchronized void decreaseTotalExecutionTime(float time) {
         if ((this.TotalExecutionTime - time) < 0 ) {
             this.TotalExecutionTime = 0;
         } else {
@@ -77,7 +77,7 @@ public class Process implements IProcess {
         return this.ActualTimeBetweenI0;
     }
 
-    public void decreaseActualTimeBetweenIO(float value) {
+    public synchronized void decreaseActualTimeBetweenIO(float value) {
         if ((this.ActualTimeBetweenI0 - value) < 0) {
             this.ActualTimeBetweenI0 = 0;
         } else {
@@ -103,11 +103,11 @@ public class Process implements IProcess {
     }
 
     //Modifica la variable hasCPU
-    public void setHasCPU(boolean bool) {
+    public synchronized void setHasCPU(boolean bool) {
         this.hasCPU = bool;
     }
 
-    public boolean getHasCPU() {
+    public synchronized boolean getHasCPU() {
         return this.hasCPU;
     }
 

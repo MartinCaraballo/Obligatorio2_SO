@@ -29,7 +29,7 @@ public class ProcessManager
     }
     
     public static IProcess getProcessById(String id) {
-        ArrayList<IProcess> arr = OperativeSystem.getInstance().Memory.getAllProcessInMemory();
+        LinkedList<IProcess> arr = OperativeSystem.getInstance().Memory.getReadyProcess();
         for(IProcess x : arr) {
             if(x.getProcessPCB().getProcessID().equals(id)) {
                 return x;

@@ -5,7 +5,6 @@
 package com.mycompany.OperativeSystem;
 
 import com.mycompany.obligatorio.Resources.CPU;
-import com.mycompany.obligatorio.Process.*;
 
 
 public class ExecuteProcess extends Thread {
