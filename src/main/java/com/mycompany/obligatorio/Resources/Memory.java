@@ -65,15 +65,6 @@ public class Memory
         return memoryUsage; 
     }
     
-    public ArrayList<IProcess> getAllProcessInMemory() {
-        ArrayList<IProcess> allProcessInMemory = new ArrayList<>();
-        
-        // Recorremos la lista de los procesos listos.
-        for (IProcess process : this.readyProcess) {
-            allProcessInMemory.add(process);
-        }
-        return allProcessInMemory;
-    }
     
     public void eraseAllFromMemory() {
         readyProcess.clear();
@@ -87,7 +78,7 @@ public class Memory
         int moreLargeSize = 0;
         int moreLargePath = 0;
         int moreLargeState = 0;
-        List<IProcess> allProcessInMemory = this.getAllProcessInMemory();
+        List<IProcess> allProcessInMemory = this.getReadyProcess();
 
         // Obtenemos el largo que va a tener cada columna de la tabla.
         for (IProcess process : allProcessInMemory) {

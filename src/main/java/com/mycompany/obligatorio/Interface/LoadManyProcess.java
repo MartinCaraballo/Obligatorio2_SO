@@ -136,14 +136,14 @@ public class LoadManyProcess extends javax.swing.JFrame {
         try {
             int value = Integer.valueOf(numberOfProcessToCreateInput.getText());
             if (value < 1) { 
-               // throw new Exception();
+                throw new Exception();
             }
             Utils.addProcesses(value);
             OperativeSystem.getInstance().LoadProcess();
             this.setVisible(false);
         }
         catch (Exception NumberFormatException) {
-            JOptionPane.showMessageDialog(this, "Se debe ingresar un número entero.");
+            JOptionPane.showMessageDialog(this, "Se debe ingresar un número entero positivo.");
         }    
     }//GEN-LAST:event_SaveMouseClicked
 
