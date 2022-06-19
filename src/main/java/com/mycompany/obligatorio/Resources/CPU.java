@@ -44,7 +44,6 @@ public class CPU {
             Thread.sleep(500);
             OperativeSystem.getInstance().Memory.removeProcessFromReadyProcessList(process);
             this.isCPUExecuting = true;
-            this.processExecuting = process;
             executingProcessList.add(process);
             process.setHasCPU(true);
             Thread.sleep((long) this.Timeout);
