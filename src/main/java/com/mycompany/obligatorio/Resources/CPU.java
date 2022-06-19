@@ -51,7 +51,7 @@ public class CPU {
 
             if (process.getTotalExecutionTime() <= this.Timeout) {
                 // OCURRE E/S.
-                if (process.getActualTimeBetweenIO() <= this.Timeout) {
+                if (process.getActualTimeBetweenIO() <= process.getTotalExecutionTime()) {
                     executingProcessList.remove(process);
                     process.decreaseTotalExecutionTime(process.getActualTimeBetweenIO());
                     OperativeSystem.getInstance().scheduller.blockProcess(process);
@@ -62,7 +62,7 @@ public class CPU {
                 } else {
                     process.getProcessPCB().changeProcessState(ProcessControlBlock.State.FINALIZED);
                     executingProcessList.remove(process);
-                    //OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
+                    OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
                     ProcessManager.finalizeProcess(process);
                     this.isCPUExecuting = false;
                     this.processExecuting = null;
@@ -71,7 +71,7 @@ public class CPU {
             else if (process.getTotalExecutionTime() > this.Timeout) {
                 // A PESAR DE QUE EL PROCESO DADO SU TIEMPO DE EJECUCION TERMINARA EN TIMEOUT, PUEDE OCURRIR LA E/S.
                 // OCURRE E/S.
-                if (process.getActualTimeBetweenIO() <= this.Timeout) {
+                if (process.getActualTimeBetweenIO() <= process.getTotalExecutionTime()) {
                     executingProcessList.remove(process);
                     process.decreaseTotalExecutionTime(process.getActualTimeBetweenIO());
                     OperativeSystem.getInstance().scheduller.blockProcess(process);

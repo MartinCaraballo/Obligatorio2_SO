@@ -517,8 +517,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
                 modelo.addRow(info);
             }
+            DisplayProgressBar((int)Math.round(OperativeSystem.getInstance().Memory.memoryUsage()));
             ProcessTable.setModel(modelo);
-            DisplayProgressBar((int)Math.round(OperativeSystem.getInstance().Memory.memoryUsage())); 
             ProcessTable.changeSelection(rowSelected, 0, false, false);            
         } catch (Exception e) {
             e.getStackTrace();

@@ -21,21 +21,21 @@ public class IOController extends Thread {
             try {
                 for (IProcess process : blockedProcessList) {
                     if (process.getTimeConsumedIO() <= this.sleepCount) {
-                        ProcessManager.removeBlockedProcessList(process);
-                        dispatch();
+                        ProcessManager.removeBlockedProcessList(process);   
                     } else {
                         Thread.sleep((long)process.getTimeConsumedIO());
                         this.sleepCount += (long)process.getTimeConsumedIO();
                         ProcessManager.removeBlockedProcessList(process);
-                        dispatch();
                     }
                 }
+                dispatch();
                 
             } catch (Exception e) {
                 e.getStackTrace();
             }
         }
         this.sleepCount = 0;
+        dispatch();
     }
     
     // Si el hilo de dispatch esta "muerto", quiere decir que no esta despachando, por lo cual lo volvemos a hacer.

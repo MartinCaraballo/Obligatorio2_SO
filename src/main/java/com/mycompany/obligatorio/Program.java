@@ -4,6 +4,7 @@
  */
 
 package com.mycompany.obligatorio;
+import com.mycompany.OperativeSystem.OperativeSystem;
 import com.mycompany.obligatorio.Interface.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
