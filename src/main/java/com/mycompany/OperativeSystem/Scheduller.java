@@ -25,7 +25,7 @@ public class Scheduller extends Thread {
                     }                
                 }
  
-                // Si el proceso no esta siendo ejecutado, ejecutamos.
+                // Asigna las tareas a los procesadores libres.
                 for (int i = 0; i < OperativeSystem.NumberOfCores; i++) {
                     try {
                         if (i < tasks.size()) {

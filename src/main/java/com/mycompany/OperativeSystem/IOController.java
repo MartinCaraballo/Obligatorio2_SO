@@ -16,7 +16,6 @@ public class IOController extends Thread {
     public void run() {
         this.running = true;
         List<IProcess> blockedProcessList = ProcessManager.getBlockedProcessList();
-        // FALTA ORDENAR LA LISTA DE MENOR A MAYOR TIEMPO DE ESPERA DE E/S.
         while (!blockedProcessList.isEmpty()) {
             try {
                 for (IProcess process : blockedProcessList) {
