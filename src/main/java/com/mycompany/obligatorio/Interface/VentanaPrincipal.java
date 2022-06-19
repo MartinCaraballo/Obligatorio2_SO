@@ -545,7 +545,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
     
     public void DisplayBlockedProcess() {
-        int rowSelected = ProcessTable.getSelectedRow();
+        int rowSelected = blockedProcessTable.getSelectedRow();
         modelo3.setRowCount(0);
         String[] info = new String[4]; // ID, NAME, SIZE, STATE
         try {
@@ -558,7 +558,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 modelo3.addRow(info);
             }
             blockedProcessTable.setModel(modelo3);
-            ProcessTable.changeSelection(rowSelected, 0, false, false);    
+            blockedProcessTable.changeSelection(rowSelected, 0, false, false);    
         } catch (Exception e) {
             e.getStackTrace();
         }
