@@ -36,6 +36,7 @@ public class OperativeSystem {
     }
 
     public static void resetSystem() {
+        running = false;
         instance.Memory.eraseAllFromMemory();
         VentanaPrincipal.getInstance().DisplayProcess();
         VentanaPrincipal.getInstance().DisplayProgressBar(0);
