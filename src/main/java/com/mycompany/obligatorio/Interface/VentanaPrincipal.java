@@ -423,9 +423,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formPropertyChange
 
     private void ReturnSetupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReturnSetupMouseClicked
-        OperativeSystem.getInstance().resetSystem();
-        this.setVisible(false);
-        new Setup().setVisible(true);
+        try {
+            if (OperativeSystem.running) {
+                throw new Exception();
+            }
+            OperativeSystem.getInstance().resetSystem();
+            this.setVisible(false);
+            new Setup().setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se puede retornar, hay una simulación en curso.");
+        }
+        
     }//GEN-LAST:event_ReturnSetupMouseClicked
 
     private void processTableMenuSuspendProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processTableMenuSuspendProcessActionPerformed
