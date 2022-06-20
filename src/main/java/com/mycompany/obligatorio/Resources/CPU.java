@@ -46,11 +46,11 @@ public class CPU {
             this.isCPUExecuting = true;
             executingProcessList.add(process);
             process.setHasCPU(true);
-            Thread.sleep((long) this.Timeout);
 
             if (process.getTotalExecutionTime() <= this.Timeout) {
                 // OCURRE E/S.
                 if (process.getActualTimeBetweenIO() <= process.getTotalExecutionTime()) {
+                    Thread.sleep((long)Math.round(process.getActualTimeBetweenIO()));
                     executingProcessList.remove(process);
                     process.decreaseTotalExecutionTime(process.getActualTimeBetweenIO());
                     OperativeSystem.getInstance().scheduller.blockProcess(process);
@@ -59,6 +59,7 @@ public class CPU {
 
                 // NO OCURRE ENTRADA SALIDA, Y EL TIEMPO TOTAL DE EJECUCIÓN COMO ES MENOR O IGUAL AL TIMEOUT EL PROCESO FINALIZA.
                 } else {
+                    Thread.sleep((long)Math.round(process.getTotalExecutionTime()));
                     process.getProcessPCB().changeProcessState(ProcessControlBlock.State.FINALIZED);
                     executingProcessList.remove(process);
                     OperativeSystem.getInstance().Memory.addProcessToReadyProcessList(process);
@@ -71,6 +72,7 @@ public class CPU {
                 // A PESAR DE QUE EL PROCESO DADO SU TIEMPO DE EJECUCION TERMINARA EN TIMEOUT, PUEDE OCURRIR LA E/S.
                 // OCURRE E/S.
                 if (process.getActualTimeBetweenIO() <= process.getTotalExecutionTime()) {
+                    Thread.sleep((long)Math.round(process.getActualTimeBetweenIO()));
                     executingProcessList.remove(process);
                     process.decreaseTotalExecutionTime(process.getActualTimeBetweenIO());
                     OperativeSystem.getInstance().scheduller.blockProcess(process);
@@ -78,6 +80,7 @@ public class CPU {
                     this.processExecuting = null;
 
                 } else {
+                    Thread.sleep((long) this.Timeout);
                     executingProcessList.remove(process);
                     process.decreaseTotalExecutionTime(this.Timeout);
                     process.decreaseActualTimeBetweenIO(this.Timeout);
