@@ -74,7 +74,9 @@ public class OperativeSystem {
     
     public void dispatch() {
         running = true;
-        this.scheduller = new Scheduller();
-        this.scheduller.start();
+        if (!this.scheduller.isAlive()) {
+            this.scheduller = new Scheduller();
+            this.scheduller.start();
+        }
     }
 }
